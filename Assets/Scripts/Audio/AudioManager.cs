@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
+public enum AudioChannelType { Music, SFX, Voice }
+
 public class AudioManager : MonoBehaviour
 {
     #region Singleton
@@ -41,6 +43,7 @@ public class AudioManager : MonoBehaviour
     private AudioChannel musicChannel;
     private AudioChannel sfxChannel;
     private AudioChannel voiceChannel;
+    private Coroutine voDelayCoroutine;
 
     #endregion
 
@@ -123,10 +126,11 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Play default gameplay music if this is a gameplay scene
+        // Play default gameplay music if this is a gameplay scene and not already playing
         if (defaultGameplayMusic != null && IsGameplayScene(scene.name))
         {
-            PlayMusic(defaultGameplayMusic, loop: true, fadeTime: 1f);
+            if (!IsMusicPlaying() || musicChannel.CurrentClip != defaultGameplayMusic)
+                PlayMusic(defaultGameplayMusic, loop: true, fadeTime: 1f);
         }
     }
 
@@ -228,8 +232,7 @@ public class AudioManager : MonoBehaviour
     {
         if (musicChannel == null) return;
 
-        musicChannel.Stop(fadeTime);
-        OnMusicStopped?.Invoke();
+        musicChannel.Stop(fadeTime, () => OnMusicStopped?.Invoke());
         Debug.Log($"AudioManager: Stopping music (fade: {fadeTime}s)");
     }
 
@@ -297,7 +300,7 @@ public class AudioManager : MonoBehaviour
     {
         if (sfxChannel == null) return;
 
-        sfxChannel.Stop(fadeTime: 0f);
+        sfxChannel.StopAllSounds();
         Debug.Log("AudioManager: All SFX stopped");
     }
 
@@ -326,7 +329,8 @@ public class AudioManager : MonoBehaviour
 
         if (delay > 0f)
         {
-            StartCoroutine(PlayVODelayed(clip, delay));
+            if (voDelayCoroutine != null) StopCoroutine(voDelayCoroutine);
+            voDelayCoroutine = StartCoroutine(PlayVODelayed(clip, delay));
         }
         else
         {
@@ -339,6 +343,7 @@ public class AudioManager : MonoBehaviour
     private IEnumerator PlayVODelayed(AudioClip clip, float delay)
     {
         yield return new WaitForSeconds(delay);
+        voDelayCoroutine = null;
         voiceChannel.Play(clip, loop: false, volumeScale: 1f, fadeTime: 0f);
         OnVOStarted?.Invoke(clip);
         Debug.Log($"AudioManager: Playing VO '{clip.name}' after {delay}s delay");
@@ -349,6 +354,12 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     public void StopVO()
     {
+        if (voDelayCoroutine != null)
+        {
+            StopCoroutine(voDelayCoroutine);
+            voDelayCoroutine = null;
+        }
+
         if (voiceChannel == null) return;
 
         voiceChannel.Stop(fadeTime: 0f);
@@ -650,10 +661,10 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     public void SaveMusicPlaybackTime(string variableName = "music_playback_time")
     {
-        if (GlobalVariables.Instance != null && musicChannel != null)
+        if (musicChannel != null)
         {
             float time = musicChannel.GetPlaybackTime();
-            GlobalVariables.Instance.SetFloat(variableName, time);
+            PlayerPrefs.SetFloat(variableName, time);
             Debug.Log($"AudioManager: Saved music playback time {time}s to '{variableName}'");
         }
     }
@@ -691,6 +702,8 @@ public class AudioManager : MonoBehaviour
         private AudioSource source;
         private Coroutine fadeCoroutine;
         private MonoBehaviour owner;
+
+        public AudioClip CurrentClip => source.clip;
 
         public AudioChannel(GameObject parent, AudioMixerGroup mixerGroup, MonoBehaviour owner)
         {
@@ -758,7 +771,7 @@ public class AudioManager : MonoBehaviour
         /// <summary>
         /// Stops the audio with optional fade out.
         /// </summary>
-        public void Stop(float fadeTime)
+        public void Stop(float fadeTime, Action onComplete = null)
         {
             if (fadeCoroutine != null)
             {
@@ -768,12 +781,28 @@ public class AudioManager : MonoBehaviour
 
             if (fadeTime > 0f && source.isPlaying)
             {
-                fadeCoroutine = owner.StartCoroutine(FadeOut(fadeTime));
+                fadeCoroutine = owner.StartCoroutine(FadeOut(fadeTime, onComplete));
             }
             else
             {
                 source.Stop();
+                onComplete?.Invoke();
             }
+        }
+
+        /// <summary>
+        /// Stops all sounds including PlayOneShot by recycling the AudioSource component.
+        /// </summary>
+        public void StopAllSounds()
+        {
+            if (fadeCoroutine != null)
+            {
+                owner.StopCoroutine(fadeCoroutine);
+                fadeCoroutine = null;
+            }
+            source.Stop();
+            source.enabled = false;
+            source.enabled = true;
         }
 
         /// <summary>
@@ -917,7 +946,7 @@ public class AudioManager : MonoBehaviour
             fadeCoroutine = null;
         }
 
-        private IEnumerator FadeOut(float duration)
+        private IEnumerator FadeOut(float duration, Action onComplete = null)
         {
             float startVolume = source.volume;
             float elapsed = 0f;
@@ -932,6 +961,7 @@ public class AudioManager : MonoBehaviour
             source.Stop();
             source.volume = startVolume; // Restore volume for next play
             fadeCoroutine = null;
+            onComplete?.Invoke();
         }
     }
 }
