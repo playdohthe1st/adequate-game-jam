@@ -28,5 +28,6 @@ public class InputManager : MonoBehaviour
 
     public Vector2 GetMove() => input.Player.Move.ReadValue<Vector2>();
     public bool GetJumpPressed() => input.Player.Jump.triggered;
+    public bool GetJumpHeld() => input.Player.Jump.IsPressed();
     public bool GetSpinPressed() => input.Player.Spin.triggered;
 }
