@@ -143,11 +143,17 @@ namespace AdequateEnough
 
         private void CheckSlope()
         {
-            if (!isGrounded) { isOnSlope = false; return; }
+            if (!isGrounded)
+            {
+                isOnSlope = false;
+                if (col != null) col.sharedMaterial = noFriction;
+                return;
+            }
 
             RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, slopeCheckDistance, groundLayer);
 
-            if (hit)
+            // Ignore hits that are far below — the player is standing on a surface above the slope
+            if (hit && hit.distance <= groundCheckSize.y + 0.05f)
             {
                 slopeNormal = hit.normal;
                 float angle = Vector2.Angle(slopeNormal, Vector2.up);
