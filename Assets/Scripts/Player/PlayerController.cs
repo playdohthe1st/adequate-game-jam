@@ -8,7 +8,7 @@ namespace AdequateEnough
         public PlayerState CurrentState { get; private set; }
 
         [Header("References")]
-        [SerializeField] private InputManager input;
+        private InputManager input;
 
         [Header("Movement")]
         [SerializeField] private float maxSpeed = 8f;
@@ -46,6 +46,7 @@ namespace AdequateEnough
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
+            input = GetComponent<InputManager>();
             defaultGravityScale = rb.gravityScale;
             currentMaxSpeed = maxSpeed;
         }
