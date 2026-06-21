@@ -27,8 +27,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.0041, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6228679970223528795}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -81,11 +81,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c763dc0727c65b546a95c0a60ad2fe3b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
+  m_DrawMode: 0
   m_Size: {x: 1, y: 1.7575681}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 4435749734172417330}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,7 +150,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8740348131040941055}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -6.38, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
@@ -182,7 +182,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -250,12 +250,24 @@ MonoBehaviour:
   maxSpeed: 8
   acceleration: 10
   deceleration: 12
-  jumpForce: 12
+  inputSmoothing: 12
+  jumpForce: 15
+  jumpCutMultiplier: 0.4
+  coyoteTime: 0.12
+  jumpBufferTime: 0.12
+  fallGravityMultiplier: 2.5
+  apexThreshold: 2
+  apexGravityMultiplier: 0.5
   groundCheck: {fileID: 1055627738807038533}
   groundCheckSize: {x: 0.5, y: 0.1}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  slopeCheckDistance: 0.2
+  maxSlopeAngle: 65
+  maxSlopeSpeed: 6
+  noFriction: {fileID: 6200000, guid: a702c29a1ddc172448965ab5eb50ce3e, type: 2}
+  fullFriction: {fileID: 6200000, guid: 0f600f07cb2adc442840ca0e7078606e, type: 2}
   spinForce: 20
   spinMaxSpeed: 18
   spinDecayRate: 4
