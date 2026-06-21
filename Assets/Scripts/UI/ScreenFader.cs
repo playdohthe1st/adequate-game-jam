@@ -15,10 +15,22 @@ namespace AdequateEnough
         {
             if (Instance != null) { Destroy(gameObject); return; }
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+
+            var rootCanvas = transform.root.GetComponent<Canvas>();
+            if (rootCanvas != null)
+                rootCanvas.sortingOrder = 999;
+
+            DontDestroyOnLoad(transform.root.gameObject);
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
-        private void Start()
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             StartCoroutine(Fade(1f, 0f));
         }
@@ -31,17 +43,24 @@ namespace AdequateEnough
         private IEnumerator FadeOutThenLoad(string sceneName)
         {
             yield return StartCoroutine(Fade(0f, 1f));
+            Time.timeScale = 1f;
             SceneManager.LoadScene(sceneName);
         }
 
         private IEnumerator Fade(float from, float to)
         {
+            if (blackScreen == null)
+            {
+                Debug.LogError("ScreenFader: blackScreen CanvasGroup is missing. Make sure it is a child of the ScreenFader GameObject so it persists across scenes.");
+                yield break;
+            }
+
             blackScreen.blocksRaycasts = true;
             float elapsed = 0f;
 
             while (elapsed < fadeDuration)
             {
-                elapsed += Time.deltaTime;
+                elapsed += Time.unscaledDeltaTime;
                 blackScreen.alpha = Mathf.Lerp(from, to, elapsed / fadeDuration);
                 yield return null;
             }
