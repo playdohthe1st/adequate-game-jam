@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 
 public enum AudioChannelType { Music, SFX, Voice }
 
+[System.Serializable]
+public class FloorMusicEntry
+{
+    public int floorIndex;
+    public AudioClip music;
+}
+
 public class AudioManager : MonoBehaviour
 {
     #region Singleton
@@ -36,6 +43,12 @@ public class AudioManager : MonoBehaviour
     [Tooltip("Scene names that should NOT trigger default gameplay music (e.g. MainMenu)")]
     [SerializeField] private string[] nonGameplayScenes = { "MainMenu" };
 
+    [Header("Floor Music")]
+    [Tooltip("Per-floor music clips. floorIndex should match whatever floor ID you pass to PlayMusicForFloor.")]
+    [SerializeField] private FloorMusicEntry[] floorMusicEntries;
+    [Tooltip("Default crossfade duration when transitioning between floor tracks.")]
+    [SerializeField] private float floorMusicFadeTime = 1f;
+
     #endregion
 
     #region Audio Channels
@@ -44,6 +57,7 @@ public class AudioManager : MonoBehaviour
     private AudioChannel sfxChannel;
     private AudioChannel voiceChannel;
     private Coroutine voDelayCoroutine;
+    private int currentFloorIndex = -1;
 
     #endregion
 
@@ -130,7 +144,10 @@ public class AudioManager : MonoBehaviour
         if (defaultGameplayMusic != null && IsGameplayScene(scene.name))
         {
             if (!IsMusicPlaying() || musicChannel.CurrentClip != defaultGameplayMusic)
+            {
+                currentFloorIndex = -1;
                 PlayMusic(defaultGameplayMusic, loop: true, fadeTime: 1f);
+            }
         }
     }
 
@@ -653,6 +670,34 @@ public class AudioManager : MonoBehaviour
         musicChannel.PlayFromTime(clip, loop, 1f, startTime);
         OnMusicStarted?.Invoke(clip);
         Debug.Log($"AudioManager: Playing music '{clip.name}' from {startTime}s (loop: {loop})");
+    }
+
+    public void PlayMusicForFloor(int floorIndex, float fadeTime = -1f)
+    {
+        if (floorMusicEntries == null || floorMusicEntries.Length == 0) return;
+
+        float fade = fadeTime < 0f ? floorMusicFadeTime : fadeTime;
+
+        foreach (var entry in floorMusicEntries)
+        {
+            if (entry.floorIndex != floorIndex) continue;
+
+            if (entry.music == null)
+            {
+                Debug.LogWarning($"AudioManager: FloorMusicEntry for floor {floorIndex} has no clip assigned.");
+                return;
+            }
+
+            // Already on this floor's track, don't restart.
+            if (currentFloorIndex == floorIndex && musicChannel?.CurrentClip == entry.music && IsMusicPlaying())
+                return;
+
+            currentFloorIndex = floorIndex;
+            PlayMusic(entry.music, loop: true, fadeTime: fade);
+            return;
+        }
+
+        Debug.LogWarning($"AudioManager: No FloorMusicEntry found for floor {floorIndex}.");
     }
 
     /// <summary>
