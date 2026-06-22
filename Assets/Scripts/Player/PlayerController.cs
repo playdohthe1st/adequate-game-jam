@@ -36,6 +36,11 @@ namespace AdequateEnough
         [SerializeField] private PhysicsMaterial2D noFriction;
         [SerializeField] private PhysicsMaterial2D fullFriction;
 
+        [Header("Health")]
+        [SerializeField] private float maxHealth = 100f;
+        [SerializeField] private float regenRate = 5f;
+        [SerializeField] private float regenDelay = 10f;
+
         [Header("Spin")]
         [SerializeField] private float spinForce = 20f;
         [SerializeField] private float spinMaxSpeed = 18f;
@@ -63,6 +68,13 @@ namespace AdequateEnough
         private bool spinQueued;
         private bool wasJumpHeld;
 
+        private float currentHealth;
+        private float timeSinceLastDamage;
+        private bool isDead;
+
+        public float CurrentHealth => currentHealth;
+        public float MaxHealth => maxHealth;
+
         private bool CanJump => coyoteTimeCounter > 0f;
         private bool IsAtApex => !isGrounded && Mathf.Abs(rb.linearVelocity.y) < apexThreshold;
 
@@ -73,10 +85,14 @@ namespace AdequateEnough
             input = GetComponent<InputManager>();
             defaultGravityScale = rb.gravityScale;
             currentMaxSpeed = maxSpeed;
+            currentHealth = maxHealth;
         }
 
         private void Update()
         {
+            HandleRegen();
+            if (isDead) return;
+
             CheckGround();
             CheckSlope();
             UpdateState();
@@ -91,6 +107,8 @@ namespace AdequateEnough
 
         private void FixedUpdate()
         {
+            if (isDead) return;
+
             HandleSpinDecay();
             Move();
             TryJump();
@@ -271,6 +289,49 @@ namespace AdequateEnough
             float angle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
             float snapped = Mathf.Round(angle / 45f) * 45f * Mathf.Deg2Rad;
             return new Vector2(Mathf.Cos(snapped), Mathf.Sin(snapped)).normalized;
+        }
+
+        private void HandleRegen()
+        {
+            if (isDead || currentHealth >= maxHealth) return;
+            timeSinceLastDamage += Time.deltaTime;
+            if (timeSinceLastDamage >= regenDelay)
+                currentHealth = Mathf.Min(currentHealth + regenRate * Time.deltaTime, maxHealth);
+        }
+
+        public void TakeDamage(float amount)
+        {
+            if (isDead) return;
+            currentHealth = Mathf.Max(currentHealth - amount, 0f);
+            timeSinceLastDamage = 0f;
+            if (currentHealth <= 0f) Die();
+        }
+
+        [ContextMenu("Debug/Kill Player")]
+        public void DebugKill() => Die();
+
+        private void Die()
+        {
+            if (isDead) return;
+            isDead = true;
+            rb.linearVelocity = Vector2.zero;
+            // TODO: Show death UI here before fading (score screen, respawn prompt, etc.)
+            ScreenFader.Instance?.RespawnFade(Respawn);
+        }
+
+        private void Respawn()
+        {
+            Vector2 spawnPos = CheckpointManager.Instance != null
+                ? CheckpointManager.Instance.GetRespawnPosition()
+                : (Vector2)transform.position;
+
+            transform.position = spawnPos;
+            rb.linearVelocity = Vector2.zero;
+            rb.gravityScale = defaultGravityScale;
+            currentHealth = maxHealth;
+            timeSinceLastDamage = 0f;
+            isSpinning = false;
+            isDead = false;
         }
 
         private void OnDrawGizmosSelected()

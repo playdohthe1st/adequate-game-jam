@@ -10,6 +10,7 @@ namespace AdequateEnough
 
         [SerializeField] private CanvasGroup blackScreen;
         [SerializeField] private float fadeDuration = 1f;
+        [SerializeField] private float respawnFadeDuration = 1f;
 
         private void Awake()
         {
@@ -32,7 +33,7 @@ namespace AdequateEnough
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            StartCoroutine(Fade(1f, 0f));
+            StartCoroutine(Fade(1f, 0f, fadeDuration));
         }
 
         public void FadeToScene(string sceneName)
@@ -40,14 +41,26 @@ namespace AdequateEnough
             StartCoroutine(FadeOutThenLoad(sceneName));
         }
 
+        public void RespawnFade(System.Action onBlack)
+        {
+            StartCoroutine(RespawnFadeRoutine(onBlack));
+        }
+
+        private IEnumerator RespawnFadeRoutine(System.Action onBlack)
+        {
+            yield return StartCoroutine(Fade(0f, 1f, respawnFadeDuration));
+            onBlack?.Invoke();
+            yield return StartCoroutine(Fade(1f, 0f, respawnFadeDuration));
+        }
+
         private IEnumerator FadeOutThenLoad(string sceneName)
         {
-            yield return StartCoroutine(Fade(0f, 1f));
+            yield return StartCoroutine(Fade(0f, 1f, fadeDuration));
             Time.timeScale = 1f;
             SceneManager.LoadScene(sceneName);
         }
 
-        private IEnumerator Fade(float from, float to)
+        private IEnumerator Fade(float from, float to, float duration)
         {
             if (blackScreen == null)
             {
@@ -58,10 +71,10 @@ namespace AdequateEnough
             blackScreen.blocksRaycasts = true;
             float elapsed = 0f;
 
-            while (elapsed < fadeDuration)
+            while (elapsed < duration)
             {
                 elapsed += Time.unscaledDeltaTime;
-                blackScreen.alpha = Mathf.Lerp(from, to, elapsed / fadeDuration);
+                blackScreen.alpha = Mathf.Lerp(from, to, elapsed / duration);
                 yield return null;
             }
 
