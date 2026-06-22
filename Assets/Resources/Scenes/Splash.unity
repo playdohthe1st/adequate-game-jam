@@ -164,6 +164,8 @@ MonoBehaviour:
   defaultGameplayMusic: {fileID: 0}
   nonGameplayScenes:
   - Splash
+  floorMusicEntries: []
+  floorMusicFadeTime: 1
 --- !u!4 &196251835
 Transform:
   m_ObjectHideFlags: 0
@@ -1873,6 +1875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.ScreenFader
   blackScreen: {fileID: 604756178}
   fadeDuration: 2
+  respawnFadeDuration: 2
 --- !u!4 &2073383133
 Transform:
   m_ObjectHideFlags: 0
