@@ -19,10 +19,19 @@ namespace AdequateEnough
         [SerializeField] private float coyoteTime = 0.12f;
         [SerializeField] private float jumpBufferTime = 0.12f;
 
+        [Header("Air Control")]
+        [SerializeField][Range(0f, 1f)] private float airControlMultiplier = 0.3f;
+
         [Header("Gravity")]
         [SerializeField] private float fallGravityMultiplier = 2.5f;
         [SerializeField] private float apexThreshold = 2f;
         [SerializeField] private float apexGravityMultiplier = 0.5f;
+        [SerializeField] private float apexSpeedBoost = 1.3f;
+
+        [Header("Landing Squash")]
+        [SerializeField] private float squashAmount = 0.15f;
+        [SerializeField] private float squashDuration = 0.08f;
+        [SerializeField] private float squashRecoverDuration = 0.12f;
 
         [Header("Ground Check")]
         [SerializeField] private Transform groundCheck;
@@ -67,6 +76,11 @@ namespace AdequateEnough
         private float jumpBufferCounter;
         private bool spinQueued;
         private bool wasJumpHeld;
+        private bool wasGrounded;
+        private Coroutine squashCoroutine;
+        private float skipLandingUntil;
+        private float nextSquashTime;
+        private Vector3 defaultScale;
 
         private float currentHealth;
         private float timeSinceLastDamage;
@@ -86,6 +100,8 @@ namespace AdequateEnough
             defaultGravityScale = rb.gravityScale;
             currentMaxSpeed = maxSpeed;
             currentHealth = maxHealth;
+            defaultScale = transform.localScale;
+            skipLandingUntil = Time.time + 0.5f;
         }
 
         private void Update()
@@ -94,6 +110,7 @@ namespace AdequateEnough
             if (isDead) return;
 
             CheckGround();
+            DetectLanding();
             CheckSlope();
             UpdateState();
             UpdateTimers();
@@ -206,8 +223,16 @@ namespace AdequateEnough
 
             if (CurrentState == PlayerState.Airborne)
             {
-                if (Mathf.Abs(smoothedInput.x) < 0.01f)
-                    rb.AddForce(-rb.linearVelocity.x * deceleration * Vector2.right, ForceMode2D.Force);
+                if (Mathf.Abs(smoothedInput.x) > 0.01f)
+                {
+                    float effectiveMaxSpeed = IsAtApex ? maxSpeed * apexSpeedBoost : maxSpeed;
+                    float airDesiredSpeed = smoothedInput.x * effectiveMaxSpeed;
+                    rb.AddForce((airDesiredSpeed - rb.linearVelocity.x) * acceleration * airControlMultiplier * Vector2.right, ForceMode2D.Force);
+                }
+                else
+                {
+                    rb.AddForce(-rb.linearVelocity.x * deceleration * airControlMultiplier * Vector2.right, ForceMode2D.Force);
+                }
                 return;
             }
 
@@ -332,6 +357,51 @@ namespace AdequateEnough
             timeSinceLastDamage = 0f;
             isSpinning = false;
             isDead = false;
+
+            if (squashCoroutine != null) StopCoroutine(squashCoroutine);
+            transform.localScale = defaultScale;
+            skipLandingUntil = Time.time + 0.5f;
+        }
+
+        private void DetectLanding()
+        {
+            if (Time.time < skipLandingUntil)
+            {
+                wasGrounded = isGrounded;
+                return;
+            }
+
+            if (!wasGrounded && isGrounded && !isSpinning && Time.time >= nextSquashTime)
+            {
+                nextSquashTime = Time.time + squashDuration + squashRecoverDuration + 0.1f;
+                if (squashCoroutine != null) StopCoroutine(squashCoroutine);
+                squashCoroutine = StartCoroutine(LandingSquash());
+            }
+            wasGrounded = isGrounded;
+        }
+
+        private System.Collections.IEnumerator LandingSquash()
+        {
+            Vector3 squashed = new Vector3(defaultScale.x * (1f + squashAmount), defaultScale.y * (1f - squashAmount), defaultScale.z);
+
+            float elapsed = 0f;
+            while (elapsed < squashDuration)
+            {
+                elapsed += Time.deltaTime;
+                transform.localScale = Vector3.Lerp(defaultScale, squashed, elapsed / squashDuration);
+                yield return null;
+            }
+
+            elapsed = 0f;
+            while (elapsed < squashRecoverDuration)
+            {
+                elapsed += Time.deltaTime;
+                transform.localScale = Vector3.Lerp(squashed, defaultScale, elapsed / squashRecoverDuration);
+                yield return null;
+            }
+
+            transform.localScale = defaultScale;
+            squashCoroutine = null;
         }
 
         private void OnDrawGizmosSelected()
