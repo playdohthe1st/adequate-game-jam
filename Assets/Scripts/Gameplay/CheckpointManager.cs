@@ -46,6 +46,8 @@ namespace AdequateEnough
 
         public Vector2 GetRespawnPosition() => respawnPosition;
 
+        public bool HasActiveCheckpoint => visited.Count > 0;
+
         private void Reset()
         {
             visited.Clear();
