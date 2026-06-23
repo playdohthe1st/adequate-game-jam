@@ -133,8 +133,9 @@ GameObject:
   - component: {fileID: 6228679970223528795}
   - component: {fileID: 3606289210815238011}
   - component: {fileID: 8390002889363166137}
+  - component: {fileID: 5713605542168564494}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EXAMPLE_Enemy
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,3 +222,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.6, y: 1.8}
   m_Direction: 0
+--- !u!114 &5713605542168564494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8740348131040941055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c311f1d234ff5cc4c8335afc388034c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.Enemy
+  data: {fileID: 0}
+  moveSpeed: 3
+  detectionRadius: 8
+  regenRate: 5
+  regenDelay: 20
+  wanderRadius: 4
+  wanderSpeed: 1.5
+  wanderPauseMin: 1
+  wanderPauseMax: 3
