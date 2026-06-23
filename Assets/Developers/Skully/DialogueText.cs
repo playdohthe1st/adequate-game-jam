@@ -7,8 +7,8 @@ public class DialogueText : MonoBehaviour
     public float textSpeed;
     public TextMeshProUGUI dialogueText;
     public GameObject dialogueBox;
-    public string[] lines;
-    private int textIndex;
+    public string[] lines; //this is where we put the dialogue we typed up
+    private int textIndex; 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,13 +33,13 @@ public class DialogueText : MonoBehaviour
         }
     }
 
-    void StartDialogue()
+    void StartDialogue() //starts dialogue when needed
     {
         textIndex = 0;
         StartCoroutine(TypeLine());
     }
 
-    IEnumerator TypeLine()
+    IEnumerator TypeLine() //makes the text appear letter by letter
     {
         foreach (char c in lines[textIndex].ToCharArray())
         {
