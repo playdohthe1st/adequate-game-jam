@@ -17,9 +17,6 @@ public class AudioManager : MonoBehaviour
 {
     #region Singleton
 
-    /// <summary>
-    /// Singleton instance of the AudioManager.
-    /// </summary>
     public static AudioManager Instance { get; private set; }
 
     #endregion
@@ -56,6 +53,7 @@ public class AudioManager : MonoBehaviour
     private AudioChannel musicChannel;
     private AudioChannel sfxChannel;
     private AudioChannel voiceChannel;
+    // Tracked separately so we can cancel a pending delayed VO if a new one is requested
     private Coroutine voDelayCoroutine;
     private int currentFloorIndex = -1;
 
@@ -63,6 +61,7 @@ public class AudioManager : MonoBehaviour
 
     #region Constants
 
+    // These strings must match the exposed parameter names in the AudioMixer asset
     private const string MASTER_VOLUME_PARAM = "MasterVolume";
     private const string MUSIC_VOLUME_PARAM = "MusicVolume";
     private const string SFX_VOLUME_PARAM = "SFXVolume";
@@ -72,19 +71,10 @@ public class AudioManager : MonoBehaviour
 
     #region Events
 
-    /// <summary>Fired when music starts playing.</summary>
     public event Action<AudioClip> OnMusicStarted;
-
-    /// <summary>Fired when music stops.</summary>
     public event Action OnMusicStopped;
-
-    /// <summary>Fired when a sound effect plays.</summary>
     public event Action<AudioClip> OnSFXPlayed;
-
-    /// <summary>Fired when voice-over starts playing.</summary>
     public event Action<AudioClip> OnVOStarted;
-
-    /// <summary>Fired when voice-over stops.</summary>
     public event Action OnVOStopped;
 
     #endregion
@@ -93,7 +83,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton pattern
+        // Singleton pattern - only one AudioManager should exist at a time
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -101,9 +91,10 @@ public class AudioManager : MonoBehaviour
         }
 
         Instance = this;
+        // Keeps this object alive when loading new scenes so music continues uninterrupted
         DontDestroyOnLoad(gameObject);
 
-        // Ensure there's always an AudioListener
+        // Ensure there's always an AudioListener in the scene to actually hear the audio
         if (FindFirstObjectByType<AudioListener>() == null)
         {
             gameObject.AddComponent<AudioListener>();
@@ -115,17 +106,13 @@ public class AudioManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // Subscribe to scene loaded event
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        // Unsubscribe from scene loaded event
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-
-
 
     private void OnDestroy()
     {
@@ -135,12 +122,10 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Called when a new scene is loaded. Finds DialogueManager in the new scene.
-    /// </summary>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Play default gameplay music if this is a gameplay scene and not already playing
+        // When entering a gameplay scene, start the default music if nothing is already playing.
+        // Floor-specific music will override this once the player enters a floor trigger.
         if (defaultGameplayMusic != null && IsGameplayScene(scene.name))
         {
             if (!IsMusicPlaying() || musicChannel.CurrentClip != defaultGameplayMusic)
@@ -151,9 +136,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Checks if the given scene name is a gameplay scene (not in the nonGameplayScenes list).
-    /// </summary>
+    // Returns false if sceneName matches any entry in the nonGameplayScenes list (case-insensitive)
     private bool IsGameplayScene(string sceneName)
     {
         if (nonGameplayScenes == null) return true;
@@ -168,8 +151,6 @@ public class AudioManager : MonoBehaviour
         return true;
     }
 
-    
-
     #endregion
 
     #region Initialization
@@ -182,6 +163,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        // Each channel gets its own child GameObject so Unity can route them through separate mixer groups
         musicChannel = new AudioChannel(CreateChannelObject("MusicSource"), musicMixerGroup, this);
         sfxChannel = new AudioChannel(CreateChannelObject("SFXSource"), sfxMixerGroup, this);
         voiceChannel = new AudioChannel(CreateChannelObject("VOSource"), voMixerGroup, this);
@@ -212,16 +194,8 @@ public class AudioManager : MonoBehaviour
 
     #endregion
 
-
-
     #region Music Control
 
-    /// <summary>
-    /// Plays a music track.
-    /// </summary>
-    /// <param name="clip">The audio clip to play.</param>
-    /// <param name="loop">Whether to loop the music.</param>
-    /// <param name="fadeTime">Fade duration in seconds (0 for instant).</param>
     public void PlayMusic(AudioClip clip, bool loop = true, float fadeTime = 0f)
     {
         if (clip == null)
@@ -241,10 +215,7 @@ public class AudioManager : MonoBehaviour
         Debug.Log($"AudioManager: Playing music '{clip.name}' (loop: {loop}, fade: {fadeTime}s)");
     }
 
-    /// <summary>
-    /// Stops the currently playing music.
-    /// </summary>
-    /// <param name="fadeTime">Fade out duration in seconds (0 for instant).</param>
+    // fadeTime defaults to 1f so music doesn't cut out abruptly
     public void StopMusic(float fadeTime = 1f)
     {
         if (musicChannel == null) return;
@@ -253,9 +224,6 @@ public class AudioManager : MonoBehaviour
         Debug.Log($"AudioManager: Stopping music (fade: {fadeTime}s)");
     }
 
-    /// <summary>
-    /// Pauses the currently playing music.
-    /// </summary>
     public void PauseMusic()
     {
         if (musicChannel == null) return;
@@ -264,9 +232,6 @@ public class AudioManager : MonoBehaviour
         Debug.Log("AudioManager: Music paused");
     }
 
-    /// <summary>
-    /// Resumes the paused music.
-    /// </summary>
     public void ResumeMusic()
     {
         if (musicChannel == null) return;
@@ -275,9 +240,6 @@ public class AudioManager : MonoBehaviour
         Debug.Log("AudioManager: Music resumed");
     }
 
-    /// <summary>
-    /// Checks if music is currently playing.
-    /// </summary>
     public bool IsMusicPlaying()
     {
         return musicChannel != null && musicChannel.IsPlaying();
@@ -287,11 +249,7 @@ public class AudioManager : MonoBehaviour
 
     #region SFX Control
 
-    /// <summary>
-    /// Plays a sound effect (one-shot).
-    /// </summary>
-    /// <param name="clip">The audio clip to play.</param>
-    /// <param name="volumeScale">Volume multiplier (0-1).</param>
+    // SFX are played as one-shots so multiple sounds can overlap (footsteps, hits, etc.)
     public void PlaySFX(AudioClip clip, float volumeScale = 1f)
     {
         if (clip == null)
@@ -310,9 +268,6 @@ public class AudioManager : MonoBehaviour
         OnSFXPlayed?.Invoke(clip);
     }
 
-    /// <summary>
-    /// Stops all currently playing sound effects.
-    /// </summary>
     public void StopAllSFX()
     {
         if (sfxChannel == null) return;
@@ -325,11 +280,6 @@ public class AudioManager : MonoBehaviour
 
     #region Voice-Over Control
 
-    /// <summary>
-    /// Plays a voice-over clip.
-    /// </summary>
-    /// <param name="clip">The audio clip to play.</param>
-    /// <param name="delay">Delay before playing in seconds.</param>
     public void PlayVO(AudioClip clip, float delay = 0f)
     {
         if (clip == null)
@@ -346,6 +296,7 @@ public class AudioManager : MonoBehaviour
 
         if (delay > 0f)
         {
+            // Cancel any VO that was already waiting to play before starting a new one
             if (voDelayCoroutine != null) StopCoroutine(voDelayCoroutine);
             voDelayCoroutine = StartCoroutine(PlayVODelayed(clip, delay));
         }
@@ -366,11 +317,9 @@ public class AudioManager : MonoBehaviour
         Debug.Log($"AudioManager: Playing VO '{clip.name}' after {delay}s delay");
     }
 
-    /// <summary>
-    /// Stops the currently playing voice-over.
-    /// </summary>
     public void StopVO()
     {
+        // Also cancel the delay coroutine so a queued VO doesn't play after stopping
         if (voDelayCoroutine != null)
         {
             StopCoroutine(voDelayCoroutine);
@@ -383,9 +332,6 @@ public class AudioManager : MonoBehaviour
         OnVOStopped?.Invoke();
     }
 
-    /// <summary>
-    /// Checks if voice-over is currently playing.
-    /// </summary>
     public bool IsVOPlaying()
     {
         return voiceChannel != null && voiceChannel.IsPlaying();
@@ -395,10 +341,8 @@ public class AudioManager : MonoBehaviour
 
     #region Volume Control
 
-    /// <summary>
-    /// Sets the master volume (affects all audio).
-    /// </summary>
-    /// <param name="volume">Volume (0-1 linear scale).</param>
+    // Unity's AudioMixer works in decibels (dB), not linear 0-1 values,
+    // so we convert before passing values to SetFloat.
     public void SetMasterVolume(float volume)
     {
         if (audioMixer == null)
@@ -416,10 +360,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Sets the music volume.
-    /// </summary>
-    /// <param name="volume">Volume (0-1 linear scale).</param>
     public void SetMusicVolume(float volume)
     {
         if (audioMixer == null)
@@ -437,10 +377,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Sets the SFX volume.
-    /// </summary>
-    /// <param name="volume">Volume (0-1 linear scale).</param>
     public void SetSFXVolume(float volume)
     {
         if (audioMixer == null)
@@ -458,10 +394,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Sets the voice-over volume.
-    /// </summary>
-    /// <param name="volume">Volume (0-1 linear scale).</param>
     public void SetVOVolume(float volume)
     {
         if (audioMixer == null)
@@ -479,10 +411,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Gets the current master volume.
-    /// </summary>
-    /// <returns>Volume (0-1 linear scale).</returns>
     public float GetMasterVolume()
     {
         if (audioMixer == null) return 0f;
@@ -491,10 +419,6 @@ public class AudioManager : MonoBehaviour
         return DecibelToLinear(db);
     }
 
-    /// <summary>
-    /// Gets the current music volume.
-    /// </summary>
-    /// <returns>Volume (0-1 linear scale).</returns>
     public float GetMusicVolume()
     {
         if (audioMixer == null) return 0f;
@@ -503,10 +427,6 @@ public class AudioManager : MonoBehaviour
         return DecibelToLinear(db);
     }
 
-    /// <summary>
-    /// Gets the current SFX volume.
-    /// </summary>
-    /// <returns>Volume (0-1 linear scale).</returns>
     public float GetSFXVolume()
     {
         if (audioMixer == null) return 0f;
@@ -515,10 +435,6 @@ public class AudioManager : MonoBehaviour
         return DecibelToLinear(db);
     }
 
-    /// <summary>
-    /// Gets the current voice-over volume.
-    /// </summary>
-    /// <returns>Volume (0-1 linear scale).</returns>
     public float GetVOVolume()
     {
         if (audioMixer == null) return 0f;
@@ -527,15 +443,8 @@ public class AudioManager : MonoBehaviour
         return DecibelToLinear(db);
     }
 
-    /// <summary>
-    /// Plays an audio clip on the specified channel with optional fade.
-    /// When fadeTime > 0, the audio will start at volume 0 and fade to the target volume.
-    /// </summary>
-    /// <param name="channelType">Which audio channel to play on (Music, SFX, or Voice).</param>
-    /// <param name="clip">The audio clip to play.</param>
-    /// <param name="loop">Whether the audio should loop.</param>
-    /// <param name="volumeScale">Target volume (0-1 linear scale).</param>
-    /// <param name="fadeTime">Fade duration in seconds (0 for instant).</param>
+    // Plays a clip on a specific channel. Dialogue nodes use this to trigger audio manually
+    // without going through the higher-level PlayMusic/PlayVO helpers.
     public void PlayOnChannel(AudioChannelType channelType, AudioClip clip, bool loop, float volumeScale, float fadeTime)
     {
         if (clip == null)
@@ -578,12 +487,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Smoothly fades a channel's volume to a target value over the specified duration.
-    /// </summary>
-    /// <param name="channelType">Which audio channel to fade (Music, SFX, or Voice).</param>
-    /// <param name="targetVolume">Target volume (0-1 linear scale).</param>
-    /// <param name="duration">Fade duration in seconds.</param>
+    // Smoothly changes the volume of a channel without stopping playback.
+    // Useful for ducking music under dialogue or fading SFX in cutscenes.
     public void FadeChannelVolume(AudioChannelType channelType, float targetVolume, float duration)
     {
         targetVolume = Mathf.Clamp01(targetVolume);
@@ -602,7 +507,6 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        // If duration is 0 or negative, set immediately
         if (duration <= 0f)
         {
             channel.SetVolume(targetVolume);
@@ -630,12 +534,6 @@ public class AudioManager : MonoBehaviour
         channel.SetVolume(targetVolume);
     }
 
-    /// <summary>
-    /// Stops audio on the specified channel with optional fade out.
-    /// This will stop the audio even if it's set to loop.
-    /// </summary>
-    /// <param name="channelType">Which audio channel to stop (Music, SFX, or Voice).</param>
-    /// <param name="fadeTime">Fade out duration in seconds (0 for instant stop).</param>
     public void StopChannel(AudioChannelType channelType, float fadeTime = 0f)
     {
         switch (channelType)
@@ -652,17 +550,11 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Gets the current playback time of the music channel in seconds.
-    /// </summary>
     public float GetMusicPlaybackTime()
     {
         return musicChannel?.GetPlaybackTime() ?? 0f;
     }
 
-    /// <summary>
-    /// Plays music starting from a specific time position.
-    /// </summary>
     public void PlayMusicFromTime(AudioClip clip, bool loop, float fadeTime, float startTime)
     {
         if (clip == null || musicChannel == null) return;
@@ -672,10 +564,13 @@ public class AudioManager : MonoBehaviour
         Debug.Log($"AudioManager: Playing music '{clip.name}' from {startTime}s (loop: {loop})");
     }
 
+    // Looks up the music clip for a given floor and crossfades to it.
+    // Calling this with the same floor index while that track is already playing is a no-op.
     public void PlayMusicForFloor(int floorIndex, float fadeTime = -1f)
     {
         if (floorMusicEntries == null || floorMusicEntries.Length == 0) return;
 
+        // A negative fadeTime means "use the default" set in the inspector
         float fade = fadeTime < 0f ? floorMusicFadeTime : fadeTime;
 
         foreach (var entry in floorMusicEntries)
@@ -688,7 +583,7 @@ public class AudioManager : MonoBehaviour
                 return;
             }
 
-            // Already on this floor's track, don't restart.
+            // Already on this floor's track, don't restart
             if (currentFloorIndex == floorIndex && musicChannel?.CurrentClip == entry.music && IsMusicPlaying())
                 return;
 
@@ -700,10 +595,7 @@ public class AudioManager : MonoBehaviour
         Debug.LogWarning($"AudioManager: No FloorMusicEntry found for floor {floorIndex}.");
     }
 
-    /// <summary>
-    /// Saves the current music playback time to GlobalVariables.
-    /// Call this before a scene transition to preserve playback position.
-    /// </summary>
+    // Saves music playback position to PlayerPrefs so it can be restored after a scene transition
     public void SaveMusicPlaybackTime(string variableName = "music_playback_time")
     {
         if (musicChannel != null)
@@ -718,18 +610,15 @@ public class AudioManager : MonoBehaviour
 
     #region Utility Methods
 
-    /// <summary>
-    /// Converts linear volume (0-1) to decibel scale (-80 to 0).
-    /// </summary>
+    // Unity's AudioMixer expects volume values in decibels (dB), not 0-1.
+    // Decibel scale is logarithmic, so 0.5 linear is around -6 dB, not -40 dB.
+    // We clamp to -80 dB at zero because log10(0) is undefined (negative infinity).
     private float LinearToDecibel(float linear)
     {
         if (linear <= 0f) return -80f;
         return Mathf.Log10(linear) * 20f;
     }
 
-    /// <summary>
-    /// Converts decibel volume to linear scale (0-1).
-    /// </summary>
     private float DecibelToLinear(float decibel)
     {
         return Mathf.Pow(10f, decibel / 20f);
@@ -737,11 +626,8 @@ public class AudioManager : MonoBehaviour
 
     #endregion
 
-    
-
-    /// <summary>
-    /// Internal class that manages a single audio channel with fade support.
-    /// </summary>
+    // Manages a single AudioSource with fade and crossfade support.
+    // Kept as a nested class because nothing outside AudioManager should interact with it directly.
     private class AudioChannel
     {
         private AudioSource source;
@@ -755,13 +641,12 @@ public class AudioManager : MonoBehaviour
             source = parent.AddComponent<AudioSource>();
             source.outputAudioMixerGroup = mixerGroup;
             source.playOnAwake = false;
-            source.spatialBlend = 0f; // 2D audio
+            source.spatialBlend = 0f; // 2D audio - not affected by the listener's position in the world
             this.owner = owner;
         }
 
-        /// <summary>
-        /// Plays an audio clip with optional fade (includes crossfade if something is playing).
-        /// </summary>
+        // Plays with an optional crossfade: if something is already playing it fades out
+        // before fading the new clip in. Use PlayWithFadeIn if you don't want the crossfade.
         public void Play(AudioClip clip, bool loop, float volumeScale, float fadeTime)
         {
             if (fadeCoroutine != null)
@@ -780,10 +665,8 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        /// <summary>
-        /// Plays an audio clip with fade-in from 0 to target volume (no crossfade).
-        /// Use this when you want manual control over fade transitions.
-        /// </summary>
+        // Stops whatever is playing and fades the new clip in from silence.
+        // Used by dialogue nodes that manage their own transitions.
         public void PlayWithFadeIn(AudioClip clip, bool loop, float volumeScale, float fadeTime)
         {
             if (fadeCoroutine != null)
@@ -792,7 +675,6 @@ public class AudioManager : MonoBehaviour
                 fadeCoroutine = null;
             }
 
-            // Stop any currently playing audio immediately
             source.Stop();
 
             if (fadeTime > 0f)
@@ -805,17 +687,12 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        /// <summary>
-        /// Plays a one-shot audio clip (for SFX).
-        /// </summary>
+        // One-shot fires and forgets - multiple one-shots can overlap on the same source
         public void PlayOneShot(AudioClip clip, float volumeScale)
         {
             source.PlayOneShot(clip, volumeScale);
         }
 
-        /// <summary>
-        /// Stops the audio with optional fade out.
-        /// </summary>
         public void Stop(float fadeTime, Action onComplete = null)
         {
             if (fadeCoroutine != null)
@@ -835,9 +712,8 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        /// <summary>
-        /// Stops all sounds including PlayOneShot by recycling the AudioSource component.
-        /// </summary>
+        // PlayOneShot sounds can't be stopped via source.Stop() alone, so we disable
+        // and re-enable the component to force Unity to drop all pending one-shot audio.
         public void StopAllSounds()
         {
             if (fadeCoroutine != null)
@@ -850,57 +726,36 @@ public class AudioManager : MonoBehaviour
             source.enabled = true;
         }
 
-        /// <summary>
-        /// Pauses the audio.
-        /// </summary>
         public void Pause()
         {
             source.Pause();
         }
 
-        /// <summary>
-        /// Resumes the paused audio.
-        /// </summary>
         public void Resume()
         {
             source.UnPause();
         }
 
-        /// <summary>
-        /// Checks if audio is currently playing.
-        /// </summary>
         public bool IsPlaying()
         {
             return source.isPlaying;
         }
 
-        /// <summary>
-        /// Gets the current volume of this channel.
-        /// </summary>
         public float GetVolume()
         {
             return source.volume;
         }
 
-        /// <summary>
-        /// Sets the volume of this channel directly.
-        /// </summary>
         public void SetVolume(float volume)
         {
             source.volume = Mathf.Clamp01(volume);
         }
 
-        /// <summary>
-        /// Gets the current playback time in seconds.
-        /// </summary>
         public float GetPlaybackTime()
         {
             return source.time;
         }
 
-        /// <summary>
-        /// Sets the playback time in seconds.
-        /// </summary>
         public void SetPlaybackTime(float time)
         {
             if (source.clip != null)
@@ -909,9 +764,6 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        /// <summary>
-        /// Plays an audio clip starting from a specific time position.
-        /// </summary>
         public void PlayFromTime(AudioClip clip, bool loop, float volumeScale, float startTime)
         {
             source.clip = clip;
@@ -932,14 +784,13 @@ public class AudioManager : MonoBehaviour
 
         private IEnumerator FadeToClip(AudioClip clip, bool loop, float volumeScale, float duration)
         {
-            // If something is already playing, do a crossfade (half out, half in)
-            // Otherwise, just fade in from 0 over the full duration
+            // If something is playing, crossfade: spend the first half fading out, second half fading in.
+            // If nothing is playing, just fade in over the full duration.
             bool wasPlaying = source.isPlaying;
             float fadeInDuration = duration;
 
             if (wasPlaying)
             {
-                // Crossfade: fade out current over half the duration
                 float halfDuration = duration / 2f;
                 float startVolume = source.volume;
                 float elapsed = 0f;
@@ -951,13 +802,11 @@ public class AudioManager : MonoBehaviour
                     yield return null;
                 }
 
-                fadeInDuration = halfDuration; // Fade in over the remaining half
+                fadeInDuration = halfDuration;
             }
 
-            // Switch to new clip at volume 0
             PlayImmediate(clip, loop, 0f);
 
-            // Fade in new clip to target volume
             float elapsed2 = 0f;
             while (elapsed2 < fadeInDuration)
             {
@@ -970,15 +819,10 @@ public class AudioManager : MonoBehaviour
             fadeCoroutine = null;
         }
 
-        /// <summary>
-        /// Fades in a new clip from 0 to target volume (no crossfade).
-        /// </summary>
         private IEnumerator FadeInClip(AudioClip clip, bool loop, float volumeScale, float duration)
         {
-            // Start playing at volume 0
             PlayImmediate(clip, loop, 0f);
 
-            // Fade in to target volume over the full duration
             float elapsed = 0f;
             while (elapsed < duration)
             {
@@ -1004,7 +848,7 @@ public class AudioManager : MonoBehaviour
             }
 
             source.Stop();
-            source.volume = startVolume; // Restore volume for next play
+            source.volume = startVolume; // Restore volume so the next Play() starts at full level
             fadeCoroutine = null;
             onComplete?.Invoke();
         }
