@@ -29,6 +29,8 @@ namespace AdequateEnough
         // Fraction of ground acceleration applied in the air. Keeping this low makes
         // the player feel committed to their jump direction without being completely locked in.
         [SerializeField][Range(0f, 1f)] private float airControlMultiplier = 0.3f;
+        // Much lower air control during a spin — the player is committed to their launch direction
+        [SerializeField][Range(0f, 1f)] private float spinAirControlMultiplier = 0.05f;
 
         [Header("Gravity")]
         // Multiplied against the default gravity when the player is falling.
@@ -71,9 +73,12 @@ namespace AdequateEnough
         [SerializeField] private float spinMaxSpeed = 18f;
         // How fast spinMaxSpeed decays back down to maxSpeed each fixed frame
         [SerializeField] private float spinDecayRate = 4f;
-        [SerializeField] private float spinCooldown = 1f;
+        [SerializeField] private float spinCooldown = 1.5f;
         // Reduced gravity when spinning upward so the spin feels like it has lift
         [SerializeField] private float upwardSpinGravityScale = 0.5f;
+        // How many units above the spin's origin the player can travel before upward velocity is cut
+        [SerializeField] private float spinMaxRise = 6f;
+        [SerializeField] private float spinDamage = 20f;
 
         private Rigidbody2D rb;
         private CapsuleCollider2D col;
@@ -82,6 +87,8 @@ namespace AdequateEnough
         private float defaultGravityScale;
         private float currentMaxSpeed;
         private float nextSpinTime;
+        private float spinStartY;
+        private float spinInitialYVelocity;
         private float lastFacingDirection = 1f;
 
         private bool isGrounded;
@@ -107,6 +114,22 @@ namespace AdequateEnough
 
         public float CurrentHealth => currentHealth;
         public float MaxHealth => maxHealth;
+
+        public bool HasKeycard1 { get; private set; }
+        public bool HasKeycard2 { get; private set; }
+        public bool HasKeycard3 { get; private set; }
+
+        // Fired when the player respawns at the original spawn point with no checkpoint active
+        public static event System.Action OnRespawnedAtOrigin;
+
+        // Grants the lowest-numbered keycard not yet held. Returns false if all three are already owned.
+        public bool GiveNextKeycard()
+        {
+            if (!HasKeycard1) { HasKeycard1 = true; return true; }
+            if (!HasKeycard2) { HasKeycard2 = true; return true; }
+            if (!HasKeycard3) { HasKeycard3 = true; return true; }
+            return false;
+        }
 
         // True while the coyote time window is open, meaning the player can still jump
         private bool CanJump => coyoteTimeCounter > 0f;
@@ -185,12 +208,10 @@ namespace AdequateEnough
 
         private void HandleGravity()
         {
-            if (isSpinning) return;
-
             float targetGravity;
 
-            if (IsAtApex)
-                targetGravity = defaultGravityScale * apexGravityMultiplier; // hang at the top
+            if (!isSpinning && IsAtApex)
+                targetGravity = defaultGravityScale * apexGravityMultiplier; // hang at the top (normal jump only)
             else if (rb.linearVelocity.y < 0f)
                 targetGravity = defaultGravityScale * fallGravityMultiplier; // fall faster than we rose
             else
@@ -254,16 +275,18 @@ namespace AdequateEnough
 
             if (CurrentState == PlayerState.Airborne)
             {
+                float controlMult = isSpinning ? spinAirControlMultiplier : airControlMultiplier;
+
                 // In the air we apply reduced force and can't exceed maxSpeed (with apex boost applied)
                 if (Mathf.Abs(smoothedInput.x) > 0.01f)
                 {
                     float effectiveMaxSpeed = IsAtApex ? maxSpeed * apexSpeedBoost : maxSpeed;
                     float airDesiredSpeed = smoothedInput.x * effectiveMaxSpeed;
-                    rb.AddForce((airDesiredSpeed - rb.linearVelocity.x) * acceleration * airControlMultiplier * Vector2.right, ForceMode2D.Force);
+                    rb.AddForce((airDesiredSpeed - rb.linearVelocity.x) * acceleration * controlMult * Vector2.right, ForceMode2D.Force);
                 }
                 else
                 {
-                    rb.AddForce(-rb.linearVelocity.x * deceleration * airControlMultiplier * Vector2.right, ForceMode2D.Force);
+                    rb.AddForce(-rb.linearVelocity.x * deceleration * controlMult * Vector2.right, ForceMode2D.Force);
                 }
                 return;
             }
@@ -315,10 +338,12 @@ namespace AdequateEnough
             if (!spinQueued) return;
             spinQueued = false;
 
+            if (isSpinning) return;
             if (Time.time < nextSpinTime) return;
 
             nextSpinTime = Time.time + spinCooldown;
             isSpinning = true;
+            spinStartY = transform.position.y;
 
             // If the player is holding a direction, snap it to the nearest 45 degree angle.
             // Otherwise default to the last direction the player was facing.
@@ -332,6 +357,7 @@ namespace AdequateEnough
                 rb.gravityScale = upwardSpinGravityScale;
 
             rb.linearVelocity = spinDirection * spinForce;
+            spinInitialYVelocity = rb.linearVelocity.y;
             currentMaxSpeed = spinMaxSpeed;
         }
 
@@ -340,6 +366,15 @@ namespace AdequateEnough
         private void HandleSpinDecay()
         {
             if (!isSpinning) return;
+
+            // Smoothly scale down upward velocity as the player rises toward the cap.
+            // At the origin t=0 so the cap is the full initial velocity; at the cap t=1 so it's clamped to 0.
+            if (rb.linearVelocity.y > 0f && spinInitialYVelocity > 0f)
+            {
+                float t = Mathf.Clamp01((transform.position.y - spinStartY) / spinMaxRise);
+                float maxY = spinInitialYVelocity * (1f - t);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Min(rb.linearVelocity.y, maxY));
+            }
 
             currentMaxSpeed = Mathf.MoveTowards(currentMaxSpeed, maxSpeed, spinDecayRate * Time.fixedDeltaTime);
 
@@ -389,6 +424,9 @@ namespace AdequateEnough
 
         private void Respawn()
         {
+            bool noCheckpoint = CheckpointManager.Instance == null || !CheckpointManager.Instance.HasActiveCheckpoint;
+            if (noCheckpoint) OnRespawnedAtOrigin?.Invoke();
+
             Vector2 spawnPos = CheckpointManager.Instance != null
                 ? CheckpointManager.Instance.GetRespawnPosition()
                 : (Vector2)transform.position;
@@ -452,6 +490,18 @@ namespace AdequateEnough
 
             transform.localScale = defaultScale;
             squashCoroutine = null;
+        }
+
+        private void OnCollisionEnter2D(Collision2D col)
+        {
+            if (!isSpinning) return;
+            col.gameObject.GetComponent<Enemy>()?.TakeDamage(spinDamage);
+        }
+
+        private void OnTriggerEnter2D(Collider2D col)
+        {
+            if (!isSpinning) return;
+            col.gameObject.GetComponent<Enemy>()?.TakeDamage(spinDamage);
         }
 
         private void OnDrawGizmosSelected()
