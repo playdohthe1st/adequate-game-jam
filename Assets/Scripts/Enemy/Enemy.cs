@@ -23,6 +23,11 @@ namespace AdequateEnough
         [SerializeField] private float wanderPauseMin = 1f;
         [SerializeField] private float wanderPauseMax = 3f;
 
+        [Header("VisualUpdater")]
+        [SerializeField] private Animator enemyAnimator;
+        [SerializeField] private SpriteRenderer enemySpriterenderer;
+
+
         private Rigidbody2D rb;
         private PlayerController player;
 
@@ -31,6 +36,7 @@ namespace AdequateEnough
         private float attackDamage;
         private float timeSinceLastDamage;
         private bool isDead;
+        private bool isMoving;
 
         private Vector2 homePosition;
         private bool hasHome;
@@ -64,6 +70,7 @@ namespace AdequateEnough
         private void Update()
         {
             HandleRegen();
+            VisualUpdater();
         }
 
         private void FixedUpdate()
@@ -74,17 +81,34 @@ namespace AdequateEnough
             {
                 wanderPauseTimer = 0f;
                 ChasePlayer();
+                isMoving = true;
             }
             else if (hasHome)
             {
                 Wander();
+                isMoving = true;
             }
             else
             {
-                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);             
             }
         }
-
+        private void VisualUpdater()
+        {
+            if (rb.linearVelocityX == 0)
+            {
+                isMoving = false;
+            }
+            enemyAnimator.SetBool("IsMoving", isMoving);
+            if (rb.linearVelocityX > 0)
+            {
+                enemySpriterenderer.flipX = false;
+            }
+            if (rb.linearVelocityX < 0)
+            {
+                enemySpriterenderer.flipX = true;
+            }
+        }
         private void ChasePlayer()
         {
             float dir = Mathf.Sign(player.transform.position.x - transform.position.x);

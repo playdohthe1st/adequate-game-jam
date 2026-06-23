@@ -80,6 +80,10 @@ namespace AdequateEnough
         [SerializeField] private float spinMaxRise = 6f;
         [SerializeField] private float spinDamage = 20f;
 
+        [Header("Visuals")]
+        [SerializeField] private Animator playerAnimator;
+        [SerializeField] private SpriteRenderer playerSpriterender;
+
         private Rigidbody2D rb;
         private CapsuleCollider2D col;
         private InputManager input;
@@ -162,6 +166,7 @@ namespace AdequateEnough
             UpdateState();
             UpdateTimers();
             SmoothInput();
+            VisualUpdater();
             HandleVariableJump();
             HandleGravity();
 
@@ -187,6 +192,30 @@ namespace AdequateEnough
             smoothedInput = Vector2.Lerp(smoothedInput, input.GetMove(), inputSmoothing * Time.deltaTime);
         }
 
+        private void VisualUpdater()
+        {
+            // animation
+            playerAnimator.SetBool("IsSpinning", isSpinning); // this set bool is spining on animator controller to the is spining on the player controller
+            if (input.GetMove().magnitude > 0)
+            {
+                playerAnimator.SetBool("IsMoving", true);
+            }
+            else
+            {
+                playerAnimator.SetBool("IsMoving", false);
+            }
+            // flipSprite
+            if (input.GetMove().x < 0)
+            {
+                playerSpriterender.flipX = true;
+            }
+            if (input.GetMove().x > 0)
+            {
+                playerSpriterender.flipX = false;
+            }
+              
+
+        }
         private void UpdateTimers()
         {
             // Reset coyote time while grounded; count it down once in the air
