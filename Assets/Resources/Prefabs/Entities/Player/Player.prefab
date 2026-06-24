@@ -80,7 +80,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_MaskInteraction: 0
   m_Sprite: {fileID: 741884181, guid: d3bbb5ceeb73d3f4d8c562896f5b7185, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -180,6 +180,7 @@ Transform:
   m_Children:
   - {fileID: 7982619829015428695}
   - {fileID: 1055627738807038533}
+  - {fileID: 447107118266711160}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &3606289210815238011
@@ -294,6 +295,7 @@ MonoBehaviour:
     m_Bits: 8
   slopeCheckDistance: 0.2
   maxSlopeAngle: 65
+  knockbackSlopeDisableDuration: 0.6
   maxSlopeSpeed: 6
   noFriction: {fileID: 6200000, guid: a702c29a1ddc172448965ab5eb50ce3e, type: 2}
   fullFriction: {fileID: 6200000, guid: 0f600f07cb2adc442840ca0e7078606e, type: 2}
@@ -310,3 +312,34 @@ MonoBehaviour:
   playerAnimator: {fileID: 8087835749983272348}
   playerSpriterender: {fileID: 4406191187396573838}
   spriteTransform: {fileID: 7982619829015428695}
+--- !u!1 &8928107593932496124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 447107118266711160}
+  m_Layer: 0
+  m_Name: CamFollow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &447107118266711160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8928107593932496124}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6228679970223528795}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
