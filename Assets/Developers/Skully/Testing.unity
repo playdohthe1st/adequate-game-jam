@@ -150,6 +150,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1536910061}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
 --- !u!1 &129324787
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +288,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129324787}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> Stashed changes
 --- !u!1 &338775183
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +334,84 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
+=======
+--- !u!1 &422208751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 422208752}
+  - component: {fileID: 422208754}
+  - component: {fileID: 422208753}
+  m_Layer: 5
+  m_Name: Health
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &422208752
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422208751}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 903109725}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 250, y: 25}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &422208753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422208751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &422208754
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422208751}
+  m_CullTransparentMesh: 1
+>>>>>>> Stashed changes
 --- !u!1 &422763325
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,6 +667,90 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+<<<<<<< Updated upstream
+=======
+--- !u!1 &903109724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 903109725}
+  - component: {fileID: 903109727}
+  - component: {fileID: 903109726}
+  m_Layer: 5
+  m_Name: Healthbar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &903109725
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903109724}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 422208752}
+  m_Father: {fileID: 1203738083}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -183, y: -265}
+  m_SizeDelta: {x: 250, y: 25}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &903109726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903109724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &903109727
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903109724}
+  m_CullTransparentMesh: 1
+--- !u!224 &1203738083 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+  m_PrefabInstance: {fileID: 433490239118092828}
+  m_PrefabAsset: {fileID: 0}
+>>>>>>> Stashed changes
 --- !u!1 &1271015563
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,6 +881,10 @@ MonoBehaviour:
   coyoteTime: 0.12
   jumpBufferTime: 0.12
   airControlMultiplier: 0.3
+<<<<<<< Updated upstream
+=======
+  spinAirControlMultiplier: 0.05
+>>>>>>> Stashed changes
   fallGravityMultiplier: 2.5
   apexThreshold: 2
   apexGravityMultiplier: 0.5
@@ -731,8 +900,13 @@ MonoBehaviour:
   slopeCheckDistance: 0.5
   maxSlopeAngle: 45
   maxSlopeSpeed: 6
+<<<<<<< Updated upstream
   noFriction: {fileID: 0}
   fullFriction: {fileID: 0}
+=======
+  noFriction: {fileID: 6200000, guid: a702c29a1ddc172448965ab5eb50ce3e, type: 2}
+  fullFriction: {fileID: 6200000, guid: 0f600f07cb2adc442840ca0e7078606e, type: 2}
+>>>>>>> Stashed changes
   maxHealth: 100
   regenRate: 5
   regenDelay: 10
@@ -741,6 +915,13 @@ MonoBehaviour:
   spinDecayRate: 4
   spinCooldown: 1
   upwardSpinGravityScale: 0.5
+<<<<<<< Updated upstream
+=======
+  spinMaxRise: 6
+  spinDamage: 20
+  playerAnimator: {fileID: 0}
+  playerSpriterender: {fileID: 0}
+>>>>>>> Stashed changes
 --- !u!50 &1536910063
 Rigidbody2D:
   serializedVersion: 5
@@ -943,6 +1124,7 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!1 &1962444081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,6 +1266,8 @@ MonoBehaviour:
   lines:
   - test line 1
   - test line 2
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 --- !u!1 &1978093632
@@ -1313,8 +1497,12 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
 --- !u!1001 &9174385342166100625
+=======
+--- !u!1001 &433490239118092828
+>>>>>>> Stashed changes
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1322,6 +1510,7 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+<<<<<<< Updated upstream
     - target: {fileID: 5137674872986068399, guid: 555b22d5d77d53d4cb7d53d660962e29, type: 3}
       propertyPath: m_Name
       value: Dialogue
@@ -1403,14 +1592,110 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9214089533491830804, guid: 555b22d5d77d53d4cb7d53d660962e29, type: 3}
+=======
+    - target: {fileID: 3864294513540158810, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_Name
+      value: Dialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111562145998863920, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+>>>>>>> Stashed changes
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
+<<<<<<< Updated upstream
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 555b22d5d77d53d4cb7d53d660962e29, type: 3}
+>>>>>>> Stashed changes
+=======
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9054288731862037827, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 903109725}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0b63751a74d5f7c488bb8301ae88f8a4, type: 3}
 >>>>>>> Stashed changes
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -1423,9 +1708,13 @@ SceneRoots:
   - {fileID: 513688817}
   - {fileID: 2005475932}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   - {fileID: 1962444083}
   - {fileID: 1203738083}
 =======
   - {fileID: 9174385342166100625}
+>>>>>>> Stashed changes
+=======
+  - {fileID: 433490239118092828}
 >>>>>>> Stashed changes
   - {fileID: 1697720420}
