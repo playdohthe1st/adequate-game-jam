@@ -375,15 +375,14 @@ namespace AdequateEnough
             jumpBufferCounter = 0f;
             coyoteTimeCounter = 0f;
 
-            // Stop any running squash coroutines to avoid conflicts
             if (squashCoroutine != null) StopCoroutine(squashCoroutine);
 
-            // FIX: Changed "JumpSquashRoutine" to "JumpingSquash" to match your method name
-            squashCoroutine = StartCoroutine(JumpingSquash(() =>
-            {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            }));
+            // 1. APPLY PHYSICS IMMEDIATELY so the player never gets stuck on edges
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+            // 2. Start the animation normally without a physics delay
+            squashCoroutine = StartCoroutine(JumpingSquash());
         }
 
         private void TrySpin()
@@ -608,26 +607,25 @@ namespace AdequateEnough
                 }
             }
         }
-        private System.Collections.IEnumerator JumpingSquash(System.Action onJumpTrigger)
+        private System.Collections.IEnumerator JumpingSquash()
         {
             Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
 
-            // 1. Calculate the shapes
             Vector3 anticipationSquash = new Vector3(
-                defaultScale.x * (1f + squashAmount), // Widen
-                defaultScale.y * (1f - squashAmount), // Shorten
+                defaultScale.x * (1f + squashAmount),
+                defaultScale.y * (1f - squashAmount),
                 defaultScale.z
             );
 
             Vector3 jumpStretch = new Vector3(
-                defaultScale.x * (1f - squashAmount), // Shrink width
-                defaultScale.y * (1f + squashAmount), // Stretch height
+                defaultScale.x * (1f - squashAmount),
+                defaultScale.y * (1f + squashAmount),
                 defaultScale.z
             );
 
-            // PHASE 1: Anticipation Squash (Wind up before the jump)
+            // PHASE 1: Quick dip (Happens just as the player leaves the ground)
             float elapsed = 0f;
-            float anticipationDuration = squashDuration * 0.4f; // Very quick dip down
+            float anticipationDuration = squashDuration * 0.3f;
             while (elapsed < anticipationDuration)
             {
                 elapsed += Time.deltaTime;
@@ -635,13 +633,9 @@ namespace AdequateEnough
                 yield return null;
             }
 
-            // --- TRIGGER JUMP PHYSICS HERE ---
-            // This runs the code blocks passed from TryJump() right at the bottom of the squash dip
-            onJumpTrigger?.Invoke();
-
-            // PHASE 2: Jump Launch Stretch (The snap upward as they leave the ground)
+            // PHASE 2: Stretch upward mid-air
             elapsed = 0f;
-            float launchDuration = squashDuration * 0.6f;
+            float launchDuration = squashDuration * 0.7f;
             while (elapsed < launchDuration)
             {
                 elapsed += Time.deltaTime;
@@ -649,7 +643,7 @@ namespace AdequateEnough
                 yield return null;
             }
 
-            // PHASE 3: Spring back to default scale during mid-air/apex
+            // PHASE 3: Recover to normal scale
             elapsed = 0f;
             while (elapsed < squashRecoverDuration)
             {
