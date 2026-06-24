@@ -281,7 +281,7 @@ namespace AdequateEnough
                 if (col != null)
                 {
                     // Switch to full friction when standing still on a slope, otherwise the player slides
-                    bool standing = Mathf.Abs(smoothedInput.x) < 0.01f;
+                    bool standing = Mathf.Abs(input.GetMove().x) < 0.01f;
                     col.sharedMaterial = (isOnSlope && standing) ? fullFriction : noFriction;
                 }
             }
@@ -337,6 +337,13 @@ namespace AdequateEnough
             else
             {
                 rate = deceleration;
+            }
+
+            // On a slope with no input, pin velocity to zero so gravity can't slide the player down
+            if (isOnSlope && Mathf.Abs(input.GetMove().x) < 0.01f)
+            {
+                rb.linearVelocity = Vector2.zero;
+                return;
             }
 
             // On a slope, push along the slope surface rather than horizontally so the player
