@@ -1,7 +1,15 @@
+using System;
 using UnityEngine;
-
+public enum KeycardLevel
+{
+    None = 0,
+    SectorA = 1,
+    SectorB = 2,
+    SectorC = 3
+}
 namespace AdequateEnough
 {
+    
     public class PlayerController : MonoBehaviour
     {
         public enum PlayerState { Grounded, Airborne, Spinning }
@@ -86,12 +94,18 @@ namespace AdequateEnough
         [SerializeField] private float spinMaxRise = 6f;
         [SerializeField] private float spinDamage = 20f;
 
+        [Header("Security Clearance")]
+        [SerializeField] private KeycardLevel currentKeycard = KeycardLevel.None;
+        public Door currentDoor = null;
+        public static event Action<KeycardLevel> OnKeycardUpgraded;
+
         [Header("Visuals")]
         [SerializeField] private Animator playerAnimator;
         [SerializeField] private SpriteRenderer playerSpriterender;
         [SerializeField] private Transform spriteTransform;
         //Particles
-        [SerializeField] private GameObject landingSmokePrefab; 
+        [SerializeField] private GameObject landingSmokePrefab;
+        [SerializeField] private ScreenFader screenFader;
 
         private Rigidbody2D rb;
         private CapsuleCollider2D col;
@@ -130,21 +144,8 @@ namespace AdequateEnough
         public float MaxHealth => maxHealth;
         public bool IsDead => isDead;
 
-        public bool HasKeycard1 { get; private set; }
-        public bool HasKeycard2 { get; private set; }
-        public bool HasKeycard3 { get; private set; }
-
         // Fired when the player respawns at the original spawn point with no checkpoint active
         public static event System.Action OnRespawnedAtOrigin;
-
-        // Grants the lowest-numbered keycard not yet held. Returns false if all three are already owned.
-        public bool GiveNextKeycard()
-        {
-            if (!HasKeycard1) { HasKeycard1 = true; return true; }
-            if (!HasKeycard2) { HasKeycard2 = true; return true; }
-            if (!HasKeycard3) { HasKeycard3 = true; return true; }
-            return false;
-        }
 
         // True while the coyote time window is open, meaning the player can still jump
         private bool CanJump => coyoteTimeCounter > 0f;
@@ -162,8 +163,8 @@ namespace AdequateEnough
             defaultScale = spriteTransform != null ? spriteTransform.localScale : transform.localScale;
             // Give the physics a moment to settle on spawn before we check for landings
             skipLandingUntil = Time.time + 0.5f;
+            OnKeycardUpgraded?.Invoke(currentKeycard);
         }
-
         // Input reading and non-physics state changes go in Update so they run every rendered frame.
         // Physics forces go in FixedUpdate so they run at a fixed timestep, independent of frame rate.
         private void Update()
@@ -184,6 +185,11 @@ namespace AdequateEnough
             // Buffer the input flags here so they're not missed if FixedUpdate runs late
             if (input.GetJumpPressed()) jumpBufferCounter = jumpBufferTime;
             if (input.GetSpinPressed()) spinQueued = true;
+            if (input.GetInteract()) GoToNextRoom();
+            if (screenFader == null)
+            {
+                screenFader = FindAnyObjectByType<ScreenFader>();
+            }
         }
 
         private void FixedUpdate()
@@ -194,10 +200,43 @@ namespace AdequateEnough
             Move();
             TryJump();
             TrySpin();
+
         }
 
         // Lerp toward raw input each frame instead of using it directly.
         // This gives the movement a slight ramp-up/ramp-down feel without needing a state machine.
+        public void GiveNextKeycard()
+        {
+            if (currentKeycard < KeycardLevel.SectorC)
+            {
+                currentKeycard++;
+                OnKeycardUpgraded?.Invoke(currentKeycard);
+            }
+        }
+        public void SetKeycardLevel(KeycardLevel newLevel)
+        {
+            if (newLevel > currentKeycard)
+            {
+                currentKeycard = newLevel;
+                Debug.Log("Keycard set to: " + currentKeycard.ToString());
+                OnKeycardUpgraded?.Invoke(currentKeycard);
+            }
+        }
+
+        private void GoToNextRoom()
+        {
+            if (currentDoor == null) return;
+
+            // Compare the player's card level against the door's required level
+            if (currentKeycard >= currentDoor.requiredLevel)
+            {
+                ScreenFader.Instance.StartCoroutine(ScreenFader.Instance.FadeOutToRoom(gameObject, currentDoor.destination));
+            }
+            else
+            {
+                Debug.Log("Locked! You need a " + currentDoor.requiredLevel + " card.");
+            }
+        }
         private void SmoothInput()
         {
             smoothedInput = Vector2.Lerp(smoothedInput, input.GetMove(), inputSmoothing * Time.deltaTime);
@@ -658,14 +697,34 @@ namespace AdequateEnough
 
         private void OnCollisionEnter2D(Collision2D col)
         {
+            Debug.Log("PHYSICS TOUCH DETECTED with: " + col.gameObject.name);
             if (!isSpinning) return;
             col.gameObject.GetComponent<Enemy>()?.TakeDamage(spinDamage);
         }
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (!isSpinning) return;
-            col.gameObject.GetComponent<Enemy>()?.TakeDamage(spinDamage);
+            // Handle combat damage
+            if (isSpinning)
+            {
+                col.gameObject.GetComponent<Enemy>()?.TakeDamage(spinDamage);
+            }
+
+            // Handle touching a door
+            Door door = col.gameObject.GetComponent<Door>();
+            if (door != null)
+            {
+                currentDoor = door;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D col) 
+        {
+            Door door = col.gameObject.GetComponent<Door>();
+            if (door != null && currentDoor == door)
+            {
+                currentDoor = null; // No longer touching this door
+            }
         }
 
         private void OnDrawGizmosSelected()

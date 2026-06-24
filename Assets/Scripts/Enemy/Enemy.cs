@@ -7,6 +7,7 @@ namespace AdequateEnough
     [RequireComponent(typeof(Rigidbody2D))]
     public class Enemy : MonoBehaviour
     {
+
         [Header("Data")]
         [SerializeField] private EnemyData data;
 
@@ -48,10 +49,15 @@ namespace AdequateEnough
         [Header("VisualUpdater")]
         [SerializeField] private Animator enemyAnimator;
         [SerializeField] private SpriteRenderer enemySpriterenderer;
+        [Header("Hit Effects")]
+        [SerializeField] private Material flashMaterial; 
+        [SerializeField] private float flashDuration = 0.08f;
+        [SerializeField] private float hitStopDuration = 0.1f; 
 
+        private Material originalMaterial;
 
         private Rigidbody2D rb;
-        private Collider2D col;
+        [SerializeField] private Collider2D col;
         private PlayerController player;
         private Rigidbody2D playerRb;
 
@@ -82,7 +88,6 @@ namespace AdequateEnough
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
-            col = GetComponent<Collider2D>();
 
             if (weaponTransform != null)
             {
@@ -183,6 +188,9 @@ namespace AdequateEnough
                 rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             }
         }
+        // The method called by the boss when it dies
+     
+
         private void VisualUpdater()
         {
             if (rb.linearVelocityX == 0)
@@ -266,7 +274,10 @@ namespace AdequateEnough
             if (isDead) return;
             currentHealth = Mathf.Max(currentHealth - amount, 0f);
             timeSinceLastDamage = 0f;
+            StartCoroutine(FlashWhiteRoutine());
+            StartCoroutine(HitStopRoutine());
             if (currentHealth <= 0f) Die();
+
         }
 
         private void PushPlayerIfOverlapping()
@@ -326,6 +337,21 @@ namespace AdequateEnough
             weaponTransform.localEulerAngles = new Vector3(0f, 0f, toRot);
         }
 
+        private IEnumerator FlashWhiteRoutine()
+        {
+            if (originalMaterial == null) originalMaterial = enemySpriterenderer.material;
+            enemySpriterenderer.material = flashMaterial;
+            yield return new WaitForSecondsRealtime(flashDuration);
+            enemySpriterenderer.material = originalMaterial;
+        }
+
+        private IEnumerator HitStopRoutine()
+        {
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(hitStopDuration);
+            Time.timeScale = 1f;
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!isAttacking) return;
@@ -348,7 +374,8 @@ namespace AdequateEnough
 
             if (data != null && data.isBoss && player != null)
                 player.GiveNextKeycard();
-
+            Time.timeScale = 1f;
+            if (weaponCollider != null) weaponCollider.enabled = false;
             // TODO: death animation, despawn logic
             Destroy(gameObject);
         }
