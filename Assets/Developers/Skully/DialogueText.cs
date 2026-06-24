@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class DialogueText : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class DialogueText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             if (dialogueText.text == lines[textIndex])
             {
