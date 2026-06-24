@@ -63,7 +63,7 @@ namespace AdequateEnough
 
         public void OnQuitPressed()
         {
-            ScreenFader.Instance.FadeToScene("Splash");
+            ScreenFader.Instance.FadeToScene("Splash", 1);
         }
     }
 }

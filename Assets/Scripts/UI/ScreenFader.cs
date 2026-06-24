@@ -36,8 +36,9 @@ namespace AdequateEnough
             StartCoroutine(Fade(1f, 0f, fadeDuration));
         }
 
-        public void FadeToScene(string sceneName)
+        public void FadeToScene(string sceneName, float fadeDurationValue)
         {
+            fadeDuration = fadeDurationValue;
             StartCoroutine(FadeOutThenLoad(sceneName));
         }
 
