@@ -48,6 +48,11 @@ namespace AdequateEnough
         [SerializeField] private float squashDuration = 0.08f;
         [SerializeField] private float squashRecoverDuration = 0.12f;
 
+        [Header("Fall Stretch Settings")]
+        [SerializeField] private float maxFallStretch = 0.15f;   
+        [SerializeField] private float maxFallSpeed = 20f;         
+        [SerializeField] private float fallStretchLerpSpeed = 10f; 
+
         [Header("Ground Check")]
         [SerializeField] private Transform groundCheck;
         [SerializeField] private Vector2 groundCheckSize = new(0.5f, 0.1f);
@@ -85,6 +90,8 @@ namespace AdequateEnough
         [SerializeField] private Animator playerAnimator;
         [SerializeField] private SpriteRenderer playerSpriterender;
         [SerializeField] private Transform spriteTransform;
+        //Particles
+        [SerializeField] private GameObject landingSmokePrefab; 
 
         private Rigidbody2D rb;
         private CapsuleCollider2D col;
@@ -170,10 +177,10 @@ namespace AdequateEnough
             UpdateState();
             UpdateTimers();
             SmoothInput();
-            VisualUpdater();
             HandleVariableJump();
             HandleGravity();
-
+            VisualUpdater();
+            HandleFallStretch();
             // Buffer the input flags here so they're not missed if FixedUpdate runs late
             if (input.GetJumpPressed()) jumpBufferCounter = jumpBufferTime;
             if (input.GetSpinPressed()) spinQueued = true;
@@ -200,6 +207,7 @@ namespace AdequateEnough
         {
             // animation
             playerAnimator.SetBool("IsSpinning", isSpinning); // this set bool is spining on animator controller to the is spining on the player controller
+            playerAnimator.SetBool("IsGrounded", isGrounded);
             if (input.GetMove().magnitude > 0)
             {
                 playerAnimator.SetBool("IsMoving", true);
@@ -367,10 +375,15 @@ namespace AdequateEnough
             jumpBufferCounter = 0f;
             coyoteTimeCounter = 0f;
 
-            // Zero out Y velocity before applying the jump impulse so the jump height is consistent
-            // regardless of whether the player was moving up or down a slope
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            // Stop any running squash coroutines to avoid conflicts
+            if (squashCoroutine != null) StopCoroutine(squashCoroutine);
+
+            // FIX: Changed "JumpSquashRoutine" to "JumpingSquash" to match your method name
+            squashCoroutine = StartCoroutine(JumpingSquash(() =>
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            }));
         }
 
         private void TrySpin()
@@ -383,6 +396,7 @@ namespace AdequateEnough
 
             nextSpinTime = Time.time + spinCooldown;
             isSpinning = true;
+            
             spinStartY = transform.position.y;
 
             // If the player is holding a direction, snap it to the nearest 45 degree angle.
@@ -504,9 +518,23 @@ namespace AdequateEnough
             if (!wasGrounded && isGrounded && !isSpinning && Time.time >= nextSquashTime)
             {
                 nextSquashTime = Time.time + squashDuration + squashRecoverDuration + 0.1f;
+
+                if (landingSmokePrefab != null)
+                {
+                    // Use groundCheckTransform if available, otherwise default to player position
+                    Vector3 spawnPosition = groundCheck != null ? groundCheck.position : transform.position;
+
+                    // Instantiate the particle system
+                    GameObject smoke = Instantiate(landingSmokePrefab, spawnPosition, Quaternion.identity);
+
+                    // Optional: Auto-destroy the particle object after 2 seconds so it doesn't clutter your hierarchy
+                    Destroy(smoke, 2f);
+                }
+
                 if (squashCoroutine != null) StopCoroutine(squashCoroutine);
                 squashCoroutine = StartCoroutine(LandingSquash());
             }
+
             wasGrounded = isGrounded;
         }
 
@@ -533,6 +561,100 @@ namespace AdequateEnough
             {
                 elapsed += Time.deltaTime;
                 squashTarget.localScale = Vector3.Lerp(squashed, defaultScale, elapsed / squashRecoverDuration);
+                yield return null;
+            }
+
+            squashTarget.localScale = defaultScale;
+            squashCoroutine = null;
+        }
+
+        private void HandleFallStretch()
+        {
+            // Check if player is in the air and moving downward
+            bool isFalling = !isGrounded && rb.linearVelocity.y < -0.1f;
+
+            if (isFalling)
+            {
+                // 1. PLAYER MOVEMENT IS UNTOUCHED: 
+                // We do not modify rb.linearVelocity.x here anymore, allowing full air control.
+
+                // 2. APPLY STRETCH: Only if a high-priority jump/land coroutine isn't running
+                if (squashCoroutine == null)
+                {
+                    Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
+
+                    // Calculate fall intensity based on velocity (0 = just started falling, 1 = max speed)
+                    float fallPercentage = Mathf.Clamp01(Mathf.Abs(rb.linearVelocity.y) / maxFallSpeed);
+                    float currentStretch = fallPercentage * maxFallStretch;
+
+                    // Narrow the width (X), stretch the height (Y)
+                    Vector3 targetFallScale = new Vector3(
+                        defaultScale.x * (1f - currentStretch),
+                        defaultScale.y * (1f + currentStretch),
+                        defaultScale.z
+                    );
+
+                    // Smoothly ease into the stretched shape
+                    squashTarget.localScale = Vector3.MoveTowards(squashTarget.localScale, targetFallScale, Time.deltaTime * fallStretchLerpSpeed);
+                }
+            }
+            else
+            {
+                // If grounded or moving upward, and no coroutine is running, smoothly snap back to normal
+                if (squashCoroutine == null)
+                {
+                    Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
+                    squashTarget.localScale = Vector3.MoveTowards(squashTarget.localScale, defaultScale, Time.deltaTime * fallStretchLerpSpeed);
+                }
+            }
+        }
+        private System.Collections.IEnumerator JumpingSquash(System.Action onJumpTrigger)
+        {
+            Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
+
+            // 1. Calculate the shapes
+            Vector3 anticipationSquash = new Vector3(
+                defaultScale.x * (1f + squashAmount), // Widen
+                defaultScale.y * (1f - squashAmount), // Shorten
+                defaultScale.z
+            );
+
+            Vector3 jumpStretch = new Vector3(
+                defaultScale.x * (1f - squashAmount), // Shrink width
+                defaultScale.y * (1f + squashAmount), // Stretch height
+                defaultScale.z
+            );
+
+            // PHASE 1: Anticipation Squash (Wind up before the jump)
+            float elapsed = 0f;
+            float anticipationDuration = squashDuration * 0.4f; // Very quick dip down
+            while (elapsed < anticipationDuration)
+            {
+                elapsed += Time.deltaTime;
+                squashTarget.localScale = Vector3.Lerp(defaultScale, anticipationSquash, elapsed / anticipationDuration);
+                yield return null;
+            }
+
+            // --- TRIGGER JUMP PHYSICS HERE ---
+            // This runs the code blocks passed from TryJump() right at the bottom of the squash dip
+            onJumpTrigger?.Invoke();
+
+            // PHASE 2: Jump Launch Stretch (The snap upward as they leave the ground)
+            elapsed = 0f;
+            float launchDuration = squashDuration * 0.6f;
+            while (elapsed < launchDuration)
+            {
+                elapsed += Time.deltaTime;
+                squashTarget.localScale = Vector3.Lerp(anticipationSquash, jumpStretch, elapsed / launchDuration);
+                yield return null;
+            }
+
+            // PHASE 3: Spring back to default scale during mid-air/apex
+            elapsed = 0f;
+            while (elapsed < squashRecoverDuration)
+            {
+                elapsed += Time.deltaTime;
+                squashTarget.localScale = Vector3.Lerp(jumpStretch, defaultScale, elapsed / squashRecoverDuration);
                 yield return null;
             }
 

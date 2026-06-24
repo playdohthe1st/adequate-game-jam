@@ -6330,6 +6330,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1055627738807038533, guid: d49feed651a775d408a15f0cc5492606, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.024000168
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055627738807038533, guid: d49feed651a775d408a15f0cc5492606, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.05699992
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055627738807038533, guid: d49feed651a775d408a15f0cc5492606, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055627738807038533, guid: d49feed651a775d408a15f0cc5492606, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055627738807038533, guid: d49feed651a775d408a15f0cc5492606, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055627738807038533, guid: d49feed651a775d408a15f0cc5492606, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055627738807038533, guid: d49feed651a775d408a15f0cc5492606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4406191187396573838, guid: d49feed651a775d408a15f0cc5492606, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -6338,6 +6366,10 @@ PrefabInstance:
       propertyPath: m_SpriteSortPoint
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4435749734172417330, guid: d49feed651a775d408a15f0cc5492606, type: 3}
+      propertyPath: landingSmokePrefab
+      value: 
+      objectReference: {fileID: 4983050535291078389, guid: 69794fa87f593c0499a16334c6d9f394, type: 3}
     - target: {fileID: 6228679970223528795, guid: d49feed651a775d408a15f0cc5492606, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.4
