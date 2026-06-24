@@ -30,4 +30,5 @@ public class InputManager : MonoBehaviour
     public bool GetJumpPressed() => input.Player.Jump.triggered;
     public bool GetJumpHeld() => input.Player.Jump.IsPressed();
     public bool GetSpinPressed() => input.Player.Spin.triggered;
+    public bool GetInteract() => input.Player.Interact.triggered;
 }

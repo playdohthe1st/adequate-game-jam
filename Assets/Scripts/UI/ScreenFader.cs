@@ -11,6 +11,7 @@ namespace AdequateEnough
         [SerializeField] private CanvasGroup blackScreen;
         [SerializeField] private float fadeDuration = 1f;
         [SerializeField] private float respawnFadeDuration = 1f;
+        [SerializeField] private float changeRoomFadeDuration = 1f;
 
         private void Awake()
         {
@@ -59,6 +60,13 @@ namespace AdequateEnough
             yield return StartCoroutine(Fade(0f, 1f, fadeDuration));
             Time.timeScale = 1f;
             SceneManager.LoadScene(sceneName);
+        }
+        public IEnumerator FadeOutToRoom(GameObject player, Transform roomTransform)
+        {
+            yield return StartCoroutine(Fade(0f, 1f, fadeDuration));
+            Time.timeScale = 1f;
+            player.transform.position = roomTransform.position;
+            yield return StartCoroutine(Fade(1f, 0f, fadeDuration));
         }
 
         private IEnumerator Fade(float from, float to, float duration)
