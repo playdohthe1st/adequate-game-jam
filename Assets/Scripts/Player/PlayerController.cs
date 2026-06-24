@@ -56,6 +56,7 @@ namespace AdequateEnough
         [Header("Slopes")]
         [SerializeField] private float slopeCheckDistance = 0.5f;
         [SerializeField] private float maxSlopeAngle = 45f;
+        [SerializeField] private float knockbackSlopeDisableDuration = 0.6f;
         // Cap speed on slopes so the player doesn't accelerate infinitely downhill
         [SerializeField] private float maxSlopeSpeed = 6f;
         // No friction while moving so the player slides smoothly; full friction while standing to prevent sliding
@@ -83,6 +84,7 @@ namespace AdequateEnough
         [Header("Visuals")]
         [SerializeField] private Animator playerAnimator;
         [SerializeField] private SpriteRenderer playerSpriterender;
+        [SerializeField] private Transform spriteTransform;
 
         private Rigidbody2D rb;
         private CapsuleCollider2D col;
@@ -114,10 +116,12 @@ namespace AdequateEnough
 
         private float currentHealth;
         private float timeSinceLastDamage;
+        private float slopeDisableTimer;
         private bool isDead;
 
         public float CurrentHealth => currentHealth;
         public float MaxHealth => maxHealth;
+        public bool IsDead => isDead;
 
         public bool HasKeycard1 { get; private set; }
         public bool HasKeycard2 { get; private set; }
@@ -148,7 +152,7 @@ namespace AdequateEnough
             defaultGravityScale = rb.gravityScale;
             currentMaxSpeed = maxSpeed;
             currentHealth = maxHealth;
-            defaultScale = transform.localScale;
+            defaultScale = spriteTransform != null ? spriteTransform.localScale : transform.localScale;
             // Give the physics a moment to settle on spawn before we check for landings
             skipLandingUntil = Time.time + 0.5f;
         }
@@ -207,11 +211,11 @@ namespace AdequateEnough
             // flipSprite
             if (input.GetMove().x < 0)
             {
-                playerSpriterender.flipX = true;
+                playerSpriterender.flipX = false;
             }
             if (input.GetMove().x > 0)
             {
-                playerSpriterender.flipX = false;
+                playerSpriterender.flipX = true;
             }
               
 
@@ -258,7 +262,7 @@ namespace AdequateEnough
 
         private void CheckSlope()
         {
-            if (!isGrounded)
+            if (!isGrounded || slopeDisableTimer > 0f)
             {
                 isOnSlope = false;
                 if (col != null) col.sharedMaterial = noFriction;
@@ -427,6 +431,7 @@ namespace AdequateEnough
         {
             if (isDead || currentHealth >= maxHealth) return;
             timeSinceLastDamage += Time.deltaTime;
+            slopeDisableTimer = Mathf.Max(slopeDisableTimer - Time.deltaTime, 0f);
             if (timeSinceLastDamage >= regenDelay)
                 currentHealth = Mathf.Min(currentHealth + regenRate * Time.deltaTime, maxHealth);
         }
@@ -436,6 +441,7 @@ namespace AdequateEnough
             if (isDead) return;
             currentHealth = Mathf.Max(currentHealth - amount, 0f);
             timeSinceLastDamage = 0f;
+            slopeDisableTimer = knockbackSlopeDisableDuration;
             if (currentHealth <= 0f) Die();
         }
 
@@ -448,7 +454,10 @@ namespace AdequateEnough
             isDead = true;
             rb.linearVelocity = Vector2.zero;
             // TODO: Show death UI here before fading (score screen, respawn prompt, etc.)
-            ScreenFader.Instance?.RespawnFade(Respawn);
+            if (ScreenFader.Instance != null)
+                ScreenFader.Instance.RespawnFade(Respawn);
+            else
+                Respawn();
         }
 
         private void Respawn()
@@ -470,7 +479,8 @@ namespace AdequateEnough
 
             // Clean up any mid-animation squash and reset to normal scale
             if (squashCoroutine != null) StopCoroutine(squashCoroutine);
-            transform.localScale = defaultScale;
+            Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
+            squashTarget.localScale = defaultScale;
             // Prevent a false landing detection immediately after being placed at the spawn point
             skipLandingUntil = Time.time + 0.5f;
         }
@@ -497,6 +507,8 @@ namespace AdequateEnough
         // then spring it back to normal. This is a juice/feel technique common in platformers.
         private System.Collections.IEnumerator LandingSquash()
         {
+            Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
+
             // Widen and shorten the scale to simulate impact compression
             Vector3 squashed = new Vector3(defaultScale.x * (1f + squashAmount), defaultScale.y * (1f - squashAmount), defaultScale.z);
 
@@ -504,7 +516,7 @@ namespace AdequateEnough
             while (elapsed < squashDuration)
             {
                 elapsed += Time.deltaTime;
-                transform.localScale = Vector3.Lerp(defaultScale, squashed, elapsed / squashDuration);
+                squashTarget.localScale = Vector3.Lerp(defaultScale, squashed, elapsed / squashDuration);
                 yield return null;
             }
 
@@ -513,11 +525,11 @@ namespace AdequateEnough
             while (elapsed < squashRecoverDuration)
             {
                 elapsed += Time.deltaTime;
-                transform.localScale = Vector3.Lerp(squashed, defaultScale, elapsed / squashRecoverDuration);
+                squashTarget.localScale = Vector3.Lerp(squashed, defaultScale, elapsed / squashRecoverDuration);
                 yield return null;
             }
 
-            transform.localScale = defaultScale;
+            squashTarget.localScale = defaultScale;
             squashCoroutine = null;
         }
 
