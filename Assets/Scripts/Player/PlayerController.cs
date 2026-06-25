@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.Video;
 public enum KeycardLevel
 {
     None = 0,
@@ -111,6 +114,12 @@ namespace AdequateEnough
         // ui
         [SerializeField] private GameObject deathScreen;
         [SerializeField] private GameObject creditScreen;
+        [SerializeField] private Image healthImage;
+        //end video     
+        [SerializeField] private GameObject videoPanel; 
+        [SerializeField] private VideoPlayer videoPlayer;
+        private Coroutine videoRoutineInstance;
+        public bool isVideoPlaying = false;
 
         private Rigidbody2D rb;
         private CapsuleCollider2D col;
@@ -172,12 +181,19 @@ namespace AdequateEnough
         }
         // Input reading and non-physics state changes go in Update so they run every rendered frame.
         // Physics forces go in FixedUpdate so they run at a fixed timestep, independent of frame rate.
+        public void Start()
+        {
+            if (videoPlayer != null)
+            {
+                videoPlayer.loopPointReached += OnVideoFinished;
+            }
+        }
         private void Update()
         {
             Win();
             HandleRegen();
             if (isDead) return;
-
+            //StopVideo();
             CheckGround();
             DetectLanding();
             CheckSlope();
@@ -196,6 +212,8 @@ namespace AdequateEnough
             {
                 screenFader = FindAnyObjectByType<ScreenFader>();
             }
+            // for skip finalCutsene video 
+         
         }
 
         private void FixedUpdate()
@@ -212,6 +230,29 @@ namespace AdequateEnough
 
         // Lerp toward raw input each frame instead of using it directly.
         // This gives the movement a slight ramp-up/ramp-down feel without needing a state machine.
+
+        //private void StopVideo()
+        //{
+        //    if (isVideoPlaying)
+         //   {
+         //       if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return))
+         //       {
+         //           if (videoPlayer != null)
+         //           {
+         //               videoPlayer.loopPointReached -= OnVideoFinished;
+         //               videoPlayer.Stop();
+         //           }
+         //
+          //          if (videoRoutineInstance != null)
+          //          {
+          //              StopCoroutine(videoRoutineInstance);
+         //               videoRoutineInstance = null;
+         //           }
+         //
+         //           StartCoroutine(StartCredits());
+         //       }
+         //   }
+        //}
         public void GiveNextKeycard()
         {
             if (currentKeycard < KeycardLevel.SectorC)
@@ -271,7 +312,7 @@ namespace AdequateEnough
             {
                 playerSpriterender.flipX = true;
             }
-              
+            healthImage.fillAmount = currentHealth / maxHealth; 
 
         }
         private void UpdateTimers()
@@ -534,23 +575,54 @@ namespace AdequateEnough
         }
         public void Win()
         {
-            StartCoroutine(StartCredits());
             if (Keyboard.current.gKey.wasPressedThisFrame)
             {
-              //  StartCoroutine(StartCredits());
+                if (isVideoPlaying) return;
+                TriggerVideoSequence();
+              
             }
-         
-
-
         }
+        public void TriggerVideoSequence()
+        {
+            if (!isVideoPlaying)
+            {
+                videoRoutineInstance = StartCoroutine(StartVideo());
+            }
+        }
+        private IEnumerator StartVideo()
+        {
+            isVideoPlaying = true;
+
+            // 1. Fade to Black
+            yield return StartCoroutine(ScreenFader.Instance.Fade(0f, 1f, 1f));
+            if (videoPlayer != null && videoPanel != null)
+            {
+                videoPanel.SetActive(true);
+                videoPlayer.Play();
+                yield return StartCoroutine(ScreenFader.Instance.Fade(1f, 0f, 0.3f));
+            }
+            else
+            {
+                StartCoroutine(StartCredits());
+            }
+        }
+        private void OnVideoFinished(VideoPlayer vp)
+        {
+            StopAllCoroutines();
+            StartCoroutine(StartCredits());
+        }
+
         private IEnumerator StartCredits()
         {
-            yield return StartCoroutine(ScreenFader.Instance.Fade(0f, 1f, 1f));
+            if (videoPanel != null) videoPanel.SetActive(false);
+            isVideoPlaying = false;
             creditScreen.SetActive(true);
             var creditsScript = creditScreen.GetComponentInChildren<CreditsScroll>();
-            creditsScript.StartCredits();
+            if (creditsScript != null)
+            {
+                creditsScript.StartCredits();
+            }
             yield return StartCoroutine(ScreenFader.Instance.Fade(1f, 0f, 1f));
-            yield return null;
         }
         private void Respawn()
         {
