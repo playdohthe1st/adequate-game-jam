@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 public enum KeycardLevel
 {
     None = 0,
@@ -106,6 +108,9 @@ namespace AdequateEnough
         //Particles
         [SerializeField] private GameObject landingSmokePrefab;
         [SerializeField] private ScreenFader screenFader;
+        // ui
+        [SerializeField] private GameObject deathScreen;
+        [SerializeField] private GameObject creditScreen;
 
         private Rigidbody2D rb;
         private CapsuleCollider2D col;
@@ -169,6 +174,7 @@ namespace AdequateEnough
         // Physics forces go in FixedUpdate so they run at a fixed timestep, independent of frame rate.
         private void Update()
         {
+            Win();
             HandleRegen();
             if (isDead) return;
 
@@ -194,6 +200,7 @@ namespace AdequateEnough
 
         private void FixedUpdate()
         {
+         
             if (isDead) return;
 
             HandleSpinDecay();
@@ -512,13 +519,29 @@ namespace AdequateEnough
             if (isDead) return;
             isDead = true;
             rb.linearVelocity = Vector2.zero;
-            // TODO: Show death UI here before fading (score screen, respawn prompt, etc.)
             if (ScreenFader.Instance != null)
-                ScreenFader.Instance.RespawnFade(Respawn);
-            else
-                Respawn();
-        }
+            {
+                deathScreen.SetActive(true);
+            }
 
+        }
+       public void Win()
+        {
+            StartCoroutine(StartCredits());
+            if (Keyboard.current.gKey.wasPressedThisFrame)
+            {
+              //  StartCoroutine(StartCredits());
+            }
+        }
+        private IEnumerator StartCredits()
+        {
+            yield return StartCoroutine(ScreenFader.Instance.Fade(0f, 1f, 1f));
+            creditScreen.SetActive(true);
+            var creditsScript = creditScreen.GetComponentInChildren<CreditsScroll>();
+            creditsScript.StartCredits();
+            yield return StartCoroutine(ScreenFader.Instance.Fade(1f, 0f, 1f));
+            yield return null;
+        }
         private void Respawn()
         {
             bool noCheckpoint = CheckpointManager.Instance == null || !CheckpointManager.Instance.HasActiveCheckpoint;

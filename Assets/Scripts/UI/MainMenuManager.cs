@@ -14,12 +14,19 @@ namespace AdequateEnough
         [SerializeField] private GameObject videoPanel; // GameObject holding your RawImage and VideoPlayer
         [SerializeField] private VideoPlayer videoPlayer; // Drag the VideoPlayer component here
 
-        private bool isVideoPlaying = false;
+        [Header("Credits")]
+        [SerializeField] private GameObject creditsPanel;
+        private CreditsScroll creditsScroll;
 
+        private bool isVideoPlaying = false;
+        private void Awake()
+        {
+            creditsPanel.SetActive(false);
+        }
         private void Start()
         {
             ShowMain();
-
+          
             // Set up the listener for when the video reaches its loop point (the end)
             if (videoPlayer != null)
             {
@@ -47,6 +54,13 @@ namespace AdequateEnough
                 // Fallback: If no video is assigned, skip straight to the game
                 StartGameTransition();
             }
+        }
+        public void OnCreditsPressed()
+        {
+            creditsPanel.SetActive(true);
+            creditsScroll = creditsPanel.GetComponentInChildren<CreditsScroll>();
+            creditsScroll.StartCredits();
+
         }
 
         private void Update()
