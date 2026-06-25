@@ -38,7 +38,7 @@ namespace AdequateEnough
         }
         public void StopCurrentFade()
         {
-            // This kills any fading routine running directly on the Fader object
+        
             StopAllCoroutines();
         }
 
