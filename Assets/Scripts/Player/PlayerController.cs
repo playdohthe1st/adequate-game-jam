@@ -523,15 +523,25 @@ namespace AdequateEnough
             {
                 deathScreen.SetActive(true);
             }
+            // if (Respawn Logic if is going to have one)
+            // {
+            //     if (ScreenFader.Instance != null)
+            //         ScreenFader.Instance.RespawnFade(Respawn);
+            //     else
+            //        Respawn();
+            //}
 
         }
-       public void Win()
+        public void Win()
         {
             StartCoroutine(StartCredits());
             if (Keyboard.current.gKey.wasPressedThisFrame)
             {
               //  StartCoroutine(StartCredits());
             }
+         
+
+
         }
         private IEnumerator StartCredits()
         {
