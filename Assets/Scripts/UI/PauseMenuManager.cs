@@ -1,5 +1,7 @@
+using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace AdequateEnough
 {
@@ -8,11 +10,11 @@ namespace AdequateEnough
         [Header("Panels")]
         [SerializeField] private GameObject pausePanel;
         [SerializeField] private GameObject settingsPanel;
-
         private bool isPaused;
 
         private void Update()
         {
+  
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
                 Toggle();
         }
@@ -48,7 +50,15 @@ namespace AdequateEnough
             pausePanel.SetActive(false);
             settingsPanel.SetActive(false);
         }
-
+        public void RestartPresed()
+        {
+            Restart();
+        }
+        private void Restart()
+        {
+            ScreenFader.Instance.FadeToScene("MainLevel", 1);
+            Destroy(FindFirstObjectByType<PauseMenuManager>());
+        }
         public void OnSettingsPressed()
         {
             pausePanel.SetActive(false);
@@ -58,12 +68,14 @@ namespace AdequateEnough
         public void OnSettingsBackPressed()
         {
             settingsPanel.SetActive(false);
-            pausePanel.SetActive(true);
+            
         }
 
         public void OnQuitPressed()
         {
             ScreenFader.Instance.FadeToScene("Splash", 1);
+            settingsPanel.SetActive(false);
+            pausePanel.SetActive(false);
         }
     }
 }
