@@ -1,7 +1,15 @@
+using System;
 using UnityEngine;
-
+public enum KeycardLevel
+{
+    None = 0,
+    SectorA = 1,
+    SectorB = 2,
+    SectorC = 3
+}
 namespace AdequateEnough
 {
+    
     public class PlayerController : MonoBehaviour
     {
         public enum PlayerState { Grounded, Airborne, Spinning }
@@ -48,6 +56,11 @@ namespace AdequateEnough
         [SerializeField] private float squashDuration = 0.08f;
         [SerializeField] private float squashRecoverDuration = 0.12f;
 
+        [Header("Fall Stretch Settings")]
+        [SerializeField] private float maxFallStretch = 0.15f;   
+        [SerializeField] private float maxFallSpeed = 20f;         
+        [SerializeField] private float fallStretchLerpSpeed = 10f; 
+
         [Header("Ground Check")]
         [SerializeField] private Transform groundCheck;
         [SerializeField] private Vector2 groundCheckSize = new(0.5f, 0.1f);
@@ -81,10 +94,18 @@ namespace AdequateEnough
         [SerializeField] private float spinMaxRise = 6f;
         [SerializeField] private float spinDamage = 20f;
 
+        [Header("Security Clearance")]
+        [SerializeField] private KeycardLevel currentKeycard = KeycardLevel.None;
+        public Door currentDoor = null;
+        public static event Action<KeycardLevel> OnKeycardUpgraded;
+
         [Header("Visuals")]
         [SerializeField] private Animator playerAnimator;
         [SerializeField] private SpriteRenderer playerSpriterender;
         [SerializeField] private Transform spriteTransform;
+        //Particles
+        [SerializeField] private GameObject landingSmokePrefab;
+        [SerializeField] private ScreenFader screenFader;
 
         private Rigidbody2D rb;
         private CapsuleCollider2D col;
@@ -123,21 +144,8 @@ namespace AdequateEnough
         public float MaxHealth => maxHealth;
         public bool IsDead => isDead;
 
-        public bool HasKeycard1 { get; private set; }
-        public bool HasKeycard2 { get; private set; }
-        public bool HasKeycard3 { get; private set; }
-
         // Fired when the player respawns at the original spawn point with no checkpoint active
         public static event System.Action OnRespawnedAtOrigin;
-
-        // Grants the lowest-numbered keycard not yet held. Returns false if all three are already owned.
-        public bool GiveNextKeycard()
-        {
-            if (!HasKeycard1) { HasKeycard1 = true; return true; }
-            if (!HasKeycard2) { HasKeycard2 = true; return true; }
-            if (!HasKeycard3) { HasKeycard3 = true; return true; }
-            return false;
-        }
 
         // True while the coyote time window is open, meaning the player can still jump
         private bool CanJump => coyoteTimeCounter > 0f;
@@ -155,8 +163,8 @@ namespace AdequateEnough
             defaultScale = spriteTransform != null ? spriteTransform.localScale : transform.localScale;
             // Give the physics a moment to settle on spawn before we check for landings
             skipLandingUntil = Time.time + 0.5f;
+            OnKeycardUpgraded?.Invoke(currentKeycard);
         }
-
         // Input reading and non-physics state changes go in Update so they run every rendered frame.
         // Physics forces go in FixedUpdate so they run at a fixed timestep, independent of frame rate.
         private void Update()
@@ -170,13 +178,18 @@ namespace AdequateEnough
             UpdateState();
             UpdateTimers();
             SmoothInput();
-            VisualUpdater();
             HandleVariableJump();
             HandleGravity();
-
+            VisualUpdater();
+            HandleFallStretch();
             // Buffer the input flags here so they're not missed if FixedUpdate runs late
             if (input.GetJumpPressed()) jumpBufferCounter = jumpBufferTime;
             if (input.GetSpinPressed()) spinQueued = true;
+            if (input.GetInteract()) GoToNextRoom();
+            if (screenFader == null)
+            {
+                screenFader = FindAnyObjectByType<ScreenFader>();
+            }
         }
 
         private void FixedUpdate()
@@ -187,10 +200,43 @@ namespace AdequateEnough
             Move();
             TryJump();
             TrySpin();
+
         }
 
         // Lerp toward raw input each frame instead of using it directly.
         // This gives the movement a slight ramp-up/ramp-down feel without needing a state machine.
+        public void GiveNextKeycard()
+        {
+            if (currentKeycard < KeycardLevel.SectorC)
+            {
+                currentKeycard++;
+                OnKeycardUpgraded?.Invoke(currentKeycard);
+            }
+        }
+        public void SetKeycardLevel(KeycardLevel newLevel)
+        {
+            if (newLevel > currentKeycard)
+            {
+                currentKeycard = newLevel;
+                Debug.Log("Keycard set to: " + currentKeycard.ToString());
+                OnKeycardUpgraded?.Invoke(currentKeycard);
+            }
+        }
+
+        private void GoToNextRoom()
+        {
+            if (currentDoor == null) return;
+
+            // Compare the player's card level against the door's required level
+            if (currentKeycard >= currentDoor.requiredLevel)
+            {
+                ScreenFader.Instance.StartCoroutine(ScreenFader.Instance.FadeOutToRoom(gameObject, currentDoor.destination));
+            }
+            else
+            {
+                Debug.Log("Locked! You need a " + currentDoor.requiredLevel + " card.");
+            }
+        }
         private void SmoothInput()
         {
             smoothedInput = Vector2.Lerp(smoothedInput, input.GetMove(), inputSmoothing * Time.deltaTime);
@@ -200,6 +246,7 @@ namespace AdequateEnough
         {
             // animation
             playerAnimator.SetBool("IsSpinning", isSpinning); // this set bool is spining on animator controller to the is spining on the player controller
+            playerAnimator.SetBool("IsGrounded", isGrounded);
             if (input.GetMove().magnitude > 0)
             {
                 playerAnimator.SetBool("IsMoving", true);
@@ -367,10 +414,14 @@ namespace AdequateEnough
             jumpBufferCounter = 0f;
             coyoteTimeCounter = 0f;
 
-            // Zero out Y velocity before applying the jump impulse so the jump height is consistent
-            // regardless of whether the player was moving up or down a slope
+            if (squashCoroutine != null) StopCoroutine(squashCoroutine);
+
+            // 1. APPLY PHYSICS IMMEDIATELY so the player never gets stuck on edges
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+            // 2. Start the animation normally without a physics delay
+            squashCoroutine = StartCoroutine(JumpingSquash());
         }
 
         private void TrySpin()
@@ -383,6 +434,7 @@ namespace AdequateEnough
 
             nextSpinTime = Time.time + spinCooldown;
             isSpinning = true;
+            
             spinStartY = transform.position.y;
 
             // If the player is holding a direction, snap it to the nearest 45 degree angle.
@@ -504,9 +556,23 @@ namespace AdequateEnough
             if (!wasGrounded && isGrounded && !isSpinning && Time.time >= nextSquashTime)
             {
                 nextSquashTime = Time.time + squashDuration + squashRecoverDuration + 0.1f;
+
+                if (landingSmokePrefab != null)
+                {
+                    // Use groundCheckTransform if available, otherwise default to player position
+                    Vector3 spawnPosition = groundCheck != null ? groundCheck.position : transform.position;
+
+                    // Instantiate the particle system
+                    GameObject smoke = Instantiate(landingSmokePrefab, spawnPosition, Quaternion.identity);
+
+                    // Optional: Auto-destroy the particle object after 2 seconds so it doesn't clutter your hierarchy
+                    Destroy(smoke, 2f);
+                }
+
                 if (squashCoroutine != null) StopCoroutine(squashCoroutine);
                 squashCoroutine = StartCoroutine(LandingSquash());
             }
+
             wasGrounded = isGrounded;
         }
 
@@ -540,16 +606,125 @@ namespace AdequateEnough
             squashCoroutine = null;
         }
 
+        private void HandleFallStretch()
+        {
+            // Check if player is in the air and moving downward
+            bool isFalling = !isGrounded && rb.linearVelocity.y < -0.1f;
+
+            if (isFalling)
+            {
+                // 1. PLAYER MOVEMENT IS UNTOUCHED: 
+                // We do not modify rb.linearVelocity.x here anymore, allowing full air control.
+
+                // 2. APPLY STRETCH: Only if a high-priority jump/land coroutine isn't running
+                if (squashCoroutine == null)
+                {
+                    Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
+
+                    // Calculate fall intensity based on velocity (0 = just started falling, 1 = max speed)
+                    float fallPercentage = Mathf.Clamp01(Mathf.Abs(rb.linearVelocity.y) / maxFallSpeed);
+                    float currentStretch = fallPercentage * maxFallStretch;
+
+                    // Narrow the width (X), stretch the height (Y)
+                    Vector3 targetFallScale = new Vector3(
+                        defaultScale.x * (1f - currentStretch),
+                        defaultScale.y * (1f + currentStretch),
+                        defaultScale.z
+                    );
+
+                    // Smoothly ease into the stretched shape
+                    squashTarget.localScale = Vector3.MoveTowards(squashTarget.localScale, targetFallScale, Time.deltaTime * fallStretchLerpSpeed);
+                }
+            }
+            else
+            {
+                // If grounded or moving upward, and no coroutine is running, smoothly snap back to normal
+                if (squashCoroutine == null)
+                {
+                    Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
+                    squashTarget.localScale = Vector3.MoveTowards(squashTarget.localScale, defaultScale, Time.deltaTime * fallStretchLerpSpeed);
+                }
+            }
+        }
+        private System.Collections.IEnumerator JumpingSquash()
+        {
+            Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
+
+            Vector3 anticipationSquash = new Vector3(
+                defaultScale.x * (1f + squashAmount),
+                defaultScale.y * (1f - squashAmount),
+                defaultScale.z
+            );
+
+            Vector3 jumpStretch = new Vector3(
+                defaultScale.x * (1f - squashAmount),
+                defaultScale.y * (1f + squashAmount),
+                defaultScale.z
+            );
+
+            // PHASE 1: Quick dip (Happens just as the player leaves the ground)
+            float elapsed = 0f;
+            float anticipationDuration = squashDuration * 0.3f;
+            while (elapsed < anticipationDuration)
+            {
+                elapsed += Time.deltaTime;
+                squashTarget.localScale = Vector3.Lerp(defaultScale, anticipationSquash, elapsed / anticipationDuration);
+                yield return null;
+            }
+
+            // PHASE 2: Stretch upward mid-air
+            elapsed = 0f;
+            float launchDuration = squashDuration * 0.7f;
+            while (elapsed < launchDuration)
+            {
+                elapsed += Time.deltaTime;
+                squashTarget.localScale = Vector3.Lerp(anticipationSquash, jumpStretch, elapsed / launchDuration);
+                yield return null;
+            }
+
+            // PHASE 3: Recover to normal scale
+            elapsed = 0f;
+            while (elapsed < squashRecoverDuration)
+            {
+                elapsed += Time.deltaTime;
+                squashTarget.localScale = Vector3.Lerp(jumpStretch, defaultScale, elapsed / squashRecoverDuration);
+                yield return null;
+            }
+
+            squashTarget.localScale = defaultScale;
+            squashCoroutine = null;
+        }
+
         private void OnCollisionEnter2D(Collision2D col)
         {
+            Debug.Log("PHYSICS TOUCH DETECTED with: " + col.gameObject.name);
             if (!isSpinning) return;
             col.gameObject.GetComponent<Enemy>()?.TakeDamage(spinDamage);
         }
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (!isSpinning) return;
-            col.gameObject.GetComponent<Enemy>()?.TakeDamage(spinDamage);
+            // Handle combat damage
+            if (isSpinning)
+            {
+                col.gameObject.GetComponent<Enemy>()?.TakeDamage(spinDamage);
+            }
+
+            // Handle touching a door
+            Door door = col.gameObject.GetComponent<Door>();
+            if (door != null)
+            {
+                currentDoor = door;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D col) 
+        {
+            Door door = col.gameObject.GetComponent<Door>();
+            if (door != null && currentDoor == door)
+            {
+                currentDoor = null; // No longer touching this door
+            }
         }
 
         private void OnDrawGizmosSelected()
