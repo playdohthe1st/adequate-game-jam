@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3021062566921754492}
   - component: {fileID: 6741900430383058584}
+  - component: {fileID: 1379073087312702423}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3013382694839249905}
   serializedVersion: 2
   m_LocalRotation: {x: 0.02614105, y: 0.052317966, z: -0.0013699929, w: 0.9982874}
-  m_LocalPosition: {x: -0.725381, y: -7.816641, z: -0.24169922}
+  m_LocalPosition: {x: -192.08537, y: 2.3233593, z: -0.24170113}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -72,6 +73,28 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 893393844819216941}
+--- !u!114 &1379073087312702423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3013382694839249905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c11265b855408d42af33d62691f5194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Cinemachine::Cinemachine.CinemachineIndependentImpulseListener
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 0
+  m_UseLocalSpace: 1
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &6602475179880792226
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +123,7 @@ Transform:
   m_GameObject: {fileID: 6602475179880792226}
   serializedVersion: 2
   m_LocalRotation: {x: 0.02614105, y: 0.052317966, z: -0.0013699929, w: 0.9982874}
-  m_LocalPosition: {x: -0.725381, y: -7.816641, z: -0.24169922}
+  m_LocalPosition: {x: -192.08537, y: 2.3233593, z: -0.24170113}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
