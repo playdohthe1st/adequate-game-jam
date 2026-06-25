@@ -28,11 +28,15 @@ namespace AdequateEnough
         private void Start()
         {
             SpawnToMax();
+            spawnTimer = spawnInterval;
         }
 
         private void Update()
         {
+            int before = liveEnemies.Count;
             liveEnemies.RemoveAll(e => e == null);
+            if (liveEnemies.Count < before)
+                spawnTimer = spawnInterval;
 
             if (liveEnemies.Count >= maxEnemies) return;
             if (IsSpawnPointVisible()) return;
