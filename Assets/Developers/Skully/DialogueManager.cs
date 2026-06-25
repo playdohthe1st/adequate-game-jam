@@ -1,8 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 
@@ -14,36 +13,35 @@ public class DialogueManager : MonoBehaviour
     public Image characterIcon;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueText;
-    public TextMeshProUGUI dialogueArea;
     public GameObject dialogueBox;
-    private Queue<DialogueLines> lines; 
+    private Queue<DialogueLine> lines; 
     public bool dialogueActive = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
 
+        lines = new Queue<DialogueLine>();
     }
 
     public void StartDialogue(Dialogue dialogue) //starts dialogue when needed
     {
         dialogueActive = true;
 
+        dialogueBox.gameObject.SetActive(true);
+
         lines.Clear();
 
-        foreach(DialogueLines dialogueLine in dialogue.dialogueLines)
+        foreach(DialogueLine dialogueLine in dialogue.dialogueLines)
         {
             lines.Enqueue(dialogueLine);
         }
 
-        if (Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            DisplayNextLine();
-        }
+        DisplayNextLine();
     }
 
     public void DisplayNextLine()
@@ -54,22 +52,23 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        DialogueLines currentLine = lines.Dequeue();
+        DialogueLine currentLine = lines.Dequeue();
 
         characterIcon.sprite = currentLine.character.icon;
+        Debug.Log("icon");
         characterName.text = currentLine.character.name;
-
+        Debug.Log("name");
         StopAllCoroutines();
         StartCoroutine(TypeLine(currentLine));
     }
 
-    IEnumerator TypeLine(DialogueLines dialogueLines) //makes the text appear letter by letter
+    IEnumerator TypeLine(DialogueLine dialogueLines) //makes the text appear letter by letter
     {
-        dialogueArea.text = "";
-        foreach (char c in dialogueLines.lines.ToCharArray())
+        dialogueText.text = "";
+        foreach (char c in dialogueLines.line.ToCharArray())
         {
-            dialogueArea.text += c;
-            yield return new WaitForSecondsRealtime(textSpeed);
+            dialogueText.text += c;
+            yield return new WaitForSeconds(textSpeed);
         }
     }
 
