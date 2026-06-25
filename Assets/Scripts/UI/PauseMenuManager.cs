@@ -10,11 +10,16 @@ namespace AdequateEnough
         [Header("Panels")]
         [SerializeField] private GameObject pausePanel;
         [SerializeField] private GameObject settingsPanel;
+        private PlayerController player;
         private bool isPaused;
-
+        private void Awake()
+        {
+            player = FindAnyObjectByType<PlayerController>();
+        }
         private void Update()
         {
-  
+        if (!player.isVideoPlaying)
+
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
                 Toggle();
         }

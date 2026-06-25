@@ -36,6 +36,11 @@ namespace AdequateEnough
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
+        public void StopCurrentFade()
+        {
+            // This kills any fading routine running directly on the Fader object
+            StopAllCoroutines();
+        }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
