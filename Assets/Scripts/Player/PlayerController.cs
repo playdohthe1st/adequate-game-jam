@@ -177,7 +177,7 @@ namespace AdequateEnough
         private bool IsAtApex => !isGrounded && Mathf.Abs(rb.linearVelocity.y) < apexThreshold;
 
         private void Awake()
-        {
+        {         
             rb = GetComponent<Rigidbody2D>();
             col = GetComponent<CapsuleCollider2D>();
             input = GetComponent<InputManager>();
@@ -200,7 +200,6 @@ namespace AdequateEnough
         }
         private void Update()
         {
-            Win();
             HandleRegen();
             if (isDead) return;
             //StopVideo();
@@ -665,12 +664,10 @@ namespace AdequateEnough
         }
         public void Win()
         {
-            if (Keyboard.current.gKey.wasPressedThisFrame)
-            {
+    
                 if (isVideoPlaying) return;
                 TriggerVideoSequence();
-              
-            }
+ 
         }
         public void TriggerVideoSequence()
         {

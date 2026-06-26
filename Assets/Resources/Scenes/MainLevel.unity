@@ -16504,6 +16504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.PauseMenuManager
   pausePanel: {fileID: 999787964}
   settingsPanel: {fileID: 160492353}
+  loreManager: {fileID: 1007678682}
 --- !u!114 &617521942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25650,6 +25651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 906422651}
   - component: {fileID: 906422652}
+  - component: {fileID: 906422653}
   m_Layer: 0
   m_Name: RubberRoomDoorLore (7)
   m_TagString: Untagged
@@ -25719,6 +25721,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.56855, y: 6.4632397}
   m_EdgeRadius: 0
+--- !u!114 &906422653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906422650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c814207985f1d45a3ed5a8b7ef324e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EndGameDoor
 --- !u!1 &911297060
 GameObject:
   m_ObjectHideFlags: 0
@@ -45045,11 +45059,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3021062566921754492, guid: 6e4aa782eba3c7f4091746986595c32b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 104.11461
+      value: 328.61462
       objectReference: {fileID: 0}
     - target: {fileID: 3021062566921754492, guid: 6e4aa782eba3c7f4091746986595c32b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 24.02336
+      value: 14.923359
       objectReference: {fileID: 0}
     - target: {fileID: 3021062566921754492, guid: 6e4aa782eba3c7f4091746986595c32b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -45109,11 +45123,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7214368498428932958, guid: 6e4aa782eba3c7f4091746986595c32b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 104.11461
+      value: 328.61462
       objectReference: {fileID: 0}
     - target: {fileID: 7214368498428932958, guid: 6e4aa782eba3c7f4091746986595c32b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 24.02336
+      value: 14.923359
       objectReference: {fileID: 0}
     - target: {fileID: 7214368498428932958, guid: 6e4aa782eba3c7f4091746986595c32b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -59809,11 +59823,11 @@ PrefabInstance:
       objectReference: {fileID: 1901498827}
     - target: {fileID: 6228679970223528795, guid: d49feed651a775d408a15f0cc5492606, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 105.5
+      value: 330
       objectReference: {fileID: 0}
     - target: {fileID: 6228679970223528795, guid: d49feed651a775d408a15f0cc5492606, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20.3
+      value: 11.2
       objectReference: {fileID: 0}
     - target: {fileID: 6228679970223528795, guid: d49feed651a775d408a15f0cc5492606, type: 3}
       propertyPath: m_LocalPosition.z
