@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7982619829015428695}
   - component: {fileID: 4406191187396573838}
   - component: {fileID: 8087835749983272348}
+  - component: {fileID: 6225084464222688652}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Player
@@ -114,6 +115,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6225084464222688652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2551704811348427241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 271bd50289aece740b898ec4dbe964e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.AnimationEventRelay
 --- !u!1 &7502926263048057469
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,6 +328,56 @@ MonoBehaviour:
   oneWayPlatformLayer:
     serializedVersion: 2
     m_Bits: 256
+  jumpSFX: {fileID: 8300000, guid: 2649b3cfb1a1b0b4d8b00838403704e0, type: 3}
+  spinIntroSFX: {fileID: 8300000, guid: 375e9edc14de20a489e759e3ba79f542, type: 3}
+  rollLoopSFX: {fileID: 8300000, guid: 29c5a5d93fad29e47bf2d1083e38ca04, type: 3}
+  playerHurtSFX: {fileID: 8300000, guid: a3a8b41ea07d3c947a9de81750788371, type: 3}
+  keycardSFX: {fileID: 8300000, guid: ffeb04114f7331b44a9a86c5212d3fa8, type: 3}
+  landStoneSFX:
+  - {fileID: 8300000, guid: 33cde2a91d314264c8dff969ec0f0e30, type: 3}
+  - {fileID: 8300000, guid: 111ea12e61e20884183378a09b29946c, type: 3}
+  - {fileID: 8300000, guid: 19091a2f462c1ad4ba05ea064618db5f, type: 3}
+  - {fileID: 8300000, guid: 28a657531c521d14c80e1fe929974be7, type: 3}
+  landWoodSFX:
+  - {fileID: 8300000, guid: 16bf4d86e25358d439584dd7c39591a0, type: 3}
+  - {fileID: 8300000, guid: 0712d14089a745f41a9686bc0ca84e5c, type: 3}
+  - {fileID: 8300000, guid: cab2e1871fe512348a0524feca6675d7, type: 3}
+  - {fileID: 8300000, guid: 2a3c1c84eb5c35447af0a830758787da, type: 3}
+  landMetalSFX:
+  - {fileID: 8300000, guid: 746a0fd728acf5245978cf9951f1f1f7, type: 3}
+  - {fileID: 8300000, guid: 37742745204619547afacee9bf0f7b14, type: 3}
+  - {fileID: 8300000, guid: 0f313ade87594074994f77a63857f9ca, type: 3}
+  - {fileID: 8300000, guid: bae40fb798e6d59428c67da421c47eaa, type: 3}
+  landMudSFX:
+  - {fileID: 8300000, guid: c62e2fe7d827c9c4b894370ea47cf027, type: 3}
+  - {fileID: 8300000, guid: 2767515dab02b844e8c77ae28573696d, type: 3}
+  - {fileID: 8300000, guid: 47aa1182939b2e5499c0982010eecd50, type: 3}
+  - {fileID: 8300000, guid: f0014d71e6d233a46bf6bc88db2aebce, type: 3}
+  landBedSFX: []
+  footStoneSFX:
+  - {fileID: 8300000, guid: 85bd517732423f248ab3a6a850708f9a, type: 3}
+  - {fileID: 8300000, guid: 94465e06a28f8674483a386121853980, type: 3}
+  - {fileID: 8300000, guid: 467a046d97ebc304a8be1cc5ba82ac63, type: 3}
+  - {fileID: 8300000, guid: 4157d69d8d817da4a8421309b23d5ed3, type: 3}
+  footWoodSFX:
+  - {fileID: 8300000, guid: 629e04d5fd7e2d647bb27a6dffc7fced, type: 3}
+  - {fileID: 8300000, guid: 15364cff079dd624095018dc609f0f04, type: 3}
+  - {fileID: 8300000, guid: 2d6b34e69db051043a7e1fb97e99b6b4, type: 3}
+  - {fileID: 8300000, guid: db64bd1507a7f0a43b89c6946be956a0, type: 3}
+  footMetalSFX:
+  - {fileID: 8300000, guid: 8125511f578efc34a87654321289049c, type: 3}
+  - {fileID: 8300000, guid: da30fc59a35160f4e985a718762e3a39, type: 3}
+  - {fileID: 8300000, guid: e36d6f4165fe2664dbad762894d51afa, type: 3}
+  - {fileID: 8300000, guid: 17e8fa696d3d5ef4daadd0639eb330a4, type: 3}
+  footMudSFX:
+  - {fileID: 8300000, guid: 06fee264493a0c249b5a86c6737888e8, type: 3}
+  - {fileID: 8300000, guid: a09d31c57362bcd4da938bf121f9983d, type: 3}
+  - {fileID: 8300000, guid: 9b287b1191cb2a84b810eacd56652afe, type: 3}
+  - {fileID: 8300000, guid: 514a060613f0be9468da1dcf710d28ee, type: 3}
+  footBedSFX:
+  - {fileID: 8300000, guid: 67434f1bf29b7194db78e7e4e7b4e6e4, type: 3}
+  - {fileID: 8300000, guid: 6c6926946109d804eadb7f70a9a8d193, type: 3}
+  - {fileID: 8300000, guid: 01e18942bf4966d4cb8a29ad024f3fe8, type: 3}
   currentKeycard: 0
   currentDoor: {fileID: 0}
   playerAnimator: {fileID: 8087835749983272348}

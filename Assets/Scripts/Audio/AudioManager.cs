@@ -18,6 +18,7 @@ public class AudioManager : MonoBehaviour
     #region Singleton
 
     public static AudioManager Instance { get; private set; }
+    public AudioMixerGroup SFXMixerGroup => sfxMixerGroup;
 
     #endregion
 

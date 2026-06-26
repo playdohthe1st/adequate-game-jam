@@ -102,6 +102,25 @@ namespace AdequateEnough
         [Header("One-Way Platforms")]
         [SerializeField] private LayerMask oneWayPlatformLayer;
 
+        [Header("SFX")]
+        [SerializeField] private AudioClip jumpSFX;
+        [SerializeField] private AudioClip spinIntroSFX;
+        [SerializeField] private AudioClip rollLoopSFX;
+        [SerializeField] private AudioClip playerHurtSFX;
+        [SerializeField] private AudioClip keycardSFX;
+        [Header("Landing SFX")]
+        [SerializeField] private AudioClip[] landStoneSFX;
+        [SerializeField] private AudioClip[] landWoodSFX;
+        [SerializeField] private AudioClip[] landMetalSFX;
+        [SerializeField] private AudioClip[] landMudSFX;
+        [SerializeField] private AudioClip[] landBedSFX;
+        [Header("Footstep SFX")]
+        [SerializeField] private AudioClip[] footStoneSFX;
+        [SerializeField] private AudioClip[] footWoodSFX;
+        [SerializeField] private AudioClip[] footMetalSFX;
+        [SerializeField] private AudioClip[] footMudSFX;
+        [SerializeField] private AudioClip[] footBedSFX;
+
         [Header("Security Clearance")]
         [SerializeField] private KeycardLevel currentKeycard = KeycardLevel.None;
         public Door currentDoor = null;
@@ -129,6 +148,8 @@ namespace AdequateEnough
         private InputManager input;
         private float speedMultiplier = 1f;
         private Coroutine gooDebuffCoroutine;
+        private AudioSource rollLoopSource;
+        private AudioSource footstepSource;
 
         private float defaultGravityScale;
         private float currentMaxSpeed;
@@ -185,17 +206,32 @@ namespace AdequateEnough
             currentMaxSpeed = maxSpeed * speedMultiplier;
             currentHealth = maxHealth;
             defaultScale = spriteTransform != null ? spriteTransform.localScale : transform.localScale;
-            // Give the physics a moment to settle on spawn before we check for landings
             skipLandingUntil = Time.time + 0.5f;
             OnKeycardUpgraded?.Invoke(currentKeycard);
+
+            rollLoopSource = gameObject.AddComponent<AudioSource>();
+            rollLoopSource.clip = rollLoopSFX;
+            rollLoopSource.loop = true;
+            rollLoopSource.playOnAwake = false;
+            rollLoopSource.spatialBlend = 0f;
+
+            footstepSource = gameObject.AddComponent<AudioSource>();
+            footstepSource.loop = false;
+            footstepSource.playOnAwake = false;
+            footstepSource.spatialBlend = 0f;
         }
         // Input reading and non-physics state changes go in Update so they run every rendered frame.
         // Physics forces go in FixedUpdate so they run at a fixed timestep, independent of frame rate.
         public void Start()
         {
             if (videoPlayer != null)
-            {
                 videoPlayer.loopPointReached += OnVideoFinished;
+
+            if (AudioManager.Instance != null)
+            {
+                var sfxGroup = AudioManager.Instance.SFXMixerGroup;
+                if (rollLoopSource != null) rollLoopSource.outputAudioMixerGroup = sfxGroup;
+                if (footstepSource != null) footstepSource.outputAudioMixerGroup = sfxGroup;
             }
         }
         private void Update()
@@ -269,6 +305,7 @@ namespace AdequateEnough
             {
                 currentKeycard++;
                 OnKeycardUpgraded?.Invoke(currentKeycard);
+                if (keycardSFX != null) AudioManager.Instance?.PlaySFX(keycardSFX);
             }
         }
         public void SetKeycardLevel(KeycardLevel newLevel)
@@ -491,9 +528,9 @@ namespace AdequateEnough
 
             if (squashCoroutine != null) StopCoroutine(squashCoroutine);
 
-            // 1. APPLY PHYSICS IMMEDIATELY so the player never gets stuck on edges
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            if (jumpSFX != null) AudioManager.Instance?.PlaySFX(jumpSFX);
 
             // 2. Start the animation normally without a physics delay
             squashCoroutine = StartCoroutine(JumpingSquash());
@@ -509,8 +546,9 @@ namespace AdequateEnough
 
             nextSpinTime = Time.time + spinCooldown;
             isSpinning = true;
-            
             spinStartY = transform.position.y;
+            if (spinIntroSFX != null) AudioManager.Instance?.PlaySFX(spinIntroSFX);
+            if (rollLoopSource != null && !rollLoopSource.isPlaying) rollLoopSource.Play();
 
             // If the player is holding a direction, snap it to the nearest 45 degree angle.
             // Otherwise default to the last direction the player was facing.
@@ -550,6 +588,7 @@ namespace AdequateEnough
                 currentMaxSpeed = maxSpeed * speedMultiplier;
                 isSpinning = false;
                 rb.gravityScale = defaultGravityScale;
+                rollLoopSource?.Stop();
             }
         }
 
@@ -618,6 +657,7 @@ namespace AdequateEnough
             rb.gravityScale = defaultGravityScale;
             currentMaxSpeed = maxSpeed * speedMultiplier;
             nextSpinTime = Time.time + spinCooldown;
+            rollLoopSource?.Stop();
         }
 
         private IEnumerator GooDebuffRoutine()
@@ -638,6 +678,7 @@ namespace AdequateEnough
             currentHealth = Mathf.Max(currentHealth - amount, 0f);
             timeSinceLastDamage = 0f;
             slopeDisableTimer = knockbackSlopeDisableDuration;
+            if (playerHurtSFX != null) AudioManager.Instance?.PlaySFX(playerHurtSFX);
             if (currentHealth <= 0f) Die();
         }
 
@@ -748,6 +789,7 @@ namespace AdequateEnough
             if (!wasGrounded && isGrounded && !isSpinning && Time.time >= nextSquashTime)
             {
                 nextSquashTime = Time.time + squashDuration + squashRecoverDuration + 0.1f;
+                PlayRandomSFX(GetLandClips(GetSurfaceBelow()));
 
                 if (landingSmokePrefab != null)
                 {
@@ -885,6 +927,61 @@ namespace AdequateEnough
 
             squashTarget.localScale = defaultScale;
             squashCoroutine = null;
+        }
+
+        private enum SurfaceType { Stone, Wood, Metal, Mud, Bed }
+
+        private SurfaceType GetSurfaceBelow()
+        {
+            if (groundCheck == null) return SurfaceType.Stone;
+            RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, slopeCheckDistance, groundLayer);
+            if (!hit) return SurfaceType.Stone;
+            return hit.collider.tag switch
+            {
+                "Wood"   => SurfaceType.Wood,
+                "Stairs" => SurfaceType.Wood,
+                "Metal"  => SurfaceType.Metal,
+                "Mud"    => SurfaceType.Mud,
+                "Bed"    => SurfaceType.Bed,
+                _        => SurfaceType.Stone
+            };
+        }
+
+        private AudioClip[] GetLandClips(SurfaceType surface) => surface switch
+        {
+            SurfaceType.Wood  => landWoodSFX,
+            SurfaceType.Metal => landMetalSFX,
+            SurfaceType.Mud   => landMudSFX,
+            SurfaceType.Bed   => landBedSFX,
+            _                 => landStoneSFX
+        };
+
+        private AudioClip[] GetFootstepClips(SurfaceType surface) => surface switch
+        {
+            SurfaceType.Wood  => footWoodSFX,
+            SurfaceType.Metal => footMetalSFX,
+            SurfaceType.Mud   => footMudSFX,
+            SurfaceType.Bed   => footBedSFX,
+            _                 => footStoneSFX
+        };
+
+        private void PlayRandomSFX(AudioClip[] clips)
+        {
+            if (clips == null || clips.Length == 0) return;
+            AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Length)];
+            if (clip != null) AudioManager.Instance?.PlaySFX(clip);
+        }
+
+        // Called by walk/run animation events
+        public void PlayFootstepSFX()
+        {
+            if (!isGrounded || isDead || footstepSource == null) return;
+            AudioClip[] clips = GetFootstepClips(GetSurfaceBelow());
+            if (clips == null || clips.Length == 0) return;
+            AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Length)];
+            if (clip == null) return;
+            footstepSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+            footstepSource.PlayOneShot(clip);
         }
 
         private void OnCollisionEnter2D(Collision2D col)

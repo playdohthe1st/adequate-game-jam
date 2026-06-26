@@ -315,7 +315,7 @@ namespace AdequateEnough
             {
                 isMoving = false;
             }
-            enemyAnimator.SetBool("IsMoving", isMoving);
+            if (enemyAnimator != null) enemyAnimator.SetBool("IsMoving", isMoving);
             if (rb.linearVelocityX > 0.1f)
                 enemySpriterenderer.flipX = invertFlipX;
             else if (rb.linearVelocityX < -0.1f)
@@ -393,10 +393,11 @@ namespace AdequateEnough
                 StopCoroutine(shootCoroutine);
                 shootCoroutine = null;
                 isShooting = false;
-                enemyAnimator.ResetTrigger("Shoot");
-                enemyAnimator.CrossFade(idleStateName, 0.05f);
+                if (enemyAnimator != null) enemyAnimator.ResetTrigger("Shoot");
+                if (enemyAnimator != null) enemyAnimator.CrossFade(idleStateName, 0.05f);
             }
             if (retreatAfterContact) TriggerContactRetreat();
+            if (data?.hurtSFX != null) AudioManager.Instance?.PlaySFX(data.hurtSFX);
             StartCoroutine(FlashWhiteRoutine());
             StartCoroutine(HitStopRoutine());
             if (currentHealth <= 0f) Die();
@@ -426,7 +427,7 @@ namespace AdequateEnough
                 chaseDir = Mathf.Sign(player.transform.position.x - transform.position.x);
 
             enemySpriterenderer.flipX = chaseDir > 0f;
-            enemyAnimator.SetTrigger("Shoot");
+            if (enemyAnimator != null) enemyAnimator.SetTrigger("Shoot");
 
             float fireTime = shootFireFrame / Mathf.Max(shootAnimFPS, 1f);
             float remaining = shootAnimDuration - fireTime;
@@ -447,6 +448,7 @@ namespace AdequateEnough
                     ? enemySpriterenderer.transform.localScale.x / 0.43f
                     : 1f;
                 goo?.Launch(target, projectileTravelTime, projectileFlip, scaleMultiplier, attackDamage);
+                if (data?.attackSFX != null) AudioManager.Instance?.PlaySFX(data.attackSFX);
             }
 
             if (remaining > 0f) yield return new WaitForSeconds(remaining);
@@ -457,7 +459,7 @@ namespace AdequateEnough
         {
             isAttacking = true;
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-            if (!string.IsNullOrEmpty(meleeAnimTrigger))
+            if (!string.IsNullOrEmpty(meleeAnimTrigger) && enemyAnimator != null)
                 enemyAnimator.SetTrigger(meleeAnimTrigger);
 
             float f = chaseDir;
@@ -488,6 +490,7 @@ namespace AdequateEnough
             // Strike sweep — collider active, starting from pre-strike (or windup if no hold)
             Vector2 strikeFromPos = meleeHoldDuration > 0f ? preStrikePos : windupPos;
             float   strikeFromRot = meleeHoldDuration > 0f ? preStrikeRot : windupRot;
+            if (data?.attackSFX != null) AudioManager.Instance?.PlaySFX(data.attackSFX);
             if (weaponCollider != null) weaponCollider.enabled = true;
             yield return LerpWeapon(strikeFromPos, strikePos, strikeFromRot, strikeRot, meleeStrikeDuration);
             if (meleeColliderLingerDuration > 0f)
@@ -581,6 +584,7 @@ namespace AdequateEnough
             if (isDead) return;
             isDead = true;
 
+            if (data?.deathSFX != null) AudioManager.Instance?.PlaySFX(data.deathSFX);
             if (data != null && data.isBoss && player != null)
                 player.GiveNextKeycard();
             Time.timeScale = savedTimeScale;
@@ -674,13 +678,16 @@ namespace AdequateEnough
         private void RollCombatIntent()
         {
             bool canShoot = data == null || data.canShoot;
+            bool canMelee = data == null || data.canMelee;
+            // Shoot-only enemies have no reason to chase (nothing to do at melee range)
+            float effectiveChase   = (canShoot && !canMelee) ? 0f : chaseIntentWeight;
             float effectiveShoot   = canShoot ? shootIntentWeight   : 0f;
             float effectiveRetreat = canShoot ? retreatIntentWeight : 0f;
-            float total = chaseIntentWeight + effectiveShoot + effectiveRetreat;
+            float total = effectiveChase + effectiveShoot + effectiveRetreat;
             float roll = Random.Range(0f, total);
-            if (roll < chaseIntentWeight)
+            if (roll < effectiveChase)
                 currentIntent = CombatIntent.Chase;
-            else if (roll < chaseIntentWeight + effectiveShoot)
+            else if (roll < effectiveChase + effectiveShoot)
                 currentIntent = CombatIntent.Shoot;
             else
                 currentIntent = CombatIntent.Retreat;
