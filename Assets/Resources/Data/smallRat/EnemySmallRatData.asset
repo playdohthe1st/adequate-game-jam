@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d809de522e32a644da7ec53636dd3bea, type: 3}
-  m_Name: EnemyRatData
+  m_Name: EnemySmallRatData
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemyData
-  enemyPrefab: {fileID: 4752224983724861292, guid: a438760a6bfd69e4489b0be318f062a3, type: 3}
-  health: 50
+  enemyPrefab: {fileID: 0}
+  health: 20
   attackDamage: 10
+  canMelee: 0
+  canShoot: 0
   isBoss: 0
