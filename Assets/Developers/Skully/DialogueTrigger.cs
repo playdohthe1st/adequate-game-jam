@@ -26,12 +26,12 @@ public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue;
 
-    public void TriggerDialogue()
+    public void TriggerDialogue() //call this function to start dialogue when interacting
     {
         DialogueManager.instance.StartDialogue(dialogue);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) //need to turn this off when interactions are able to work
     {
         if (collision.CompareTag("Player"))
         {

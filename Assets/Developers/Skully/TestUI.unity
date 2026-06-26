@@ -868,11 +868,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569619896}
   m_CullTransparentMesh: 1
---- !u!1 &577668297 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3314804318949079095, guid: 7d4745d38210d6b4da809c67d63ccc0c, type: 3}
-  m_PrefabInstance: {fileID: 1572083619}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &582732752
 GameObject:
   m_ObjectHideFlags: 0
@@ -1343,6 +1338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1034731873}
   - component: {fileID: 1034731872}
+  - component: {fileID: 1034731874}
   m_Layer: 0
   m_Name: DialogueManager
   m_TagString: Untagged
@@ -1368,6 +1364,7 @@ MonoBehaviour:
   dialogueText: {fileID: 554630288509048202}
   dialogueBox: {fileID: 6137941740657368397}
   dialogueActive: 0
+  typeSound: {fileID: 1034731874}
 --- !u!4 &1034731873
 Transform:
   m_ObjectHideFlags: 0
@@ -1383,6 +1380,103 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1034731874
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034731871}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 2d640bbd5890a254290d9a9efe38347e, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1442232027
 GameObject:
   m_ObjectHideFlags: 0
@@ -1732,10 +1826,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3314804318949079095, guid: 7d4745d38210d6b4da809c67d63ccc0c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2042963867}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d4745d38210d6b4da809c67d63ccc0c, type: 3}
 --- !u!1 &1615450442
 GameObject:
@@ -2646,28 +2737,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3662615706797670268, guid: 7d4745d38210d6b4da809c67d63ccc0c, type: 3}
   m_PrefabInstance: {fileID: 1572083619}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2042963867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 577668297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 573b1cf410e3bbe4aa91f3aa456dc6a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
-  dialogue:
-    dialogueLines:
-    - character:
-        name: Player
-        icon: {fileID: 0}
-      line: 
-    - character:
-        name: NPC
-        icon: {fileID: 0}
-      line: 
 --- !u!1 &2108384648
 GameObject:
   m_ObjectHideFlags: 0
