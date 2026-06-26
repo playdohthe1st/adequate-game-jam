@@ -17,6 +17,7 @@ public class DialogueManager : MonoBehaviour
     private Queue<DialogueLine> lines; 
     public bool dialogueActive = false;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -33,6 +34,8 @@ public class DialogueManager : MonoBehaviour
         dialogueActive = true;
 
         dialogueBox.gameObject.SetActive(true);
+
+
 
         lines.Clear();
 
