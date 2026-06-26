@@ -10,6 +10,8 @@ namespace AdequateEnough
         [Header("Panels")]
         [SerializeField] private GameObject pausePanel;
         [SerializeField] private GameObject settingsPanel;
+        [SerializeField] private LoreManager loreManager;
+
         private PlayerController player;
         private bool isPaused;
         private void Awake()
@@ -18,7 +20,7 @@ namespace AdequateEnough
         }
         private void Update()
         {
-        if (!player.isVideoPlaying)
+        if (!player.isVideoPlaying && loreManager.activePanelIndex == -1)
 
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
                 Toggle();
