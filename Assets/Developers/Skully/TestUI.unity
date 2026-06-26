@@ -1364,7 +1364,7 @@ MonoBehaviour:
   dialogueText: {fileID: 554630288509048202}
   dialogueBox: {fileID: 6137941740657368397}
   dialogueActive: 0
-  typeSound: {fileID: 1034731874}
+  typeSound: {fileID: 8300000, guid: 2d640bbd5890a254290d9a9efe38347e, type: 3}
 --- !u!4 &1034731873
 Transform:
   m_ObjectHideFlags: 0
@@ -1393,8 +1393,8 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 2d640bbd5890a254290d9a9efe38347e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.532
+  m_Pitch: 2.13
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -1403,7 +1403,7 @@ AudioSource:
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
-  Pan2D: 0
+  Pan2D: 0.37
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
@@ -1437,7 +1437,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.113
       inSlope: 0
       outSlope: 0
       tangentMode: 0
