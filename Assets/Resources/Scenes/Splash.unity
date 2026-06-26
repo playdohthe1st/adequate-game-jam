@@ -270,7 +270,8 @@ MonoBehaviour:
   defaultMusicVolume: 0.8
   defaultSFXVolume: 0.8
   defaultVOVolume: 1
-  defaultGameplayMusic: {fileID: 0}
+  defaultGameplayMusic: {fileID: 8300000, guid: 05a623df1e923a944b0de05750e14c95, type: 3}
+  mainMenuMusic: {fileID: 8300000, guid: 3badb86f052d33b44b5de0f821a53db1, type: 3}
   nonGameplayScenes:
   - Splash
   floorMusicEntries: []
