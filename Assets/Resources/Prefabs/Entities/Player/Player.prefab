@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_LocalScale: {x: 0.22, y: 0.22, z: 0.22}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6228679970223528795}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 100
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 741884181, guid: d3bbb5ceeb73d3f4d8c562896f5b7185, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b472405c43c1bee448a47abf44134b1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &8087835749983272348
 Animator:
   serializedVersion: 7
@@ -139,7 +139,7 @@ Transform:
   m_GameObject: {fileID: 7502926263048057469}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.157, y: -0.057, z: 0}
+  m_LocalPosition: {x: -0.024000168, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -244,8 +244,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.01, y: 0.74}
-  m_Size: {x: 0.7661465, y: 1.4532597}
+  m_Offset: {x: -0.00999999, y: 1.0934232}
+  m_Size: {x: 0.7661465, y: 1.9369524}
   m_Direction: 0
 --- !u!114 &3370816385618187664
 MonoBehaviour:
@@ -288,11 +288,14 @@ MonoBehaviour:
   squashAmount: 0.15
   squashDuration: 0.08
   squashRecoverDuration: 0.12
+  maxFallStretch: 0.15
+  maxFallSpeed: 20
+  fallStretchLerpSpeed: 10
   groundCheck: {fileID: 1055627738807038533}
-  groundCheckSize: {x: 0.5, y: 0.1}
+  groundCheckSize: {x: 2, y: 0.2}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 264
   slopeCheckDistance: 0.2
   maxSlopeAngle: 65
   knockbackSlopeDisableDuration: 0.6
@@ -305,13 +308,26 @@ MonoBehaviour:
   spinForce: 20
   spinMaxSpeed: 18
   spinDecayRate: 4
-  spinCooldown: 0.5
+  spinCooldown: 2
   upwardSpinGravityScale: 0.5
   spinMaxRise: 6
   spinDamage: 20
+  oneWayPlatformLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  currentKeycard: 0
+  currentDoor: {fileID: 0}
   playerAnimator: {fileID: 8087835749983272348}
   playerSpriterender: {fileID: 4406191187396573838}
   spriteTransform: {fileID: 7982619829015428695}
+  landingSmokePrefab: {fileID: 4983050535291078389, guid: 69794fa87f593c0499a16334c6d9f394, type: 3}
+  screenFader: {fileID: 0}
+  deathScreen: {fileID: 0}
+  creditScreen: {fileID: 0}
+  healthImage: {fileID: 0}
+  videoPanel: {fileID: 0}
+  videoPlayer: {fileID: 0}
+  isVideoPlaying: 0
 --- !u!1 &8928107593932496124
 GameObject:
   m_ObjectHideFlags: 0

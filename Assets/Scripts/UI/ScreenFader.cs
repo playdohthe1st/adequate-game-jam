@@ -15,7 +15,12 @@ namespace AdequateEnough
 
         private void Awake()
         {
-            if (Instance != null) { Destroy(gameObject); return; }
+            if (Instance != null)
+            {
+                Destroy(transform.root.gameObject);
+                return;
+            }
+
             Instance = this;
 
             var rootCanvas = transform.root.GetComponent<Canvas>();
@@ -30,6 +35,11 @@ namespace AdequateEnough
         private void OnDestroy()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+        public void StopCurrentFade()
+        {
+        
+            StopAllCoroutines();
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -69,7 +79,7 @@ namespace AdequateEnough
             yield return StartCoroutine(Fade(1f, 0f, fadeDuration));
         }
 
-        private IEnumerator Fade(float from, float to, float duration)
+        public IEnumerator Fade(float from, float to, float duration)
         {
             if (blackScreen == null)
             {

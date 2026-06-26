@@ -1,5 +1,10 @@
 using System;
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.Video;
 public enum KeycardLevel
 {
     None = 0,
@@ -94,6 +99,9 @@ namespace AdequateEnough
         [SerializeField] private float spinMaxRise = 6f;
         [SerializeField] private float spinDamage = 20f;
 
+        [Header("One-Way Platforms")]
+        [SerializeField] private LayerMask oneWayPlatformLayer;
+
         [Header("Security Clearance")]
         [SerializeField] private KeycardLevel currentKeycard = KeycardLevel.None;
         public Door currentDoor = null;
@@ -106,10 +114,21 @@ namespace AdequateEnough
         //Particles
         [SerializeField] private GameObject landingSmokePrefab;
         [SerializeField] private ScreenFader screenFader;
+        // ui
+        [SerializeField] private GameObject deathScreen;
+        [SerializeField] private GameObject creditScreen;
+        [SerializeField] private Image healthImage;
+        //end video     
+        [SerializeField] private GameObject videoPanel; 
+        [SerializeField] private VideoPlayer videoPlayer;
+        private Coroutine videoRoutineInstance;
+        public bool isVideoPlaying = false;
 
         private Rigidbody2D rb;
         private CapsuleCollider2D col;
         private InputManager input;
+        private float speedMultiplier = 1f;
+        private Coroutine gooDebuffCoroutine;
 
         private float defaultGravityScale;
         private float currentMaxSpeed;
@@ -139,10 +158,15 @@ namespace AdequateEnough
         private float timeSinceLastDamage;
         private float slopeDisableTimer;
         private bool isDead;
+        private bool isOnStairs;
+        private Vector2 stairContactNormal = Vector2.up;
+        private bool isDropping;
+        private Collider2D currentOneWayPlatform;
 
         public float CurrentHealth => currentHealth;
         public float MaxHealth => maxHealth;
         public bool IsDead => isDead;
+        public bool IsSpinning => isSpinning;
 
         // Fired when the player respawns at the original spawn point with no checkpoint active
         public static event System.Action OnRespawnedAtOrigin;
@@ -158,7 +182,7 @@ namespace AdequateEnough
             col = GetComponent<CapsuleCollider2D>();
             input = GetComponent<InputManager>();
             defaultGravityScale = rb.gravityScale;
-            currentMaxSpeed = maxSpeed;
+            currentMaxSpeed = maxSpeed * speedMultiplier;
             currentHealth = maxHealth;
             defaultScale = spriteTransform != null ? spriteTransform.localScale : transform.localScale;
             // Give the physics a moment to settle on spawn before we check for landings
@@ -167,11 +191,19 @@ namespace AdequateEnough
         }
         // Input reading and non-physics state changes go in Update so they run every rendered frame.
         // Physics forces go in FixedUpdate so they run at a fixed timestep, independent of frame rate.
+        public void Start()
+        {
+            if (videoPlayer != null)
+            {
+                videoPlayer.loopPointReached += OnVideoFinished;
+            }
+        }
         private void Update()
         {
+            Win();
             HandleRegen();
             if (isDead) return;
-
+            //StopVideo();
             CheckGround();
             DetectLanding();
             CheckSlope();
@@ -185,15 +217,19 @@ namespace AdequateEnough
             // Buffer the input flags here so they're not missed if FixedUpdate runs late
             if (input.GetJumpPressed()) jumpBufferCounter = jumpBufferTime;
             if (input.GetSpinPressed()) spinQueued = true;
+            TryDropThrough();
             if (input.GetInteract()) GoToNextRoom();
             if (screenFader == null)
             {
                 screenFader = FindAnyObjectByType<ScreenFader>();
             }
+            // for skip finalCutsene video 
+         
         }
 
         private void FixedUpdate()
         {
+         
             if (isDead) return;
 
             HandleSpinDecay();
@@ -205,6 +241,29 @@ namespace AdequateEnough
 
         // Lerp toward raw input each frame instead of using it directly.
         // This gives the movement a slight ramp-up/ramp-down feel without needing a state machine.
+
+        //private void StopVideo()
+        //{
+        //    if (isVideoPlaying)
+         //   {
+         //       if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return))
+         //       {
+         //           if (videoPlayer != null)
+         //           {
+         //               videoPlayer.loopPointReached -= OnVideoFinished;
+         //               videoPlayer.Stop();
+         //           }
+         //
+          //          if (videoRoutineInstance != null)
+          //          {
+          //              StopCoroutine(videoRoutineInstance);
+         //               videoRoutineInstance = null;
+         //           }
+         //
+         //           StartCoroutine(StartCredits());
+         //       }
+         //   }
+        //}
         public void GiveNextKeycard()
         {
             if (currentKeycard < KeycardLevel.SectorC)
@@ -264,7 +323,7 @@ namespace AdequateEnough
             {
                 playerSpriterender.flipX = true;
             }
-              
+            healthImage.fillAmount = currentHealth / maxHealth; 
 
         }
         private void UpdateTimers()
@@ -288,23 +347,31 @@ namespace AdequateEnough
 
         private void HandleGravity()
         {
+            // Kill gravity while standing still on a slope so the player can't slide down.
+            // Velocity is also zeroed in Move(), but gravity reapplies every physics step —
+            // both together are needed to fully prevent creep.
+            if ((isOnSlope && Mathf.Abs(input.GetMove().x) < 0.01f) || isOnStairs)
+            {
+                rb.gravityScale = 0f;
+                return;
+            }
+
             float targetGravity;
 
             if (!isSpinning && IsAtApex)
-                targetGravity = defaultGravityScale * apexGravityMultiplier; // hang at the top (normal jump only)
+                targetGravity = defaultGravityScale * apexGravityMultiplier;
             else if (rb.linearVelocity.y < 0f)
-                targetGravity = defaultGravityScale * fallGravityMultiplier; // fall faster than we rose
+                targetGravity = defaultGravityScale * fallGravityMultiplier;
             else
                 targetGravity = defaultGravityScale;
 
-            // Lerp to the target gravity scale so transitions aren't jarring
             rb.gravityScale = Mathf.Lerp(rb.gravityScale, targetGravity, 12f * Time.deltaTime);
         }
 
         private void CheckGround()
         {
             if (groundCheck == null) { isGrounded = false; return; }
-            isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
+            isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer | oneWayPlatformLayer);
         }
 
         private void CheckSlope()
@@ -318,16 +385,14 @@ namespace AdequateEnough
 
             RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, slopeCheckDistance, groundLayer);
 
-            // Ignore hits that are far below - the player is standing on a surface above the slope
             if (hit && hit.distance <= groundCheckSize.y + 0.05f)
             {
                 slopeNormal = hit.normal;
                 float angle = Vector2.Angle(slopeNormal, Vector2.up);
-                isOnSlope = angle > 1f && angle <= maxSlopeAngle;
+                isOnSlope = angle > 10f && angle <= maxSlopeAngle;
 
                 if (col != null)
                 {
-                    // Switch to full friction when standing still on a slope, otherwise the player slides
                     bool standing = Mathf.Abs(input.GetMove().x) < 0.01f;
                     col.sharedMaterial = (isOnSlope && standing) ? fullFriction : noFriction;
                 }
@@ -360,7 +425,7 @@ namespace AdequateEnough
                 // In the air we apply reduced force and can't exceed maxSpeed (with apex boost applied)
                 if (Mathf.Abs(smoothedInput.x) > 0.01f)
                 {
-                    float effectiveMaxSpeed = IsAtApex ? maxSpeed * apexSpeedBoost : maxSpeed;
+                    float effectiveMaxSpeed = (IsAtApex ? maxSpeed * apexSpeedBoost : maxSpeed) * speedMultiplier;
                     float airDesiredSpeed = smoothedInput.x * effectiveMaxSpeed;
                     rb.AddForce((airDesiredSpeed - rb.linearVelocity.x) * acceleration * controlMult * Vector2.right, ForceMode2D.Force);
                 }
@@ -371,12 +436,27 @@ namespace AdequateEnough
                 return;
             }
 
+            // Stairs: bypass AddForce entirely and set velocity directly along the slope surface.
+            // Force-based movement produces unpredictable directions on angled surfaces.
+            if (isOnStairs)
+            {
+                if (Mathf.Abs(smoothedInput.x) < 0.01f)
+                {
+                    rb.linearVelocity = Vector2.zero;
+                }
+                else
+                {
+                    Vector2 stairDir = new Vector2(stairContactNormal.y, -stairContactNormal.x) * Mathf.Sign(smoothedInput.x);
+                    rb.linearVelocity = stairDir * Mathf.Abs(smoothedInput.x) * maxSpeed * speedMultiplier;
+                }
+                return;
+            }
+
             float desiredSpeed = smoothedInput.x * currentMaxSpeed;
             float rate;
 
             if (Mathf.Abs(smoothedInput.x) > 0.01f)
             {
-                // Use a faster rate when reversing direction so the player can pivot quickly
                 bool changingDir = Mathf.Sign(smoothedInput.x) != Mathf.Sign(rb.linearVelocity.x)
                                    && Mathf.Abs(rb.linearVelocity.x) > 0.1f;
                 rate = changingDir ? deceleration * 1.5f : acceleration;
@@ -386,22 +466,18 @@ namespace AdequateEnough
                 rate = deceleration;
             }
 
-            // On a slope with no input, pin velocity to zero so gravity can't slide the player down
             if (isOnSlope && Mathf.Abs(input.GetMove().x) < 0.01f)
             {
                 rb.linearVelocity = Vector2.zero;
                 return;
             }
 
-            // On a slope, push along the slope surface rather than horizontally so the player
-            // stays flush with the ground instead of fighting against the slope's normal
             Vector2 moveDir = isOnSlope
                 ? new Vector2(slopeNormal.y, -slopeNormal.x) * Mathf.Sign(smoothedInput.x)
                 : Vector2.right;
 
             rb.AddForce((desiredSpeed - rb.linearVelocity.x) * rate * moveDir, ForceMode2D.Force);
 
-            // Cap horizontal speed on slopes to prevent accelerating downhill, leave Y untouched
             if (isOnSlope)
                 rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x, -maxSlopeSpeed, maxSlopeSpeed), rb.linearVelocity.y);
         }
@@ -450,7 +526,7 @@ namespace AdequateEnough
 
             rb.linearVelocity = spinDirection * spinForce;
             spinInitialYVelocity = rb.linearVelocity.y;
-            currentMaxSpeed = spinMaxSpeed;
+            currentMaxSpeed = spinMaxSpeed * speedMultiplier;
         }
 
         // Each FixedUpdate, bleed currentMaxSpeed back toward the normal maxSpeed.
@@ -468,14 +544,48 @@ namespace AdequateEnough
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Min(rb.linearVelocity.y, maxY));
             }
 
-            currentMaxSpeed = Mathf.MoveTowards(currentMaxSpeed, maxSpeed, spinDecayRate * Time.fixedDeltaTime);
+            currentMaxSpeed = Mathf.MoveTowards(currentMaxSpeed, maxSpeed * speedMultiplier, spinDecayRate * Time.fixedDeltaTime);
 
-            if (Mathf.Approximately(currentMaxSpeed, maxSpeed))
+            if (Mathf.Approximately(currentMaxSpeed, maxSpeed * speedMultiplier))
             {
-                currentMaxSpeed = maxSpeed;
+                currentMaxSpeed = maxSpeed * speedMultiplier;
                 isSpinning = false;
                 rb.gravityScale = defaultGravityScale;
             }
+        }
+
+        private void TryDropThrough()
+        {
+            if (!isGrounded || isDropping) return;
+
+            bool dropPressed = input.GetMove().y < -0.5f
+                || Keyboard.current.cKey.isPressed
+                || Keyboard.current.leftCtrlKey.isPressed
+                || Keyboard.current.rightCtrlKey.isPressed;
+
+            if (dropPressed) StartCoroutine(DropThrough());
+        }
+
+        private IEnumerator DropThrough()
+        {
+            isDropping = true;
+
+            Collider2D platform = currentOneWayPlatform;
+            if (platform != null)
+            {
+                Physics2D.IgnoreCollision(col, platform, true);
+
+                // Wait a minimum time, then keep waiting until the player is fully clear.
+                // Re-enabling while still inside would snap the player back up.
+                yield return new WaitForSeconds(0.15f);
+                float safetyTimeout = Time.time + 2f;
+                while (Physics2D.Distance(col, platform).distance < 0f && Time.time < safetyTimeout)
+                    yield return null;
+
+                Physics2D.IgnoreCollision(col, platform, false);
+            }
+
+            isDropping = false;
         }
 
         // Snaps an arbitrary input direction to the 8 cardinal/diagonal directions (every 45 degrees)
@@ -495,6 +605,34 @@ namespace AdequateEnough
                 currentHealth = Mathf.Min(currentHealth + regenRate * Time.deltaTime, maxHealth);
         }
 
+        public void ApplyGooDebuff()
+        {
+            InterruptSpin();
+            if (gooDebuffCoroutine != null) StopCoroutine(gooDebuffCoroutine);
+            gooDebuffCoroutine = StartCoroutine(GooDebuffRoutine());
+        }
+
+        private void InterruptSpin()
+        {
+            if (!isSpinning) return;
+            isSpinning = false;
+            rb.gravityScale = defaultGravityScale;
+            currentMaxSpeed = maxSpeed * speedMultiplier;
+            nextSpinTime = Time.time + spinCooldown;
+        }
+
+        private IEnumerator GooDebuffRoutine()
+        {
+            speedMultiplier = 0.5f;
+            if (!isSpinning) currentMaxSpeed = maxSpeed * speedMultiplier;
+            if (playerSpriterender != null) playerSpriterender.color = Color.green;
+            yield return new WaitForSeconds(3f);
+            speedMultiplier = 1f;
+            if (!isSpinning) currentMaxSpeed = maxSpeed * speedMultiplier;
+            if (playerSpriterender != null) playerSpriterender.color = Color.white;
+            gooDebuffCoroutine = null;
+        }
+
         public void TakeDamage(float amount)
         {
             if (isDead) return;
@@ -512,13 +650,70 @@ namespace AdequateEnough
             if (isDead) return;
             isDead = true;
             rb.linearVelocity = Vector2.zero;
-            // TODO: Show death UI here before fading (score screen, respawn prompt, etc.)
             if (ScreenFader.Instance != null)
-                ScreenFader.Instance.RespawnFade(Respawn);
+            {
+                deathScreen.SetActive(true);
+            }
+            // if (Respawn Logic if is going to have one)
+            // {
+            //     if (ScreenFader.Instance != null)
+            //         ScreenFader.Instance.RespawnFade(Respawn);
+            //     else
+            //        Respawn();
+            //}
+
+        }
+        public void Win()
+        {
+            if (Keyboard.current.gKey.wasPressedThisFrame)
+            {
+                if (isVideoPlaying) return;
+                TriggerVideoSequence();
+              
+            }
+        }
+        public void TriggerVideoSequence()
+        {
+            if (!isVideoPlaying)
+            {
+                videoRoutineInstance = StartCoroutine(StartVideo());
+            }
+        }
+        private IEnumerator StartVideo()
+        {
+            isVideoPlaying = true;
+
+            // 1. Fade to Black
+            yield return StartCoroutine(ScreenFader.Instance.Fade(0f, 1f, 1f));
+            if (videoPlayer != null && videoPanel != null)
+            {
+                videoPanel.SetActive(true);
+                videoPlayer.Play();
+                yield return StartCoroutine(ScreenFader.Instance.Fade(1f, 0f, 0.3f));
+            }
             else
-                Respawn();
+            {
+                StartCoroutine(StartCredits());
+            }
+        }
+        private void OnVideoFinished(VideoPlayer vp)
+        {
+            StopAllCoroutines();
+            StartCoroutine(StartCredits());
         }
 
+        private IEnumerator StartCredits()
+        {
+            if (videoPanel != null) videoPanel.SetActive(false);
+            isVideoPlaying = false;
+            creditScreen.SetActive(true);
+            var creditsScript = creditScreen.GetComponentInChildren<CreditsScroll>();
+            if (creditsScript != null)
+            {
+                creditsScript.StartCredits();
+            }
+            yield return StartCoroutine(ScreenFader.Instance.Fade(1f, 0f, 1f));
+        }
         private void Respawn()
         {
             bool noCheckpoint = CheckpointManager.Instance == null || !CheckpointManager.Instance.HasActiveCheckpoint;
@@ -697,9 +892,34 @@ namespace AdequateEnough
 
         private void OnCollisionEnter2D(Collision2D col)
         {
-            Debug.Log("PHYSICS TOUCH DETECTED with: " + col.gameObject.name);
+            if (col.gameObject.CompareTag("Stairs"))
+            {
+                foreach (ContactPoint2D contact in col.contacts)
+                {
+                    if (contact.normal.y > 0.1f) { isOnStairs = true; stairContactNormal = contact.normal; break; }
+                }
+            }
             if (!isSpinning) return;
             col.gameObject.GetComponent<Enemy>()?.TakeDamage(spinDamage);
+        }
+
+        private void OnCollisionStay2D(Collision2D col)
+        {
+            if (col.gameObject.CompareTag("Stairs"))
+            {
+                foreach (ContactPoint2D contact in col.contacts)
+                {
+                    if (contact.normal.y > 0.1f) { isOnStairs = true; stairContactNormal = contact.normal; return; }
+                }
+            }
+            if (((1 << col.gameObject.layer) & oneWayPlatformLayer) != 0)
+                currentOneWayPlatform = col.collider;
+        }
+
+        private void OnCollisionExit2D(Collision2D col)
+        {
+            if (col.gameObject.CompareTag("Stairs")) { isOnStairs = false; stairContactNormal = Vector2.up; }
+            if (col.collider == currentOneWayPlatform) currentOneWayPlatform = null;
         }
 
         private void OnTriggerEnter2D(Collider2D col)

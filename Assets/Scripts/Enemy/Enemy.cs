@@ -15,6 +15,17 @@ namespace AdequateEnough
         [SerializeField] private float moveSpeed = 3f;
         [SerializeField] private float detectionRadius = 8f;
 
+        [Header("Navigation")]
+        [SerializeField] private LayerMask groundLayer;
+        [SerializeField] private LayerMask obstacleLayer = ~0;
+        [SerializeField] private float groundCheckDistance = 0.15f;
+        [SerializeField] private float wallCheckDistance = 0.4f;
+        [SerializeField] private float jumpForceMin = 3f;
+        [SerializeField] private float jumpForce = 10f;
+        [SerializeField] private float jumpCooldown = 0.8f;
+        [SerializeField] private float jumpProbeHeight = 3f;
+        [SerializeField] private float jumpClearance = 0.2f;
+
         [Header("Combat")]
         [SerializeField] private float regenRate = 5f;
         // Seconds after last hit before health starts regenerating
@@ -35,6 +46,24 @@ namespace AdequateEnough
         [SerializeField] private float pushForce = 8f;
         [SerializeField] private float chaseStopDistance = 1.5f;
 
+        [Header("Ranged Attack")]
+        [SerializeField] private float shootCooldown = 5f;
+        [SerializeField] private float shootMinDistance = 3f;
+        [SerializeField] private float shootAnimDuration = 1f;
+        [SerializeField] private int shootFireFrame = 0;
+        [SerializeField] private float shootAnimFPS = 14f;
+        [SerializeField] private float projectileTravelTime = 1f;
+        [SerializeField] private GameObject gooProjectilePrefab;
+        [SerializeField] private Transform shootLeftTransform;
+        [SerializeField] private Transform shootRightTransform;
+
+        [Header("Combat Behavior")]
+        [SerializeField] private float chaseIntentWeight  = 1f;
+        [SerializeField] private float shootIntentWeight  = 1f;
+        [SerializeField] private float retreatIntentWeight = 1f;
+        [SerializeField] private float retreatTargetDistance = 7f;
+        [SerializeField] private float retreatMoveSpeed = 5f;
+
         [Header("Melee Attack")]
         [SerializeField] private Transform weaponTransform;
         [SerializeField] private float meleeRange = 2f;
@@ -49,6 +78,7 @@ namespace AdequateEnough
         [Header("VisualUpdater")]
         [SerializeField] private Animator enemyAnimator;
         [SerializeField] private SpriteRenderer enemySpriterenderer;
+        [SerializeField] private string idleStateName = "Idle";
         [Header("Hit Effects")]
         [SerializeField] private Material flashMaterial; 
         [SerializeField] private float flashDuration = 0.08f;
@@ -66,7 +96,13 @@ namespace AdequateEnough
         private float attackDamage;
         private float timeSinceLastDamage;
         private bool isDead;
+        private float savedTimeScale = 1f;
         private bool isMoving;
+        private bool isGrounded;
+        private float lastJumpTime;
+        private float stuckTimer;
+        private float stairsAvoidTimer;
+        private float defaultGravityScale;
 
         private Vector2 homePosition;
         private bool hasHome;
@@ -81,6 +117,15 @@ namespace AdequateEnough
         private CinemachineImpulseSource impulseSource;
         private float nextMeleeTime;
         private bool isAttacking;
+        private float nextShootTime;
+        private bool isShooting;
+        private Coroutine shootCoroutine;
+
+        private enum CombatIntent { Shoot, Chase, Retreat }
+        private CombatIntent currentIntent;
+        private bool playerWasInRange;
+        private float retreatTargetX;
+        private bool retreatReached;
 
         public float CurrentHealth => currentHealth;
         public float MaxHealth => maxHealth;
@@ -88,6 +133,7 @@ namespace AdequateEnough
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
+            defaultGravityScale = rb.gravityScale;
 
             if (weaponTransform != null)
             {
@@ -101,12 +147,29 @@ namespace AdequateEnough
             {
                 maxHealth = data.ResolvedHealth;
                 attackDamage = data.ResolvedAttackDamage;
+                meleeDamage = attackDamage;
 
                 if (data.isBoss)
                     transform.localScale *= data.ScaleMultiplier;
+                else
+                    ApplyCommonVariation();
             }
 
             currentHealth = maxHealth;
+        }
+
+        private void ApplyCommonVariation()
+        {
+            if (enemySpriterenderer != null)
+            {
+                float scaleFactor = Random.Range(0.85f, 1.15f);
+                enemySpriterenderer.transform.localScale *= scaleFactor;
+
+                float h = Random.Range(0f, 1f);
+                float s = Random.Range(0.3f, 0.7f);
+                float v = Random.Range(0.7f, 1f);
+                enemySpriterenderer.color = Color.HSVToRGB(h, s, v);
+            }
         }
 
         private void Start()
@@ -119,6 +182,10 @@ namespace AdequateEnough
                 if (col != null && playerCol != null)
                     Physics2D.IgnoreCollision(col, playerCol, true);
             }
+
+            int enemyLayerMask = 1 << gameObject.layer;
+            foreach (PlatformEffector2D effector in FindObjectsByType<PlatformEffector2D>(FindObjectsSortMode.None))
+                effector.colliderMask &= ~enemyLayerMask;
         }
 
         private void Update()
@@ -130,9 +197,11 @@ namespace AdequateEnough
         private void FixedUpdate()
         {
             if (isDead) return;
+            CheckGround();
             PushPlayerIfOverlapping();
+            if (stairsAvoidTimer > 0f) stairsAvoidTimer -= Time.fixedDeltaTime;
 
-            bool playerInRange = player != null && !player.IsDead && Vector2.Distance(transform.position, player.transform.position) <= detectionRadius;
+            bool playerInRange = stairsAvoidTimer <= 0f && player != null && !player.IsDead && Vector2.Distance(transform.position, player.transform.position) <= detectionRadius;
 
             if (playerInRange)
             {
@@ -140,29 +209,27 @@ namespace AdequateEnough
                 wanderPauseTimer = 0f;
                 wasChasing = true;
 
+                if (!playerWasInRange)
+                {
+                    playerWasInRange = true;
+                    RollCombatIntent();
+                    if (currentIntent == CombatIntent.Retreat)
+                        SetupRetreatTarget();
+                }
+
                 float playerDist = Mathf.Abs(player.transform.position.x - transform.position.x);
-                if (!isAttacking && playerDist <= meleeRange && Time.fixedTime >= nextMeleeTime)
+                if (!isAttacking && !isShooting && !player.IsSpinning && playerDist <= meleeRange && Time.fixedTime >= nextMeleeTime)
                 {
                     nextMeleeTime = Time.fixedTime + meleeCooldown;
                     StartCoroutine(MeleeAttackRoutine());
                 }
 
-                if (!isAttacking)
-                {
-                    if (playerDist > chaseStopDistance)
-                    {
-                        ChasePlayer();
-                        isMoving = true;
-                    }
-                    else
-                    {
-                        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-                        isMoving = false;
-                    }
-                }
+                if (!isAttacking && !isShooting)
+                    ExecuteCombatIntent(playerDist);
             }
             else if (wasChasing && !isLingering)
             {
+                playerWasInRange = false;
                 wasChasing = false;
                 isLingering = true;
                 lingerTimer = Random.Range(lingerMin, lingerMax);
@@ -187,6 +254,7 @@ namespace AdequateEnough
             {
                 rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             }
+
         }
         // The method called by the boss when it dies
      
@@ -198,14 +266,10 @@ namespace AdequateEnough
                 isMoving = false;
             }
             enemyAnimator.SetBool("IsMoving", isMoving);
-            if (rb.linearVelocityX > 0)
-            {
+            if (rb.linearVelocityX > 0.1f)
                 enemySpriterenderer.flipX = false;
-            }
-            if (rb.linearVelocityX < 0)
-            {
+            else if (rb.linearVelocityX < -0.1f)
                 enemySpriterenderer.flipX = true;
-            }
         }
         private void ChasePlayer()
         {
@@ -223,7 +287,7 @@ namespace AdequateEnough
                 return;
             }
 
-            rb.linearVelocity = new Vector2(chaseDir * moveSpeed, rb.linearVelocity.y);
+            ApplyGroundedMove(chaseDir, moveSpeed);
         }
 
         private void Wander()
@@ -245,7 +309,7 @@ namespace AdequateEnough
             }
 
             float dir = Mathf.Sign(wanderTarget.x - transform.position.x);
-            rb.linearVelocity = new Vector2(dir * wanderSpeed, rb.linearVelocity.y);
+            ApplyGroundedMove(dir, wanderSpeed);
         }
 
         private void PickWanderTarget()
@@ -274,6 +338,14 @@ namespace AdequateEnough
             if (isDead) return;
             currentHealth = Mathf.Max(currentHealth - amount, 0f);
             timeSinceLastDamage = 0f;
+            if (isShooting && shootCoroutine != null)
+            {
+                StopCoroutine(shootCoroutine);
+                shootCoroutine = null;
+                isShooting = false;
+                enemyAnimator.ResetTrigger("Shoot");
+                enemyAnimator.CrossFade(idleStateName, 0.05f);
+            }
             StartCoroutine(FlashWhiteRoutine());
             StartCoroutine(HitStopRoutine());
             if (currentHealth <= 0f) Die();
@@ -294,6 +366,42 @@ namespace AdequateEnough
             playerRb.AddForce(Vector2.right * dir * pushForce, ForceMode2D.Force);
         }
 
+        private IEnumerator ShootRoutine()
+        {
+            isShooting = true;
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            isMoving = false;
+            if (player != null)
+                chaseDir = Mathf.Sign(player.transform.position.x - transform.position.x);
+
+            enemySpriterenderer.flipX = chaseDir > 0f;
+            enemyAnimator.SetTrigger("Shoot");
+
+            float fireTime = shootFireFrame / Mathf.Max(shootAnimFPS, 1f);
+            float remaining = shootAnimDuration - fireTime;
+            if (fireTime > 0f) yield return new WaitForSeconds(fireTime);
+
+            if (gooProjectilePrefab != null && player != null)
+            {
+                Transform spawnPoint = chaseDir > 0f ? shootRightTransform : shootLeftTransform;
+                if (spawnPoint == null) spawnPoint = transform;
+
+                Collider2D playerCol = player.GetComponent<Collider2D>();
+                Vector3 target = playerCol != null ? playerCol.bounds.min : player.transform.position;
+
+                GameObject go = Instantiate(gooProjectilePrefab, spawnPoint.position, Quaternion.identity);
+                GooProjectile goo = go.GetComponent<GooProjectile>();
+                bool projectileFlip = chaseDir > 0f;
+                float scaleMultiplier = enemySpriterenderer != null
+                    ? enemySpriterenderer.transform.localScale.x / 0.43f
+                    : 1f;
+                goo?.Launch(target, projectileTravelTime, projectileFlip, scaleMultiplier);
+            }
+
+            if (remaining > 0f) yield return new WaitForSeconds(remaining);
+            isShooting = false;
+        }
+
         private IEnumerator MeleeAttackRoutine()
         {
             isAttacking = true;
@@ -301,9 +409,9 @@ namespace AdequateEnough
 
             // Mirror positions to match facing direction
             float f = chaseDir;
-            Vector2 restPos   = new Vector2(0.0441f * f, 1.1019f);
-            Vector2 windupPos = new Vector2(0.0441f * f, 1.8f);
-            Vector2 strikePos = new Vector2(1.1f * f,    1.71f);
+            Vector2 restPos   = new Vector2(0.06f   * f, 1.57f);
+            Vector2 windupPos = new Vector2(0.06f   * f, 2.268f);
+            Vector2 strikePos = new Vector2(1.116f  * f, 2.178f);
             float restRot   = 32f * f;
             float windupRot = 57f * f;
             float strikeRot = 27f * f;
@@ -347,9 +455,11 @@ namespace AdequateEnough
 
         private IEnumerator HitStopRoutine()
         {
+            if (Time.timeScale == 0f) yield break;
+            savedTimeScale = Time.timeScale;
             Time.timeScale = 0f;
             yield return new WaitForSecondsRealtime(hitStopDuration);
-            Time.timeScale = 1f;
+            Time.timeScale = savedTimeScale;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -357,6 +467,7 @@ namespace AdequateEnough
             if (!isAttacking) return;
             var pc = other.GetComponent<PlayerController>();
             if (pc == null) return;
+            if (pc.IsSpinning) return;
             pc.TakeDamage(meleeDamage);
             if (playerRb != null)
             {
@@ -374,10 +485,192 @@ namespace AdequateEnough
 
             if (data != null && data.isBoss && player != null)
                 player.GiveNextKeycard();
-            Time.timeScale = 1f;
+            Time.timeScale = savedTimeScale;
             if (weaponCollider != null) weaponCollider.enabled = false;
             // TODO: death animation, despawn logic
             Destroy(gameObject);
+        }
+
+        private void CheckGround()
+        {
+            if (col == null) { isGrounded = false; return; }
+            Vector2 center = new Vector2(col.bounds.center.x, col.bounds.min.y - groundCheckDistance * 0.5f);
+            Vector2 size   = new Vector2(col.bounds.size.x * 0.8f, groundCheckDistance);
+            isGrounded = Physics2D.OverlapBox(center, size, 0f, groundLayer) != null;
+        }
+
+        private bool HasWallAhead(float dir)
+        {
+            if (col == null) return false;
+            return Physics2D.Raycast(col.bounds.center, Vector2.right * dir, wallCheckDistance, obstacleLayer);
+        }
+
+        private bool HasLedgeAhead(float dir)
+        {
+            if (col == null) return false;
+            Vector2 origin = new Vector2(col.bounds.center.x + dir * (col.bounds.extents.x + 0.1f), col.bounds.min.y);
+            return !Physics2D.Raycast(origin, Vector2.down, groundCheckDistance + 0.2f, groundLayer);
+        }
+
+        private float CalculateJumpForce(float dirSign)
+        {
+            if (col == null) return jumpForce;
+            RaycastHit2D wallHit = Physics2D.Raycast(col.bounds.center, Vector2.right * dirSign, wallCheckDistance, obstacleLayer);
+            float probeX      = wallHit ? wallHit.point.x + dirSign * 0.05f
+                                        : col.bounds.center.x + dirSign * (col.bounds.extents.x + 0.15f);
+            float probeStartY = col.bounds.max.y + jumpProbeHeight;
+            float probeLength = jumpProbeHeight + col.bounds.size.y + 1f;
+            Vector2 origin    = new Vector2(probeX, probeStartY);
+            Debug.DrawRay(origin, Vector2.down * probeLength, Color.yellow, 0.1f);
+            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, probeLength, obstacleLayer);
+            if (!hit) return jumpForce;
+            float minSurfaceY = wallHit ? wallHit.point.y : col.bounds.min.y;
+            float surfaceY    = Mathf.Max(hit.point.y, minSurfaceY);
+            float heightNeeded = surfaceY - col.bounds.min.y + jumpClearance;
+            if (heightNeeded <= 0f) return jumpForceMin;
+            float gravity = Mathf.Abs(Physics2D.gravity.y * rb.gravityScale);
+            float needed  = Mathf.Sqrt(2f * gravity * heightNeeded);
+            return Mathf.Clamp(needed, jumpForceMin, jumpForce);
+        }
+
+        private void TryJump(float moveDir)
+        {
+            if (!isGrounded || Time.fixedTime < lastJumpTime + jumpCooldown) return;
+            if (!HasWallAhead(moveDir)) return;
+            float jf = CalculateJumpForce(moveDir);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jf);
+            lastJumpTime = Time.fixedTime;
+            stuckTimer = 0f;
+        }
+
+        private void ApplyGroundedMove(float dirSign, float speed)
+        {
+            if (isGrounded && HasLedgeAhead(dirSign))
+            {
+                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                stuckTimer = 0f;
+                return;
+            }
+
+            if (isGrounded && Mathf.Abs(rb.linearVelocity.x) < 0.3f && rb.linearVelocity.y <= 0.1f)
+            {
+                stuckTimer += Time.fixedDeltaTime;
+                if (stuckTimer > 0.25f && Time.fixedTime >= lastJumpTime + jumpCooldown)
+                {
+                    float jf = CalculateJumpForce(dirSign);
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, jf);
+                    lastJumpTime = Time.fixedTime;
+                    stuckTimer = 0f;
+                    return;
+                }
+            }
+            else
+            {
+                stuckTimer = 0f;
+            }
+
+            TryJump(dirSign);
+            rb.linearVelocity = new Vector2(dirSign * speed, rb.linearVelocity.y);
+        }
+
+        private void RollCombatIntent()
+        {
+            float total = chaseIntentWeight + shootIntentWeight + retreatIntentWeight;
+            float roll = Random.Range(0f, total);
+            if (roll < chaseIntentWeight)
+                currentIntent = CombatIntent.Chase;
+            else if (roll < chaseIntentWeight + shootIntentWeight)
+                currentIntent = CombatIntent.Shoot;
+            else
+                currentIntent = CombatIntent.Retreat;
+        }
+
+        private void SetupRetreatTarget()
+        {
+            float awayDir = -Mathf.Sign(player.transform.position.x - transform.position.x);
+            retreatTargetX = transform.position.x + awayDir * retreatTargetDistance;
+            retreatReached = false;
+        }
+
+        private void ExecuteCombatIntent(float playerDist)
+        {
+            switch (currentIntent)
+            {
+                case CombatIntent.Shoot:
+                    if (playerDist > shootMinDistance && Time.fixedTime >= nextShootTime)
+                    {
+                        nextShootTime = Time.fixedTime + shootCooldown;
+                        shootCoroutine = StartCoroutine(ShootRoutine());
+                    }
+                    else if (playerDist > chaseStopDistance)
+                    {
+                        ChasePlayer();
+                        isMoving = true;
+                    }
+                    else
+                    {
+                        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                        isMoving = false;
+                    }
+                    break;
+
+                case CombatIntent.Chase:
+                    if (playerDist > chaseStopDistance)
+                    {
+                        ChasePlayer();
+                        isMoving = true;
+                    }
+                    else
+                    {
+                        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                        isMoving = false;
+                    }
+                    break;
+
+                case CombatIntent.Retreat:
+                    if (!retreatReached)
+                    {
+                        float distToTarget = Mathf.Abs(transform.position.x - retreatTargetX);
+                        if (distToTarget > 0.3f)
+                        {
+                            float dir = Mathf.Sign(retreatTargetX - transform.position.x);
+                            ApplyGroundedMove(dir, retreatMoveSpeed);
+                            isMoving = true;
+                        }
+                        else
+                        {
+                            retreatReached = true;
+                            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                            isMoving = false;
+                        }
+                    }
+                    else
+                    {
+                        if (playerDist > shootMinDistance && Time.fixedTime >= nextShootTime)
+                        {
+                            nextShootTime = Time.fixedTime + shootCooldown;
+                            shootCoroutine = StartCoroutine(ShootRoutine());
+                        }
+                        else
+                        {
+                            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                            isMoving = false;
+                        }
+                    }
+                    break;
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (!other.gameObject.CompareTag("Stairs")) return;
+            chaseDir = -chaseDir;
+            lastDirChangeTime = Time.fixedTime;
+            wasChasing = false;
+            isLingering = false;
+            stairsAvoidTimer = 2f;
+            wanderPauseTimer = 0f;
+            wanderTarget = new Vector2(transform.position.x + chaseDir * wanderRadius, transform.position.y);
         }
 
         private void OnDrawGizmosSelected()
