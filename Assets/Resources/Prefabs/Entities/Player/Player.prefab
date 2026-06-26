@@ -295,7 +295,7 @@ MonoBehaviour:
   groundCheckSize: {x: 2, y: 0.2}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 264
   slopeCheckDistance: 0.2
   maxSlopeAngle: 65
   knockbackSlopeDisableDuration: 0.6
@@ -308,10 +308,13 @@ MonoBehaviour:
   spinForce: 20
   spinMaxSpeed: 18
   spinDecayRate: 4
-  spinCooldown: 0.5
+  spinCooldown: 2
   upwardSpinGravityScale: 0.5
   spinMaxRise: 6
   spinDamage: 20
+  oneWayPlatformLayer:
+    serializedVersion: 2
+    m_Bits: 256
   currentKeycard: 0
   currentDoor: {fileID: 0}
   playerAnimator: {fileID: 8087835749983272348}

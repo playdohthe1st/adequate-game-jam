@@ -13661,14 +13661,6 @@ PrefabInstance:
       propertyPath: creditScreen
       value: 
       objectReference: {fileID: 1901498827}
-    - target: {fileID: 4435749734172417330, guid: d49feed651a775d408a15f0cc5492606, type: 3}
-      propertyPath: groundLayer.m_Bits
-      value: 264
-      objectReference: {fileID: 0}
-    - target: {fileID: 4435749734172417330, guid: d49feed651a775d408a15f0cc5492606, type: 3}
-      propertyPath: oneWayPlatformLayer.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
     - target: {fileID: 6228679970223528795, guid: d49feed651a775d408a15f0cc5492606, type: 3}
       propertyPath: m_LocalPosition.x
       value: -190.7
