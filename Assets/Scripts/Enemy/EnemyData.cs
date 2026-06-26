@@ -16,6 +16,11 @@ namespace AdequateEnough
         public bool canMelee = true;
         public bool canShoot = true;
 
+        [Header("Audio")]
+        public AudioClip attackSFX;
+        public AudioClip hurtSFX;
+        public AudioClip deathSFX;
+
         [Header("Boss")]
         public bool isBoss;
 
