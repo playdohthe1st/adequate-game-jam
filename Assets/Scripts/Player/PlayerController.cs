@@ -127,6 +127,8 @@ namespace AdequateEnough
         private Rigidbody2D rb;
         private CapsuleCollider2D col;
         private InputManager input;
+        private float speedMultiplier = 1f;
+        private Coroutine gooDebuffCoroutine;
 
         private float defaultGravityScale;
         private float currentMaxSpeed;
@@ -164,6 +166,7 @@ namespace AdequateEnough
         public float CurrentHealth => currentHealth;
         public float MaxHealth => maxHealth;
         public bool IsDead => isDead;
+        public bool IsSpinning => isSpinning;
 
         // Fired when the player respawns at the original spawn point with no checkpoint active
         public static event System.Action OnRespawnedAtOrigin;
@@ -179,7 +182,7 @@ namespace AdequateEnough
             col = GetComponent<CapsuleCollider2D>();
             input = GetComponent<InputManager>();
             defaultGravityScale = rb.gravityScale;
-            currentMaxSpeed = maxSpeed;
+            currentMaxSpeed = maxSpeed * speedMultiplier;
             currentHealth = maxHealth;
             defaultScale = spriteTransform != null ? spriteTransform.localScale : transform.localScale;
             // Give the physics a moment to settle on spawn before we check for landings
@@ -422,7 +425,7 @@ namespace AdequateEnough
                 // In the air we apply reduced force and can't exceed maxSpeed (with apex boost applied)
                 if (Mathf.Abs(smoothedInput.x) > 0.01f)
                 {
-                    float effectiveMaxSpeed = IsAtApex ? maxSpeed * apexSpeedBoost : maxSpeed;
+                    float effectiveMaxSpeed = (IsAtApex ? maxSpeed * apexSpeedBoost : maxSpeed) * speedMultiplier;
                     float airDesiredSpeed = smoothedInput.x * effectiveMaxSpeed;
                     rb.AddForce((airDesiredSpeed - rb.linearVelocity.x) * acceleration * controlMult * Vector2.right, ForceMode2D.Force);
                 }
@@ -444,7 +447,7 @@ namespace AdequateEnough
                 else
                 {
                     Vector2 stairDir = new Vector2(stairContactNormal.y, -stairContactNormal.x) * Mathf.Sign(smoothedInput.x);
-                    rb.linearVelocity = stairDir * Mathf.Abs(smoothedInput.x) * maxSpeed;
+                    rb.linearVelocity = stairDir * Mathf.Abs(smoothedInput.x) * maxSpeed * speedMultiplier;
                 }
                 return;
             }
@@ -523,7 +526,7 @@ namespace AdequateEnough
 
             rb.linearVelocity = spinDirection * spinForce;
             spinInitialYVelocity = rb.linearVelocity.y;
-            currentMaxSpeed = spinMaxSpeed;
+            currentMaxSpeed = spinMaxSpeed * speedMultiplier;
         }
 
         // Each FixedUpdate, bleed currentMaxSpeed back toward the normal maxSpeed.
@@ -541,11 +544,11 @@ namespace AdequateEnough
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Min(rb.linearVelocity.y, maxY));
             }
 
-            currentMaxSpeed = Mathf.MoveTowards(currentMaxSpeed, maxSpeed, spinDecayRate * Time.fixedDeltaTime);
+            currentMaxSpeed = Mathf.MoveTowards(currentMaxSpeed, maxSpeed * speedMultiplier, spinDecayRate * Time.fixedDeltaTime);
 
-            if (Mathf.Approximately(currentMaxSpeed, maxSpeed))
+            if (Mathf.Approximately(currentMaxSpeed, maxSpeed * speedMultiplier))
             {
-                currentMaxSpeed = maxSpeed;
+                currentMaxSpeed = maxSpeed * speedMultiplier;
                 isSpinning = false;
                 rb.gravityScale = defaultGravityScale;
             }
@@ -600,6 +603,34 @@ namespace AdequateEnough
             slopeDisableTimer = Mathf.Max(slopeDisableTimer - Time.deltaTime, 0f);
             if (timeSinceLastDamage >= regenDelay)
                 currentHealth = Mathf.Min(currentHealth + regenRate * Time.deltaTime, maxHealth);
+        }
+
+        public void ApplyGooDebuff()
+        {
+            InterruptSpin();
+            if (gooDebuffCoroutine != null) StopCoroutine(gooDebuffCoroutine);
+            gooDebuffCoroutine = StartCoroutine(GooDebuffRoutine());
+        }
+
+        private void InterruptSpin()
+        {
+            if (!isSpinning) return;
+            isSpinning = false;
+            rb.gravityScale = defaultGravityScale;
+            currentMaxSpeed = maxSpeed * speedMultiplier;
+            nextSpinTime = Time.time + spinCooldown;
+        }
+
+        private IEnumerator GooDebuffRoutine()
+        {
+            speedMultiplier = 0.5f;
+            if (!isSpinning) currentMaxSpeed = maxSpeed * speedMultiplier;
+            if (playerSpriterender != null) playerSpriterender.color = Color.green;
+            yield return new WaitForSeconds(3f);
+            speedMultiplier = 1f;
+            if (!isSpinning) currentMaxSpeed = maxSpeed * speedMultiplier;
+            if (playerSpriterender != null) playerSpriterender.color = Color.white;
+            gooDebuffCoroutine = null;
         }
 
         public void TakeDamage(float amount)

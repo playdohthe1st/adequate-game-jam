@@ -46,6 +46,24 @@ namespace AdequateEnough
         [SerializeField] private float pushForce = 8f;
         [SerializeField] private float chaseStopDistance = 1.5f;
 
+        [Header("Ranged Attack")]
+        [SerializeField] private float shootCooldown = 5f;
+        [SerializeField] private float shootMinDistance = 3f;
+        [SerializeField] private float shootAnimDuration = 1f;
+        [SerializeField] private int shootFireFrame = 0;
+        [SerializeField] private float shootAnimFPS = 14f;
+        [SerializeField] private float projectileTravelTime = 1f;
+        [SerializeField] private GameObject gooProjectilePrefab;
+        [SerializeField] private Transform shootLeftTransform;
+        [SerializeField] private Transform shootRightTransform;
+
+        [Header("Combat Behavior")]
+        [SerializeField] private float chaseIntentWeight  = 1f;
+        [SerializeField] private float shootIntentWeight  = 1f;
+        [SerializeField] private float retreatIntentWeight = 1f;
+        [SerializeField] private float retreatTargetDistance = 7f;
+        [SerializeField] private float retreatMoveSpeed = 5f;
+
         [Header("Melee Attack")]
         [SerializeField] private Transform weaponTransform;
         [SerializeField] private float meleeRange = 2f;
@@ -60,6 +78,7 @@ namespace AdequateEnough
         [Header("VisualUpdater")]
         [SerializeField] private Animator enemyAnimator;
         [SerializeField] private SpriteRenderer enemySpriterenderer;
+        [SerializeField] private string idleStateName = "Idle";
         [Header("Hit Effects")]
         [SerializeField] private Material flashMaterial; 
         [SerializeField] private float flashDuration = 0.08f;
@@ -98,6 +117,15 @@ namespace AdequateEnough
         private CinemachineImpulseSource impulseSource;
         private float nextMeleeTime;
         private bool isAttacking;
+        private float nextShootTime;
+        private bool isShooting;
+        private Coroutine shootCoroutine;
+
+        private enum CombatIntent { Shoot, Chase, Retreat }
+        private CombatIntent currentIntent;
+        private bool playerWasInRange;
+        private float retreatTargetX;
+        private bool retreatReached;
 
         public float CurrentHealth => currentHealth;
         public float MaxHealth => maxHealth;
@@ -181,29 +209,27 @@ namespace AdequateEnough
                 wanderPauseTimer = 0f;
                 wasChasing = true;
 
+                if (!playerWasInRange)
+                {
+                    playerWasInRange = true;
+                    RollCombatIntent();
+                    if (currentIntent == CombatIntent.Retreat)
+                        SetupRetreatTarget();
+                }
+
                 float playerDist = Mathf.Abs(player.transform.position.x - transform.position.x);
-                if (!isAttacking && playerDist <= meleeRange && Time.fixedTime >= nextMeleeTime)
+                if (!isAttacking && !isShooting && !player.IsSpinning && playerDist <= meleeRange && Time.fixedTime >= nextMeleeTime)
                 {
                     nextMeleeTime = Time.fixedTime + meleeCooldown;
                     StartCoroutine(MeleeAttackRoutine());
                 }
 
-                if (!isAttacking)
-                {
-                    if (playerDist > chaseStopDistance)
-                    {
-                        ChasePlayer();
-                        isMoving = true;
-                    }
-                    else
-                    {
-                        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-                        isMoving = false;
-                    }
-                }
+                if (!isAttacking && !isShooting)
+                    ExecuteCombatIntent(playerDist);
             }
             else if (wasChasing && !isLingering)
             {
+                playerWasInRange = false;
                 wasChasing = false;
                 isLingering = true;
                 lingerTimer = Random.Range(lingerMin, lingerMax);
@@ -312,6 +338,14 @@ namespace AdequateEnough
             if (isDead) return;
             currentHealth = Mathf.Max(currentHealth - amount, 0f);
             timeSinceLastDamage = 0f;
+            if (isShooting && shootCoroutine != null)
+            {
+                StopCoroutine(shootCoroutine);
+                shootCoroutine = null;
+                isShooting = false;
+                enemyAnimator.ResetTrigger("Shoot");
+                enemyAnimator.CrossFade(idleStateName, 0.05f);
+            }
             StartCoroutine(FlashWhiteRoutine());
             StartCoroutine(HitStopRoutine());
             if (currentHealth <= 0f) Die();
@@ -332,6 +366,42 @@ namespace AdequateEnough
             playerRb.AddForce(Vector2.right * dir * pushForce, ForceMode2D.Force);
         }
 
+        private IEnumerator ShootRoutine()
+        {
+            isShooting = true;
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            isMoving = false;
+            if (player != null)
+                chaseDir = Mathf.Sign(player.transform.position.x - transform.position.x);
+
+            enemySpriterenderer.flipX = chaseDir > 0f;
+            enemyAnimator.SetTrigger("Shoot");
+
+            float fireTime = shootFireFrame / Mathf.Max(shootAnimFPS, 1f);
+            float remaining = shootAnimDuration - fireTime;
+            if (fireTime > 0f) yield return new WaitForSeconds(fireTime);
+
+            if (gooProjectilePrefab != null && player != null)
+            {
+                Transform spawnPoint = chaseDir > 0f ? shootRightTransform : shootLeftTransform;
+                if (spawnPoint == null) spawnPoint = transform;
+
+                Collider2D playerCol = player.GetComponent<Collider2D>();
+                Vector3 target = playerCol != null ? playerCol.bounds.min : player.transform.position;
+
+                GameObject go = Instantiate(gooProjectilePrefab, spawnPoint.position, Quaternion.identity);
+                GooProjectile goo = go.GetComponent<GooProjectile>();
+                bool projectileFlip = chaseDir > 0f;
+                float scaleMultiplier = enemySpriterenderer != null
+                    ? enemySpriterenderer.transform.localScale.x / 0.43f
+                    : 1f;
+                goo?.Launch(target, projectileTravelTime, projectileFlip, scaleMultiplier);
+            }
+
+            if (remaining > 0f) yield return new WaitForSeconds(remaining);
+            isShooting = false;
+        }
+
         private IEnumerator MeleeAttackRoutine()
         {
             isAttacking = true;
@@ -339,9 +409,9 @@ namespace AdequateEnough
 
             // Mirror positions to match facing direction
             float f = chaseDir;
-            Vector2 restPos   = new Vector2(0.0441f * f, 1.1019f);
-            Vector2 windupPos = new Vector2(0.0441f * f, 1.8f);
-            Vector2 strikePos = new Vector2(1.1f * f,    1.71f);
+            Vector2 restPos   = new Vector2(0.06f   * f, 1.57f);
+            Vector2 windupPos = new Vector2(0.06f   * f, 2.268f);
+            Vector2 strikePos = new Vector2(1.116f  * f, 2.178f);
             float restRot   = 32f * f;
             float windupRot = 57f * f;
             float strikeRot = 27f * f;
@@ -397,6 +467,7 @@ namespace AdequateEnough
             if (!isAttacking) return;
             var pc = other.GetComponent<PlayerController>();
             if (pc == null) return;
+            if (pc.IsSpinning) return;
             pc.TakeDamage(meleeDamage);
             if (playerRb != null)
             {
@@ -500,6 +571,94 @@ namespace AdequateEnough
 
             TryJump(dirSign);
             rb.linearVelocity = new Vector2(dirSign * speed, rb.linearVelocity.y);
+        }
+
+        private void RollCombatIntent()
+        {
+            float total = chaseIntentWeight + shootIntentWeight + retreatIntentWeight;
+            float roll = Random.Range(0f, total);
+            if (roll < chaseIntentWeight)
+                currentIntent = CombatIntent.Chase;
+            else if (roll < chaseIntentWeight + shootIntentWeight)
+                currentIntent = CombatIntent.Shoot;
+            else
+                currentIntent = CombatIntent.Retreat;
+        }
+
+        private void SetupRetreatTarget()
+        {
+            float awayDir = -Mathf.Sign(player.transform.position.x - transform.position.x);
+            retreatTargetX = transform.position.x + awayDir * retreatTargetDistance;
+            retreatReached = false;
+        }
+
+        private void ExecuteCombatIntent(float playerDist)
+        {
+            switch (currentIntent)
+            {
+                case CombatIntent.Shoot:
+                    if (playerDist > shootMinDistance && Time.fixedTime >= nextShootTime)
+                    {
+                        nextShootTime = Time.fixedTime + shootCooldown;
+                        shootCoroutine = StartCoroutine(ShootRoutine());
+                    }
+                    else if (playerDist > chaseStopDistance)
+                    {
+                        ChasePlayer();
+                        isMoving = true;
+                    }
+                    else
+                    {
+                        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                        isMoving = false;
+                    }
+                    break;
+
+                case CombatIntent.Chase:
+                    if (playerDist > chaseStopDistance)
+                    {
+                        ChasePlayer();
+                        isMoving = true;
+                    }
+                    else
+                    {
+                        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                        isMoving = false;
+                    }
+                    break;
+
+                case CombatIntent.Retreat:
+                    if (!retreatReached)
+                    {
+                        float distToTarget = Mathf.Abs(transform.position.x - retreatTargetX);
+                        if (distToTarget > 0.3f)
+                        {
+                            float dir = Mathf.Sign(retreatTargetX - transform.position.x);
+                            ApplyGroundedMove(dir, retreatMoveSpeed);
+                            isMoving = true;
+                        }
+                        else
+                        {
+                            retreatReached = true;
+                            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                            isMoving = false;
+                        }
+                    }
+                    else
+                    {
+                        if (playerDist > shootMinDistance && Time.fixedTime >= nextShootTime)
+                        {
+                            nextShootTime = Time.fixedTime + shootCooldown;
+                            shootCoroutine = StartCoroutine(ShootRoutine());
+                        }
+                        else
+                        {
+                            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                            isMoving = false;
+                        }
+                    }
+                    break;
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D other)
