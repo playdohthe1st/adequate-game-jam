@@ -12,6 +12,10 @@ namespace AdequateEnough
         public float health = 50f;
         public float attackDamage = 10f;
 
+        [Header("Behavior")]
+        public bool canMelee = true;
+        public bool canShoot = true;
+
         [Header("Boss")]
         public bool isBoss;
 
