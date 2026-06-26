@@ -2965,7 +2965,7 @@ Transform:
   m_GameObject: {fileID: 125427507}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 38.69, y: 6.68, z: 0}
+  m_LocalPosition: {x: 43.26, y: -6.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2985,11 +2985,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
-  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
-  maxEnemies: 2
+  maxEnemies: 1
   spawnInterval: 5
-  baseSortingOrder: 4
 --- !u!1 &132332731
 GameObject:
   m_ObjectHideFlags: 0
@@ -11208,10 +11205,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1625444142}
     m_Modifications:
-    - target: {fileID: 1488425927985038335, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
-      propertyPath: m_ColliderMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 2275035365177982977, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
       propertyPath: m_Size.x
       value: 12.2738495
@@ -16358,15 +16351,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 952bdcb31ef65b04691893ba49c07c88, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -17298,7 +17291,7 @@ Transform:
   m_GameObject: {fileID: 680185645}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 64.3, y: 6.91, z: 0}
+  m_LocalPosition: {x: 64.3, y: 4.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17318,11 +17311,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
-  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
-  maxEnemies: 2
+  maxEnemies: 1
   spawnInterval: 5
-  baseSortingOrder: 4
 --- !u!1 &682018791
 GameObject:
   m_ObjectHideFlags: 0
@@ -20157,10 +20147,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1625444142}
     m_Modifications:
-    - target: {fileID: 1488425927985038335, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
-      propertyPath: m_ColliderMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 2275035365177982977, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
       propertyPath: m_Size.x
       value: 12.641792
@@ -23892,10 +23878,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1625444142}
     m_Modifications:
-    - target: {fileID: 1488425927985038335, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
-      propertyPath: m_ColliderMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 2275035365177982977, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
       propertyPath: m_Size.x
       value: 14.539856
@@ -27701,10 +27683,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036087442}
     m_Modifications:
-    - target: {fileID: 1488425927985038335, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
-      propertyPath: m_ColliderMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 2275035365177982977, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
       propertyPath: m_Size.x
       value: 16.714428
@@ -31172,10 +31150,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1625444142}
     m_Modifications:
-    - target: {fileID: 1488425927985038335, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
-      propertyPath: m_ColliderMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 2275035365177982977, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
       propertyPath: m_Size.x
       value: 12.2738495
@@ -36523,11 +36497,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
-  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
-  maxEnemies: 2
+  maxEnemies: 1
   spawnInterval: 100
-  baseSortingOrder: 4
 --- !u!1 &1345059823
 GameObject:
   m_ObjectHideFlags: 0
@@ -42399,10 +42370,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036087442}
     m_Modifications:
-    - target: {fileID: 1488425927985038335, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
-      propertyPath: m_ColliderMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 2275035365177982977, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
       propertyPath: m_Size.x
       value: 0.0001
@@ -42684,10 +42651,6 @@ PrefabInstance:
     - target: {fileID: 6502564691719161429, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7130986330120390306, guid: 45e671db7719af4498a474536f45dd37, type: 3}
-      propertyPath: m_SortingOrder
-      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -43792,10 +43755,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1625444142}
     m_Modifications:
-    - target: {fileID: 1488425927985038335, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
-      propertyPath: m_ColliderMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 2275035365177982977, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
       propertyPath: m_Size.x
       value: 11.357492
@@ -45693,11 +45652,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
-  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
-  maxEnemies: 2
+  maxEnemies: 1
   spawnInterval: 100
-  baseSortingOrder: 4
 --- !u!1 &1643988564
 GameObject:
   m_ObjectHideFlags: 0
@@ -50991,7 +50947,7 @@ Transform:
   m_GameObject: {fileID: 1847919683}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 64.3, y: -4.53, z: 0}
+  m_LocalPosition: {x: 64.3, y: -10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -51011,11 +50967,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
-  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
-  maxEnemies: 2
+  maxEnemies: 1
   spawnInterval: 5
-  baseSortingOrder: 4
 --- !u!1 &1848052143
 GameObject:
   m_ObjectHideFlags: 0
@@ -52075,11 +52028,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
-  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
-  maxEnemies: 2
+  maxEnemies: 1
   spawnInterval: 100
-  baseSortingOrder: 4
 --- !u!1 &1877442167
 GameObject:
   m_ObjectHideFlags: 0
@@ -54860,10 +54810,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1625444142}
     m_Modifications:
-    - target: {fileID: 1488425927985038335, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
-      propertyPath: m_ColliderMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 2275035365177982977, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
       propertyPath: m_Size.x
       value: 12.2738495
@@ -55603,7 +55549,7 @@ Transform:
   m_GameObject: {fileID: 1979423681}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 70.15, y: -4.18, z: 0}
+  m_LocalPosition: {x: 70.15, y: -10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55623,13 +55569,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
-  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
-  maxEnemies: 2
+  maxEnemies: 1
   spawnInterval: 5
-<<<<<<< HEAD
-  baseSortingOrder: 4
-=======
 --- !u!1 &1979645384
 GameObject:
   m_ObjectHideFlags: 0
@@ -55679,7 +55620,6 @@ MonoBehaviour:
   fadeDuration: 2
   respawnFadeDuration: 2
   changeRoomFadeDuration: 1
->>>>>>> main
 --- !u!1 &1981394097
 GameObject:
   m_ObjectHideFlags: 0
@@ -57121,10 +57061,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1625444142}
     m_Modifications:
-    - target: {fileID: 1488425927985038335, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
-      propertyPath: m_ColliderMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 2275035365177982977, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
       propertyPath: m_Size.x
       value: 11.357492
@@ -58438,10 +58374,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1625444142}
     m_Modifications:
-    - target: {fileID: 1488425927985038335, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
-      propertyPath: m_ColliderMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 2275035365177982977, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
       propertyPath: m_Size.x
       value: 14.280556
@@ -59829,6 +59761,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4406191187396573838, guid: d49feed651a775d408a15f0cc5492606, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4435749734172417330, guid: d49feed651a775d408a15f0cc5492606, type: 3}
       propertyPath: videoPanel
       value: 
@@ -60980,10 +60916,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1217469235}
     m_Modifications:
-    - target: {fileID: 1488425927985038335, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
-      propertyPath: m_ColliderMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 6015771628498333799, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
       propertyPath: m_Name
       value: TwoWayPlatform
