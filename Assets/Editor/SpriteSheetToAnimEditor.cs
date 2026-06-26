@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using System.IO;
 using UnityEditor;
 using UnityEngine;
 
 public class SpriteSheetToAnimEditor : EditorWindow
 {
-    Texture2D spriteSheet;
+    DefaultAsset spriteFolder;
     string animName = "NewAnimation";
     float frameRate = 14f;
     bool loop = true;
@@ -15,17 +14,17 @@ public class SpriteSheetToAnimEditor : EditorWindow
 
     void OnGUI()
     {
-        GUILayout.Label("Sprite Sheet to Animation Clip", EditorStyles.boldLabel);
+        GUILayout.Label("Folder of Sprites to Animation Clip", EditorStyles.boldLabel);
         EditorGUILayout.Space();
 
-        spriteSheet = (Texture2D)EditorGUILayout.ObjectField("Sprite Sheet", spriteSheet, typeof(Texture2D), false);
+        spriteFolder = (DefaultAsset)EditorGUILayout.ObjectField("Sprite Folder", spriteFolder, typeof(DefaultAsset), false);
         animName = EditorGUILayout.TextField("Animation Name", animName);
         frameRate = EditorGUILayout.FloatField("Frame Rate (fps)", frameRate);
         loop = EditorGUILayout.Toggle("Loop", loop);
 
         EditorGUILayout.Space();
 
-        bool ready = spriteSheet != null && frameRate > 0f && !string.IsNullOrEmpty(animName);
+        bool ready = spriteFolder != null && frameRate > 0f && !string.IsNullOrEmpty(animName);
 
         EditorGUI.BeginDisabledGroup(!ready);
         if (GUILayout.Button("Create .anim"))
@@ -33,7 +32,7 @@ public class SpriteSheetToAnimEditor : EditorWindow
         EditorGUI.EndDisabledGroup();
 
         if (!ready)
-            EditorGUILayout.HelpBox("Assign a sprite sheet with sprites already sliced via the Sprite Editor (Multiple mode).", MessageType.Info);
+            EditorGUILayout.HelpBox("Drag a folder of individual sprite assets from the Project window.", MessageType.Info);
     }
 
     static int ExtractTrailingNumber(string name)
@@ -45,25 +44,28 @@ public class SpriteSheetToAnimEditor : EditorWindow
 
     void CreateAnim()
     {
-        string sheetPath = AssetDatabase.GetAssetPath(spriteSheet);
-        Object[] assets = AssetDatabase.LoadAllAssetsAtPath(sheetPath);
+        string folderPath = AssetDatabase.GetAssetPath(spriteFolder);
+        string[] guids = AssetDatabase.FindAssets("t:Sprite", new[] { folderPath });
 
         var sprites = new List<Sprite>();
-        foreach (var a in assets)
+        foreach (string guid in guids)
         {
-            if (a is Sprite s)
-                sprites.Add(s);
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            // Only direct children of the folder, not sub-folders
+            if (System.IO.Path.GetDirectoryName(path).Replace('\\', '/') != folderPath)
+                continue;
+            Sprite s = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            if (s != null) sprites.Add(s);
         }
 
         if (sprites.Count == 0)
         {
             EditorUtility.DisplayDialog("No Sprites Found",
-                "No sprite sub-assets found. Make sure the texture is imported as Sprite (Multiple) and sliced in the Sprite Editor.",
+                "No sprites found directly inside the selected folder.",
                 "OK");
             return;
         }
 
-        // Natural numeric sort so sheet_10 comes after sheet_9, not sheet_1
         sprites.Sort((a, b) =>
         {
             int ai = ExtractTrailingNumber(a.name);
@@ -100,10 +102,8 @@ public class SpriteSheetToAnimEditor : EditorWindow
 
         AnimationUtility.SetObjectReferenceCurve(clip, binding, keyframes);
 
-        string dir = Path.GetDirectoryName(sheetPath);
-        string savePath = Path.Combine(dir, animName + ".anim").Replace('\\', '/');
+        string savePath = folderPath + "/" + animName + ".anim";
 
-        // Avoid overwriting without asking
         if (AssetDatabase.LoadAssetAtPath<AnimationClip>(savePath) != null)
         {
             if (!EditorUtility.DisplayDialog("Overwrite?",

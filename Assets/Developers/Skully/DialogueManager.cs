@@ -17,6 +17,10 @@ public class DialogueManager : MonoBehaviour
     private Queue<DialogueLine> lines; 
     public bool dialogueActive = false;
 
+    public AudioClip typeSound;
+    private AudioSource audioSource;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -24,8 +28,15 @@ public class DialogueManager : MonoBehaviour
         {
             instance = this;
         }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+            return; // Stop executing code on a destroyed object
+        }
 
         lines = new Queue<DialogueLine>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void StartDialogue(Dialogue dialogue) //starts dialogue when needed
@@ -65,11 +76,20 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeLine(DialogueLine dialogueLines) //makes the text appear letter by letter
     {
         dialogueText.text = "";
+
+
         foreach (char c in dialogueLines.line.ToCharArray())
         {
             dialogueText.text += c;
+
+            if (typeSound != null)
+            {
+                audioSource.PlayOneShot(typeSound);
+            }
+
             yield return new WaitForSeconds(textSpeed);
         }
+
     }
 
     public void EndDialogue()
