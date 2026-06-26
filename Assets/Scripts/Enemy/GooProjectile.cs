@@ -16,8 +16,11 @@ namespace AdequateEnough
             rb = GetComponent<Rigidbody2D>();
         }
 
-        public void Launch(Vector3 target, float travelTime, bool flipX, float scaleMultiplier = 1f)
+        private float damage;
+
+        public void Launch(Vector3 target, float travelTime, bool flipX, float scaleMultiplier = 1f, float damage = 0f)
         {
+            this.damage = damage;
             if (sr != null) sr.flipX = flipX;
             float targetZ = flipX ? -60f : 60f;
             StartCoroutine(ArcRoutine(transform.position, target, travelTime, scaleMultiplier, targetZ));
@@ -55,6 +58,7 @@ namespace AdequateEnough
             PlayerController pc = other.GetComponent<PlayerController>();
             if (pc == null) { Debug.Log("[GooProjectile] Not a player, ignoring."); return; }
             Debug.Log("[GooProjectile] Hit player — applying goo debuff.");
+            if (damage > 0f) pc.TakeDamage(damage);
             pc.ApplyGooDebuff();
             Destroy(gameObject);
         }

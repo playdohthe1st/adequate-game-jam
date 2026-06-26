@@ -83,16 +83,24 @@ namespace AdequateEnough
         [SerializeField] private Vector2 meleeStrikePos    = new Vector2(1.116f, 2.178f);
         [SerializeField] private float   meleeStrikeRot    = 27f;
         [Header("Melee Timings")]
+        [SerializeField] private string meleeAnimTrigger   = "";
         [SerializeField] private float meleeWindupDuration = 0.2f;
         // Time to hold at windup before snapping to pre-strike; 0 skips the hold
         [SerializeField] private float meleeHoldDuration   = 0f;
-        [SerializeField] private float meleeStrikeDuration = 0.07f;
-        [SerializeField] private float meleeReturnDuration = 0.3f;
+        [SerializeField] private float meleeStrikeDuration        = 0.07f;
+        // How long the collider lingers at the strike position after the sweep
+        [SerializeField] private float meleeColliderLingerDuration = 0f;
+        [SerializeField] private float meleeReturnDuration        = 0.3f;
 
         [Header("VisualUpdater")]
         [SerializeField] private Animator enemyAnimator;
         [SerializeField] private SpriteRenderer enemySpriterenderer;
         [SerializeField] private string idleStateName = "Idle";
+        [SerializeField] private bool invertFlipX = false;
+
+        [Header("Contact Retreat")]
+        [SerializeField] private bool retreatAfterContact = false;
+        [SerializeField] private float contactRetreatDuration = 1.5f;
         [Header("Hit Effects")]
         [SerializeField] private Material flashMaterial; 
         [SerializeField] private float flashDuration = 0.08f;
@@ -133,6 +141,9 @@ namespace AdequateEnough
         private bool isAttacking;
         private float nextShootTime;
         private float nextContactDamageTime;
+        private bool isRetreatingFromContact;
+        private float contactRetreatTimer;
+        private float contactRetreatDir;
         private bool isShooting;
         private Coroutine shootCoroutine;
 
@@ -144,6 +155,14 @@ namespace AdequateEnough
 
         public float CurrentHealth => currentHealth;
         public float MaxHealth => maxHealth;
+        public int AssignedSortingOrder { get; private set; }
+
+        public void SetSortingOrder(int order)
+        {
+            AssignedSortingOrder = order;
+            if (enemySpriterenderer != null)
+                enemySpriterenderer.sortingOrder = order;
+        }
 
         private void Awake()
         {
@@ -216,6 +235,20 @@ namespace AdequateEnough
             PushPlayerIfOverlapping();
             if (stairsAvoidTimer > 0f) stairsAvoidTimer -= Time.fixedDeltaTime;
 
+            if (isRetreatingFromContact)
+            {
+                contactRetreatTimer -= Time.fixedDeltaTime;
+                bool blocked = isGrounded && (HasWallAhead(contactRetreatDir) || HasLedgeAhead(contactRetreatDir));
+                if (contactRetreatTimer <= 0f || blocked)
+                    isRetreatingFromContact = false;
+                else
+                {
+                    rb.linearVelocity = new Vector2(contactRetreatDir * retreatMoveSpeed, rb.linearVelocity.y);
+                    isMoving = true;
+                    return;
+                }
+            }
+
             bool playerInRange = stairsAvoidTimer <= 0f && player != null && !player.IsDead && Vector2.Distance(transform.position, player.transform.position) <= detectionRadius;
 
             if (playerInRange)
@@ -284,9 +317,9 @@ namespace AdequateEnough
             }
             enemyAnimator.SetBool("IsMoving", isMoving);
             if (rb.linearVelocityX > 0.1f)
-                enemySpriterenderer.flipX = false;
+                enemySpriterenderer.flipX = invertFlipX;
             else if (rb.linearVelocityX < -0.1f)
-                enemySpriterenderer.flipX = true;
+                enemySpriterenderer.flipX = !invertFlipX;
         }
         private void ChasePlayer()
         {
@@ -363,6 +396,7 @@ namespace AdequateEnough
                 enemyAnimator.ResetTrigger("Shoot");
                 enemyAnimator.CrossFade(idleStateName, 0.05f);
             }
+            if (retreatAfterContact) TriggerContactRetreat();
             StartCoroutine(FlashWhiteRoutine());
             StartCoroutine(HitStopRoutine());
             if (currentHealth <= 0f) Die();
@@ -412,7 +446,7 @@ namespace AdequateEnough
                 float scaleMultiplier = enemySpriterenderer != null
                     ? enemySpriterenderer.transform.localScale.x / 0.43f
                     : 1f;
-                goo?.Launch(target, projectileTravelTime, projectileFlip, scaleMultiplier);
+                goo?.Launch(target, projectileTravelTime, projectileFlip, scaleMultiplier, attackDamage);
             }
 
             if (remaining > 0f) yield return new WaitForSeconds(remaining);
@@ -423,6 +457,8 @@ namespace AdequateEnough
         {
             isAttacking = true;
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            if (!string.IsNullOrEmpty(meleeAnimTrigger))
+                enemyAnimator.SetTrigger(meleeAnimTrigger);
 
             float f = chaseDir;
             Vector2 restPos      = new Vector2(meleeRestPos.x      * f, meleeRestPos.y);
@@ -454,6 +490,8 @@ namespace AdequateEnough
             float   strikeFromRot = meleeHoldDuration > 0f ? preStrikeRot : windupRot;
             if (weaponCollider != null) weaponCollider.enabled = true;
             yield return LerpWeapon(strikeFromPos, strikePos, strikeFromRot, strikeRot, meleeStrikeDuration);
+            if (meleeColliderLingerDuration > 0f)
+                yield return new WaitForSeconds(meleeColliderLingerDuration);
             if (weaponCollider != null) weaponCollider.enabled = false;
 
             // Return to rest (duration 0 = instant snap)
@@ -525,6 +563,17 @@ namespace AdequateEnough
 
             player.TakeDamage(attackDamage);
             nextContactDamageTime = Time.fixedTime + contactDamageCooldown;
+            if (retreatAfterContact) TriggerContactRetreat();
+        }
+
+        private void TriggerContactRetreat()
+        {
+            contactRetreatDir = player != null
+                ? -Mathf.Sign(player.transform.position.x - transform.position.x)
+                : -chaseDir;
+            if (contactRetreatDir == 0f) contactRetreatDir = -chaseDir;
+            isRetreatingFromContact = true;
+            contactRetreatTimer = contactRetreatDuration;
         }
 
         private void Die()
@@ -653,6 +702,22 @@ namespace AdequateEnough
                     {
                         nextShootTime = Time.fixedTime + shootCooldown;
                         shootCoroutine = StartCoroutine(ShootRoutine());
+                    }
+                    else if (data != null && !data.canMelee)
+                    {
+                        // Shoot-only: back away to preferred distance during cooldown
+                        if (playerDist < retreatTargetDistance)
+                        {
+                            float awayDir = -Mathf.Sign(player.transform.position.x - transform.position.x);
+                            if (awayDir == 0f) awayDir = -chaseDir;
+                            ApplyGroundedMove(awayDir, retreatMoveSpeed);
+                            isMoving = true;
+                        }
+                        else
+                        {
+                            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+                            isMoving = false;
+                        }
                     }
                     else if (playerDist > chaseStopDistance)
                     {

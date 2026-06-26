@@ -282,7 +282,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: d1f9f66783da84a4aa602b01bff1e3d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -376,7 +376,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 192
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -440,11 +440,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.Enemy
   data: {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  moveSpeed: 3
+  moveSpeed: 4
   detectionRadius: 10
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 264
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -459,7 +459,7 @@ MonoBehaviour:
   regenDelay: 20
   contactDamageCooldown: 1
   contactDamageRange: 1.5
-  wanderRadius: 5
+  wanderRadius: 10
   wanderSpeed: 1.5
   wanderPauseMin: 1
   wanderPauseMax: 3
@@ -468,7 +468,7 @@ MonoBehaviour:
   dirChangeCooldown: 0.15
   pushForce: 16
   chaseStopDistance: 2
-  shootCooldown: 12
+  shootCooldown: 10
   shootMinDistance: 3
   shootAnimDuration: 5.25
   shootFireFrame: 50
@@ -486,14 +486,28 @@ MonoBehaviour:
   meleeRange: 2
   meleeDamage: 10
   meleeCooldown: 0.5
-  meleeWindupDuration: 0.2
-  meleeStrikeDuration: 0.12
-  meleeReturnDuration: 0.3
   meleeKnockbackForce: 25
   meleeShakeStrength: 20
+  meleeRestPos: {x: 0.06, y: 1.57}
+  meleeRestRot: 32
+  meleeWindupPos: {x: 0.06, y: 2.268}
+  meleeWindupRot: 57
+  meleePreStrikePos: {x: 0.06, y: 2.268}
+  meleePreStrikeRot: 57
+  meleeStrikePos: {x: 1.116, y: 2.178}
+  meleeStrikeRot: 27
+  meleeAnimTrigger: 
+  meleeWindupDuration: 0.2
+  meleeHoldDuration: 0
+  meleeStrikeDuration: 0.12
+  meleeColliderLingerDuration: 0
+  meleeReturnDuration: 0.3
   enemyAnimator: {fileID: 8903385214348482000}
   enemySpriterenderer: {fileID: 871650604528216065}
   idleStateName: PlayerIdl
+  invertFlipX: 0
+  retreatAfterContact: 0
+  contactRetreatDuration: 1.5
   flashMaterial: {fileID: 2100000, guid: c058ea4d0428d734aa413775a31a2b6e, type: 2}
   flashDuration: 0.08
   hitStopDuration: 0.1

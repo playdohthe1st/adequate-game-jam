@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d809de522e32a644da7ec53636dd3bea, type: 3}
   m_Name: EnemyBossHumanData
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemyData
-  enemyPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 4752224983724861292, guid: e7556bc31cc825e4fb2a04fd18329416, type: 3}
   health: 100
   attackDamage: 15
   canMelee: 1
   canShoot: 0
-  isContactEnemy: 0
   isBoss: 1

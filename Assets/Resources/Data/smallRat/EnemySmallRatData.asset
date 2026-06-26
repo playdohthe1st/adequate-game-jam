@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d809de522e32a644da7ec53636dd3bea, type: 3}
   m_Name: EnemySmallRatData
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemyData
-  enemyPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 4752224983724861292, guid: 6106a160e69b77f459faafea8efa5e67, type: 3}
   health: 20
   attackDamage: 10
   canMelee: 0

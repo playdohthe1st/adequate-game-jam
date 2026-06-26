@@ -218,7 +218,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 59de9e70488d592499995a8b9e5d1d1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -312,7 +312,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 192
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -351,7 +351,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.22226062, y: 1.8671736}
+  m_Offset: {x: -0.2222606, y: 1.9211321}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -361,7 +361,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.7920477, y: 3.0507228}
+  m_Size: {x: 1.7920477, y: 3.15864}
   m_EdgeRadius: 0
 --- !u!114 &4092780701126538666
 MonoBehaviour:
@@ -380,7 +380,7 @@ MonoBehaviour:
   detectionRadius: 10
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 264
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -395,7 +395,7 @@ MonoBehaviour:
   regenDelay: 20
   contactDamageCooldown: 1
   contactDamageRange: 1.5
-  wanderRadius: 5
+  wanderRadius: 10
   wanderSpeed: 1.5
   wanderPauseMin: 1
   wanderPauseMax: 3
@@ -432,13 +432,18 @@ MonoBehaviour:
   meleePreStrikeRot: 43
   meleeStrikePos: {x: 0.54, y: 0.58}
   meleeStrikeRot: -21
+  meleeAnimTrigger: Attack
   meleeWindupDuration: 0
   meleeHoldDuration: 1.857
-  meleeStrikeDuration: 2.214
+  meleeStrikeDuration: 0.929
+  meleeColliderLingerDuration: 1.286
   meleeReturnDuration: 0
   enemyAnimator: {fileID: 8903385214348482000}
   enemySpriterenderer: {fileID: 871650604528216065}
   idleStateName: PlayerIdl
+  invertFlipX: 0
+  retreatAfterContact: 0
+  contactRetreatDuration: 1.5
   flashMaterial: {fileID: 2100000, guid: c058ea4d0428d734aa413775a31a2b6e, type: 2}
   flashDuration: 0.08
   hitStopDuration: 0.1
