@@ -2965,7 +2965,7 @@ Transform:
   m_GameObject: {fileID: 125427507}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 43.26, y: -6.64, z: 0}
+  m_LocalPosition: {x: 38.1, y: 7.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2985,8 +2985,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  maxEnemies: 1
+  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
+  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
+  maxEnemies: 2
   spawnInterval: 5
+  baseSortingOrder: 4
 --- !u!1 &132332731
 GameObject:
   m_ObjectHideFlags: 0
@@ -17291,7 +17294,7 @@ Transform:
   m_GameObject: {fileID: 680185645}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 64.3, y: 4.8, z: 0}
+  m_LocalPosition: {x: 70.8, y: 6.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17311,8 +17314,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  maxEnemies: 1
+  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
+  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
+  maxEnemies: 2
   spawnInterval: 5
+  baseSortingOrder: 4
 --- !u!1 &682018791
 GameObject:
   m_ObjectHideFlags: 0
@@ -28698,6 +28704,7 @@ MonoBehaviour:
     So, h\u25A1r\u25A1 we are. \u25A1\u25A1\u25A1 people so scary \u25A1\u25A1\u25A1
     I \u25A1\u25A1\u25A1\u25A1 they could be j\u25A1st like \u25A1\u25A1\u25A1\u25A1
     pie\u25A1\u25A1 \u25A1\u25A1 paper\r\nPatient N,\r\nEthan"
+  activePanelIndex: -1
 --- !u!1 &1008250849
 GameObject:
   m_ObjectHideFlags: 0
@@ -36497,8 +36504,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  maxEnemies: 1
+  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
+  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
+  maxEnemies: 2
   spawnInterval: 100
+  baseSortingOrder: 4
 --- !u!1 &1345059823
 GameObject:
   m_ObjectHideFlags: 0
@@ -45652,8 +45662,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  maxEnemies: 1
+  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
+  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
+  maxEnemies: 2
   spawnInterval: 100
+  baseSortingOrder: 4
 --- !u!1 &1643988564
 GameObject:
   m_ObjectHideFlags: 0
@@ -50947,7 +50960,7 @@ Transform:
   m_GameObject: {fileID: 1847919683}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 64.3, y: -10, z: 0}
+  m_LocalPosition: {x: 64.3, y: -4.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50967,8 +50980,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  maxEnemies: 1
+  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
+  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
+  maxEnemies: 2
   spawnInterval: 5
+  baseSortingOrder: 4
 --- !u!1 &1848052143
 GameObject:
   m_ObjectHideFlags: 0
@@ -52028,8 +52044,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  maxEnemies: 1
+  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
+  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
+  maxEnemies: 2
   spawnInterval: 100
+  baseSortingOrder: 4
 --- !u!1 &1877442167
 GameObject:
   m_ObjectHideFlags: 0
@@ -55549,7 +55568,7 @@ Transform:
   m_GameObject: {fileID: 1979423681}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 70.15, y: -10, z: 0}
+  m_LocalPosition: {x: 70.15, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55569,8 +55588,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
   enemyPool:
   - {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
-  maxEnemies: 1
+  - {fileID: 11400000, guid: dfaca9d32bdae16418f570f2d4d46e0c, type: 2}
+  - {fileID: 11400000, guid: 93fc9bcec9228ee46b4404379fe05f08, type: 2}
+  maxEnemies: 2
   spawnInterval: 5
+  baseSortingOrder: 4
 --- !u!1 &1979645384
 GameObject:
   m_ObjectHideFlags: 0
