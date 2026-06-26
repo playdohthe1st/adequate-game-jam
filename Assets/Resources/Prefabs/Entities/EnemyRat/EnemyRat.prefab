@@ -282,7 +282,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: d1f9f66783da84a4aa602b01bff1e3d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -475,6 +475,11 @@ MonoBehaviour:
   gooProjectilePrefab: {fileID: 1671124431247555705, guid: 308d6e2b26f69ec409c087bd35a97d38, type: 3}
   shootLeftTransform: {fileID: 2485838785988220526}
   shootRightTransform: {fileID: 6931274547635626039}
+  chaseIntentWeight: 1
+  shootIntentWeight: 1
+  retreatIntentWeight: 1
+  retreatTargetDistance: 7
+  retreatMoveSpeed: 5
   weaponTransform: {fileID: 8271202264302063808}
   meleeRange: 2
   meleeDamage: 10
