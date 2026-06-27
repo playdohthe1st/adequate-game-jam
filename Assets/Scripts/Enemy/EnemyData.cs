@@ -28,6 +28,6 @@ namespace AdequateEnough
         // Boss enemies get 2x health and attack damage, and spawn at 1.5x scale
         public float ResolvedHealth => isBoss ? health * 2f : health;
         public float ResolvedAttackDamage => isBoss ? attackDamage * 2f : attackDamage;
-        public float ScaleMultiplier => isBoss ? 1.5f : 1f;
+        public float ScaleMultiplier => isBoss ? 2.5f : 1f;
     }
 }

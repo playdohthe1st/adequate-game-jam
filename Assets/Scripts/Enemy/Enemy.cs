@@ -641,8 +641,14 @@ namespace AdequateEnough
             isDead = true;
 
             if (data?.deathSFX != null) AudioManager.Instance?.PlaySFX(data.deathSFX);
-            if (data != null && data.isBoss && data.keycardDropPrefab != null)
-                Instantiate(data.keycardDropPrefab, transform.position, Quaternion.identity);
+            bool isBossEnemy = isBoss || (data != null && data.isBoss);
+            Debug.Log($"[Enemy.Die] isBoss={isBoss} data={data?.name} data.isBoss={data?.isBoss} isBossEnemy={isBossEnemy} keycardDropPrefab={data?.keycardDropPrefab?.name ?? "NULL"}");
+            if (isBossEnemy && data?.keycardDropPrefab != null)
+            {
+                Debug.Log($"[Enemy.Die] Spawning keycard at {transform.position}");
+                Vector3 dropPos = transform.position + Vector3.up * 1f;
+                Instantiate(data.keycardDropPrefab, dropPos, Quaternion.identity);
+            }
             Time.timeScale = savedTimeScale;
             if (weaponCollider != null) weaponCollider.enabled = false;
             // TODO: death animation, despawn logic

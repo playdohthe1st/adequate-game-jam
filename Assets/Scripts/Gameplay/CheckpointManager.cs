@@ -44,6 +44,11 @@ namespace AdequateEnough
             respawnPosition = playerPosition;
         }
 
+        public void SetCheckpoint(Vector2 position)
+        {
+            respawnPosition = position;
+        }
+
         public Vector2 GetRespawnPosition() => respawnPosition;
 
         public bool HasActiveCheckpoint => visited.Count > 0;

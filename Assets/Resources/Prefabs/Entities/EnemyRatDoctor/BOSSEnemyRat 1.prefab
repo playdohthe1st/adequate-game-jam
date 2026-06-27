@@ -439,7 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c311f1d234ff5cc4c8335afc388034c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.Enemy
-  data: {fileID: 11400000, guid: fdfad132e1487bb4ea2681d4643ff4ef, type: 2}
+  data: {fileID: 11400000, guid: f7469c20d7bc92a48895f1002879e233, type: 2}
   moveSpeed: 4
   detectionRadius: 10
   groundLayer:
