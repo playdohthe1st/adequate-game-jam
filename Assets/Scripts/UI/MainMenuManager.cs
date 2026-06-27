@@ -13,6 +13,8 @@ namespace AdequateEnough
         [Header("Video Intro Settings")]
         [SerializeField] private GameObject videoPanel; // GameObject holding your RawImage and VideoPlayer
         [SerializeField] private VideoPlayer videoPlayer; // Drag the VideoPlayer component here
+        [SerializeField] private AudioClip introAudio;
+        private AudioSource audioSource;
 
         [Header("Credits")]
         [SerializeField] private GameObject creditsPanel;
@@ -22,6 +24,8 @@ namespace AdequateEnough
         private void Awake()
         {
             creditsPanel.SetActive(false);
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
         }
         private void Start()
         {
@@ -48,6 +52,12 @@ namespace AdequateEnough
                 // Turn on the video panel and play
                 videoPanel.SetActive(true);
                 videoPlayer.Play();
+
+                if (introAudio != null)
+                {
+                    audioSource.clip = introAudio;
+                    audioSource.Play();
+                }
             }
             else
             {
@@ -84,6 +94,7 @@ namespace AdequateEnough
         private void StartGameTransition()
         {
             isVideoPlaying = false;
+            audioSource.Stop();
 
             // Clean up the event listener to prevent any errors/leaks
             if (videoPlayer != null)
