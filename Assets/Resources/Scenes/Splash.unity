@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.StreamingVideoPlayer
   fileName: Intro_Dubbed.mp4
+  musicFadeDuration: 1
 --- !u!1 &84024944 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3649425534161275392, guid: 5a48baf3babf29442b6d2240cafe6e0f, type: 3}
@@ -1482,6 +1483,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 699128553}
     m_Modifications:
+    - target: {fileID: 87367673533250935, guid: 5a48baf3babf29442b6d2240cafe6e0f, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 129546035908249174, guid: 5a48baf3babf29442b6d2240cafe6e0f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -2129,7 +2134,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 1213706807, guid: 3dad36228737f6c48a0c2ef68e5d08dc, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2341,7 +2346,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "<align=center><size=150%><color=#FFFF><b>Project Runner</b></color></size></align>\n\nPlaydoh 
     - Game Director & Co-ordinator\n\n<align=center><size=150%><color=#FFFF><b>Artists</b></color></size></align>\n
-    \nSivel - Lead Art Direction & artist\nOzzy - Concept Artist\nSiti Arina / Ruba
+    \nSivel - Lead Art Direction & Artist\nOzzy - Concept Artist\nSiti Arina / Ruba
     - Artist & Animator\nShann - Artist\nLakesnake - Artist\n\n<align=center><size=150%><color=#FFFF><b>Music
     + SFX</b></color></size></align>\n\nJuniper Wren Harris - Sound Design & Composition
     \n\n<align=center><size=150%><color=#FFFF><b>Programmers</b></color></size></align>\n\nCapothenics/Felipe
