@@ -61,8 +61,8 @@ namespace AdequateEnough
         [SerializeField] private Transform shootRightTransform;
 
         [Header("Combat Behavior")]
-        [SerializeField] private float chaseIntentWeight  = 1f;
-        [SerializeField] private float shootIntentWeight  = 1f;
+        [SerializeField] private float chaseIntentWeight = 1f;
+        [SerializeField] private float shootIntentWeight = 1f;
         [SerializeField] private float retreatIntentWeight = 1f;
         [SerializeField] private float retreatTargetDistance = 7f;
         [SerializeField] private float retreatMoveSpeed = 5f;
@@ -74,24 +74,28 @@ namespace AdequateEnough
         [SerializeField] private float meleeCooldown = 2f;
         [SerializeField] private float meleeKnockbackForce = 14f;
         [SerializeField] private float meleeShakeStrength = 0.1f;
+        private bool playerHitThisAttack;
+        [Tooltip("If checked, the Animator handles weapon position/rotation. If unchecked, the script uses the mathematical calculations below.")]
+        [SerializeField] private bool useAnimationDrivenMelee = false;
+
         [Header("Melee Positions (X mirrored by facing direction)")]
-        [SerializeField] private Vector2 meleeRestPos      = new Vector2(0.06f,  1.57f);
-        [SerializeField] private float   meleeRestRot      = 32f;
-        [SerializeField] private Vector2 meleeWindupPos    = new Vector2(0.06f,  2.268f);
-        [SerializeField] private float   meleeWindupRot    = 57f;
-        [SerializeField] private Vector2 meleePreStrikePos = new Vector2(0.06f,  2.268f);
-        [SerializeField] private float   meleePreStrikeRot = 57f;
-        [SerializeField] private Vector2 meleeStrikePos    = new Vector2(1.116f, 2.178f);
-        [SerializeField] private float   meleeStrikeRot    = 27f;
+        [SerializeField] private Vector2 meleeRestPos = new Vector2(0.06f, 1.57f);
+        [SerializeField] private float meleeRestRot = 32f;
+        [SerializeField] private Vector2 meleeWindupPos = new Vector2(0.06f, 2.268f);
+        [SerializeField] private float meleeWindupRot = 57f;
+        [SerializeField] private Vector2 meleePreStrikePos = new Vector2(0.06f, 2.268f);
+        [SerializeField] private float meleePreStrikeRot = 57f;
+        [SerializeField] private Vector2 meleeStrikePos = new Vector2(1.116f, 2.178f);
+        [SerializeField] private float meleeStrikeRot = 27f;
         [Header("Melee Timings")]
-        [SerializeField] private string meleeAnimTrigger   = "";
+        [SerializeField] private string meleeAnimTrigger = "";
         [SerializeField] private float meleeWindupDuration = 0.2f;
         // Time to hold at windup before snapping to pre-strike; 0 skips the hold
-        [SerializeField] private float meleeHoldDuration   = 0f;
-        [SerializeField] private float meleeStrikeDuration        = 0.07f;
+        [SerializeField] private float meleeHoldDuration = 0f;
+        [SerializeField] private float meleeStrikeDuration = 0.07f;
         // How long the collider lingers at the strike position after the sweep
         [SerializeField] private float meleeColliderLingerDuration = 0f;
-        [SerializeField] private float meleeReturnDuration        = 0.3f;
+        [SerializeField] private float meleeReturnDuration = 0.3f;
 
         [Header("Boss Override")]
         [SerializeField] private bool isBoss = false;
@@ -107,9 +111,9 @@ namespace AdequateEnough
         [SerializeField] private float contactRetreatDuration = 1.5f;
         [SerializeField] private float wallBlockDuration = 1.5f;
         [Header("Hit Effects")]
-        [SerializeField] private Material flashMaterial; 
+        [SerializeField] private Material flashMaterial;
         [SerializeField] private float flashDuration = 0.08f;
-        [SerializeField] private float hitStopDuration = 0.1f; 
+        [SerializeField] private float hitStopDuration = 0.1f;
 
         private Material originalMaterial;
 
@@ -346,8 +350,6 @@ namespace AdequateEnough
             }
 
         }
-        // The method called by the boss when it dies
-     
 
         private void VisualUpdater()
         {
@@ -370,6 +372,7 @@ namespace AdequateEnough
                 : enemySpriterenderer.transform;
             t.localEulerAngles = new Vector3(0f, dirSign > 0f ? 0f : 180f, 0f);
         }
+
         private void ChasePlayer()
         {
             float dx = player.transform.position.x - transform.position.x;
@@ -472,15 +475,23 @@ namespace AdequateEnough
             isShooting = true;
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             isMoving = false;
+
             if (player != null)
                 chaseDir = Mathf.Sign(player.transform.position.x - transform.position.x);
 
             enemySpriterenderer.flipX = chaseDir > 0f;
             if (enemyAnimator != null) enemyAnimator.SetTrigger("Shoot");
 
-            float fireTime = shootFireFrame / Mathf.Max(shootAnimFPS, 1f);
-            float remaining = shootAnimDuration - fireTime;
-            if (fireTime > 0f) yield return new WaitForSeconds(fireTime);
+            // Simply wait for the overall duration of your shooting animation 
+            // to complete before allowing the enemy to move or shoot again.
+            yield return new WaitForSeconds(shootAnimDuration);
+
+            isShooting = false;
+        }
+        public void ExecuteProjectileSpawn()
+        {
+            // Ensure we don't spawn projectiles if the enemy dies mid-animation
+            if (isDead) return;
 
             if (gooProjectilePrefab != null && player != null)
             {
@@ -493,63 +504,96 @@ namespace AdequateEnough
                 GameObject go = Instantiate(gooProjectilePrefab, spawnPoint.position, Quaternion.identity);
                 GooProjectile goo = go.GetComponent<GooProjectile>();
                 bool projectileFlip = chaseDir > 0f;
+
                 float scaleMultiplier = enemySpriterenderer != null
                     ? enemySpriterenderer.transform.localScale.x / 0.43f
                     : 1f;
+
                 goo?.Launch(target, projectileTravelTime, projectileFlip, scaleMultiplier, attackDamage);
+
                 if (data?.attackSFX != null) AudioManager.Instance?.PlaySFX(data.attackSFX);
             }
-
-            if (remaining > 0f) yield return new WaitForSeconds(remaining);
-            isShooting = false;
         }
 
         private IEnumerator MeleeAttackRoutine()
         {
             isAttacking = true;
+            playerHitThisAttack = false; // <-- Reset here for code-driven attacks
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+
             if (!string.IsNullOrEmpty(meleeAnimTrigger) && enemyAnimator != null)
                 enemyAnimator.SetTrigger(meleeAnimTrigger);
 
-            float f = chaseDir;
-            Vector2 restPos      = new Vector2(meleeRestPos.x      * f, meleeRestPos.y);
-            Vector2 windupPos    = new Vector2(meleeWindupPos.x    * f, meleeWindupPos.y);
-            Vector2 preStrikePos = new Vector2(meleePreStrikePos.x * f, meleePreStrikePos.y);
-            Vector2 strikePos    = new Vector2(meleeStrikePos.x    * f, meleeStrikePos.y);
-            float restRot      = meleeRestRot      * f;
-            float windupRot    = meleeWindupRot    * f;
-            float preStrikeRot = meleePreStrikeRot * f;
-            float strikeRot    = meleeStrikeRot    * f;
-
-            // Windup (duration 0 = instant snap)
-            yield return LerpWeapon(restPos, windupPos, restRot, windupRot, meleeWindupDuration);
-
-            // Optional hold, then snap to pre-strike position
-            if (meleeHoldDuration > 0f)
+            if (useAnimationDrivenMelee)
             {
-                yield return new WaitForSeconds(meleeHoldDuration);
-                if (weaponTransform != null)
+                // -- ANIMATION DRIVEN OPTION --
+                // Play the attack sound effect
+                if (data?.attackSFX != null) AudioManager.Instance?.PlaySFX(data.attackSFX);
+
+                // Simply wait for the total duration of the animation so the doctor 
+                // stays in the "isAttacking" state and doesn't run during the swing.
+                float totalAttackDuration = meleeWindupDuration + meleeHoldDuration + meleeStrikeDuration + meleeColliderLingerDuration + meleeReturnDuration;
+                yield return new WaitForSeconds(totalAttackDuration);
+            }
+            else
+            {
+                // -- ORIGINAL MATHEMATICAL LERP OPTION --
+                float f = chaseDir;
+                Vector2 restPos = new Vector2(meleeRestPos.x * f, meleeRestPos.y);
+                Vector2 windupPos = new Vector2(meleeWindupPos.x * f, meleeWindupPos.y);
+                Vector2 preStrikePos = new Vector2(meleePreStrikePos.x * f, meleePreStrikePos.y);
+                Vector2 strikePos = new Vector2(meleeStrikePos.x * f, meleeStrikePos.y);
+                float restRot = meleeRestRot * f;
+                float windupRot = meleeWindupRot * f;
+                float preStrikeRot = meleePreStrikeRot * f;
+                float strikeRot = meleeStrikeRot * f;
+
+                // Windup
+                yield return LerpWeapon(restPos, windupPos, restRot, windupRot, meleeWindupDuration);
+
+                // Optional hold
+                if (meleeHoldDuration > 0f)
                 {
-                    weaponTransform.localPosition = preStrikePos;
-                    weaponTransform.localEulerAngles = new Vector3(0f, 0f, preStrikeRot);
+                    yield return new WaitForSeconds(meleeHoldDuration);
+                    if (weaponTransform != null)
+                    {
+                        weaponTransform.localPosition = preStrikePos;
+                        weaponTransform.localEulerAngles = new Vector3(0f, 0f, preStrikeRot);
+                    }
+                    yield return null;
                 }
-                yield return null;
+
+                // Strike sweep
+                Vector2 strikeFromPos = meleeHoldDuration > 0f ? preStrikePos : windupPos;
+                float strikeFromRot = meleeHoldDuration > 0f ? preStrikeRot : windupRot;
+                if (data?.attackSFX != null) AudioManager.Instance?.PlaySFX(data.attackSFX);
+                if (weaponCollider != null) weaponCollider.enabled = true;
+                yield return LerpWeapon(strikeFromPos, strikePos, strikeFromRot, strikeRot, meleeStrikeDuration);
+
+                if (meleeColliderLingerDuration > 0f)
+                    yield return new WaitForSeconds(meleeColliderLingerDuration);
+                if (weaponCollider != null) weaponCollider.enabled = false;
+
+                // Return to rest
+                yield return LerpWeapon(strikePos, restPos, strikeRot, restRot, meleeReturnDuration);
             }
 
-            // Strike sweep — collider active, starting from pre-strike (or windup if no hold)
-            Vector2 strikeFromPos = meleeHoldDuration > 0f ? preStrikePos : windupPos;
-            float   strikeFromRot = meleeHoldDuration > 0f ? preStrikeRot : windupRot;
-            if (data?.attackSFX != null) AudioManager.Instance?.PlaySFX(data.attackSFX);
-            if (weaponCollider != null) weaponCollider.enabled = true;
-            yield return LerpWeapon(strikeFromPos, strikePos, strikeFromRot, strikeRot, meleeStrikeDuration);
-            if (meleeColliderLingerDuration > 0f)
-                yield return new WaitForSeconds(meleeColliderLingerDuration);
-            if (weaponCollider != null) weaponCollider.enabled = false;
-
-            // Return to rest (duration 0 = instant snap)
-            yield return LerpWeapon(strikePos, restPos, strikeRot, restRot, meleeReturnDuration);
-
             isAttacking = false;
+        }
+
+        // Methods to toggle the collider via Unity Animation Events if you prefer absolute precision
+        public void EnableWeaponCollider()
+        {
+            if (!useAnimationDrivenMelee) return;
+            playerHitThisAttack = false; // <-- Reset here for animation event attacks
+            if (weaponCollider != null) weaponCollider.enabled = true;
+            if (data?.attackSFX != null) AudioManager.Instance?.PlaySFX(data.attackSFX);
+        }
+
+        public void DisableWeaponCollider()
+        {
+            if (!useAnimationDrivenMelee) return;
+            if (weaponCollider != null) weaponCollider.enabled = false;
         }
 
         private IEnumerator LerpWeapon(Vector2 fromPos, Vector2 toPos, float fromRot, float toRot, float duration)
@@ -597,6 +641,11 @@ namespace AdequateEnough
             var pc = other.GetComponent<PlayerController>();
             if (pc == null) return;
             if (pc.IsSpinning) return;
+
+            // Prevent hitting the player multiple times during a single swing
+            if (playerHitThisAttack) return;
+            playerHitThisAttack = true;
+
             pc.TakeDamage(meleeDamage);
             if (playerRb != null)
             {
@@ -642,13 +691,23 @@ namespace AdequateEnough
 
             if (data?.deathSFX != null) AudioManager.Instance?.PlaySFX(data.deathSFX);
             bool isBossEnemy = isBoss || (data != null && data.isBoss);
-            Debug.Log($"[Enemy.Die] isBoss={isBoss} data={data?.name} data.isBoss={data?.isBoss} isBossEnemy={isBossEnemy} keycardDropPrefab={data?.keycardDropPrefab?.name ?? "NULL"}");
-            if (isBossEnemy && data?.keycardDropPrefab != null)
+
+            // Safer null checks that Unity can handle correctly:
+            bool hasData = data != null;
+            bool hasKeycard = hasData && data.keycardDropPrefab != null;
+            string keycardName = hasKeycard ? data.keycardDropPrefab.name : "NULL";
+            string dataName = hasData ? data.name : "NULL";
+            bool dataIsBoss = hasData && data.isBoss;
+
+            Debug.Log($"[Enemy.Die] isBoss={isBoss} data={dataName} data.isBoss={dataIsBoss} isBossEnemy={isBossEnemy} keycardDropPrefab={keycardName}");
+
+            if (isBossEnemy && hasKeycard)
             {
                 Debug.Log($"[Enemy.Die] Spawning keycard at {transform.position}");
                 Vector3 dropPos = transform.position + Vector3.up * 1f;
                 Instantiate(data.keycardDropPrefab, dropPos, Quaternion.identity);
             }
+
             Time.timeScale = savedTimeScale;
             if (weaponCollider != null) weaponCollider.enabled = false;
             // TODO: death animation, despawn logic
@@ -660,9 +719,9 @@ namespace AdequateEnough
             if (col == null) { isGrounded = false; return; }
             float halfW = col.bounds.extents.x * 0.85f;
             Vector2 bottom = new Vector2(col.bounds.center.x, col.bounds.min.y);
-            isGrounded = Physics2D.Raycast(bottom,                          Vector2.down, groundCheckDistance, groundLayer)
-                      || Physics2D.Raycast(bottom + Vector2.right * halfW,  Vector2.down, groundCheckDistance, groundLayer)
-                      || Physics2D.Raycast(bottom + Vector2.left  * halfW,  Vector2.down, groundCheckDistance, groundLayer);
+            isGrounded = Physics2D.Raycast(bottom, Vector2.down, groundCheckDistance, groundLayer)
+                      || Physics2D.Raycast(bottom + Vector2.right * halfW, Vector2.down, groundCheckDistance, groundLayer)
+                      || Physics2D.Raycast(bottom + Vector2.left * halfW, Vector2.down, groundCheckDistance, groundLayer);
         }
 
         private bool HasWallAhead(float dir)
@@ -683,20 +742,20 @@ namespace AdequateEnough
         {
             if (col == null) return jumpForce;
             RaycastHit2D wallHit = Physics2D.Raycast(col.bounds.center, Vector2.right * dirSign, wallCheckDistance, obstacleLayer);
-            float probeX      = wallHit ? wallHit.point.x + dirSign * 0.05f
+            float probeX = wallHit ? wallHit.point.x + dirSign * 0.05f
                                         : col.bounds.center.x + dirSign * (col.bounds.extents.x + 0.15f);
             float probeStartY = col.bounds.max.y + jumpProbeHeight;
             float probeLength = jumpProbeHeight + col.bounds.size.y + 1f;
-            Vector2 origin    = new Vector2(probeX, probeStartY);
+            Vector2 origin = new Vector2(probeX, probeStartY);
             Debug.DrawRay(origin, Vector2.down * probeLength, Color.yellow, 0.1f);
             RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, probeLength, obstacleLayer);
             if (!hit) return jumpForce;
             float minSurfaceY = wallHit ? wallHit.point.y : col.bounds.min.y;
-            float surfaceY    = Mathf.Max(hit.point.y, minSurfaceY);
+            float surfaceY = Mathf.Max(hit.point.y, minSurfaceY);
             float heightNeeded = surfaceY - col.bounds.min.y + jumpClearance;
             if (heightNeeded <= 0f) return jumpForceMin;
             float gravity = Mathf.Abs(Physics2D.gravity.y * rb.gravityScale);
-            float needed  = Mathf.Sqrt(2f * gravity * heightNeeded);
+            float needed = Mathf.Sqrt(2f * gravity * heightNeeded);
             if (needed > jumpForce) return -1f;
             return Mathf.Clamp(needed, jumpForceMin, jumpForce);
         }
@@ -765,8 +824,8 @@ namespace AdequateEnough
             bool canShoot = data == null || data.canShoot;
             bool canMelee = data == null || data.canMelee;
             // Shoot-only enemies have no reason to chase (nothing to do at melee range)
-            float effectiveChase   = (canShoot && !canMelee) ? 0f : chaseIntentWeight;
-            float effectiveShoot   = canShoot ? shootIntentWeight   : 0f;
+            float effectiveChase = (canShoot && !canMelee) ? 0f : chaseIntentWeight;
+            float effectiveShoot = canShoot ? shootIntentWeight : 0f;
             float effectiveRetreat = canShoot ? retreatIntentWeight : 0f;
             float total = effectiveChase + effectiveShoot + effectiveRetreat;
             float roll = Random.Range(0f, total);

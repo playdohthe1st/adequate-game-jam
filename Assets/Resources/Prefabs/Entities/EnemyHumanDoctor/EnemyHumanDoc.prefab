@@ -99,7 +99,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2311003409301862019}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -425,6 +425,7 @@ MonoBehaviour:
   meleeCooldown: 0.5
   meleeKnockbackForce: 25
   meleeShakeStrength: 20
+  useAnimationDrivenMelee: 1
   meleeRestPos: {x: 0.4, y: 1.39}
   meleeRestRot: 26
   meleeWindupPos: {x: 0.1, y: 3}
@@ -435,10 +436,10 @@ MonoBehaviour:
   meleeStrikeRot: -21
   meleeAnimTrigger: Attack
   meleeWindupDuration: 0
-  meleeHoldDuration: 1.857
-  meleeStrikeDuration: 0.929
-  meleeColliderLingerDuration: 1.286
-  meleeReturnDuration: 0
+  meleeHoldDuration: 0
+  meleeStrikeDuration: 0
+  meleeColliderLingerDuration: 0
+  meleeReturnDuration: 1
   isBoss: 0
   enemyAnimator: {fileID: 8903385214348482000}
   enemySpriterenderer: {fileID: 871650604528216065}

@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 6380777489545263119}
   - component: {fileID: 871650604528216065}
   - component: {fileID: 8903385214348482000}
+  - component: {fileID: 3289889158401618097}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -316,6 +317,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3289889158401618097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3556508870652757998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac6af882fb00d044eb01c8fe2c5b04f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemyAnimationEventDispatcher
 --- !u!1 &4752224983724861292
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +502,7 @@ MonoBehaviour:
   meleeCooldown: 5
   meleeKnockbackForce: 25
   meleeShakeStrength: 20
+  useAnimationDrivenMelee: 0
   meleeRestPos: {x: 0.06, y: 1.57}
   meleeRestRot: 32
   meleeWindupPos: {x: 0.06, y: 2.268}
