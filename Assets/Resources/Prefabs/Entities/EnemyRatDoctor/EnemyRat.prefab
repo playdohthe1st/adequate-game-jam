@@ -517,6 +517,10 @@ MonoBehaviour:
   meleeStrikeDuration: 0.12
   meleeColliderLingerDuration: 0
   meleeReturnDuration: 0.3
+  hurtAnimTrigger: Hurt
+  deathAnimTrigger: Die
+  deathBodyDuration: 5
+  fadeOutDuration: 2
   isBoss: 0
   enemyAnimator: {fileID: 8903385214348482000}
   enemySpriterenderer: {fileID: 871650604528216065}

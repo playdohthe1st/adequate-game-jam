@@ -75,6 +75,9 @@ namespace AdequateEnough
         [SerializeField] private float invincibilityDuration = 0.8f;
         private float invincibilityTimer;
 
+        [Header("Hurt and Death Visuals")]
+        [SerializeField] private string hurtAnimTrigger = "Hurt";
+
         [Header("Spin")]
         [SerializeField] private float spinForce = 20f;
         [SerializeField] private float spinMaxSpeed = 18f;
@@ -638,6 +641,10 @@ namespace AdequateEnough
 
             // Trigger the invincibility frames
             invincibilityTimer = invincibilityDuration;
+
+            // Trigger the player taking hit animation
+            if (playerAnimator != null && !string.IsNullOrEmpty(hurtAnimTrigger))
+                playerAnimator.SetTrigger(hurtAnimTrigger);
 
             if (playerHurtSFX != null) AudioManager.Instance?.PlaySFX(playerHurtSFX);
             if (currentHealth <= 0f) Die();
