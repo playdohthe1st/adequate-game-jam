@@ -385,12 +385,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   groundCheckDistance: 0.5
-  wallCheckDistance: 2
-  jumpForceMin: 3
+  wallCheckDistance: 3
+  jumpForceMin: 5
   jumpForce: 10
   jumpCooldown: 0.8
   jumpProbeHeight: 3
-  jumpClearance: 2
+  jumpClearance: 4
   regenRate: 0
   regenDelay: 20
   contactDamageCooldown: 1

@@ -35,6 +35,7 @@ public class KeycardItem : MonoBehaviour
         if (player == null) return;
 
         player.SetKeycardLevel(cardTier);
+        CheckpointManager.Instance?.SetCheckpoint(player.transform.position);
         if (imageBeingActivated != null) imageBeingActivated.SetActive(true);
         Destroy(gameObject);
     }
