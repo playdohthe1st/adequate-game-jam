@@ -12010,6 +12010,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1927049974}
+  - {fileID: 889736100}
+  - {fileID: 2006891858}
   - {fileID: 125427508}
   - {fileID: 680185646}
   - {fileID: 1847919684}
@@ -17526,12 +17529,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -26776,6 +26779,55 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &889736099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 889736100}
+  - component: {fileID: 889736101}
+  m_Layer: 0
+  m_Name: BossSpawner2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &889736100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889736099}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 165.73, y: -2.18, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 421141366}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &889736101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889736099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d6042343d1fe04fbe0b92fb53fd5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
+  enemyPool:
+  - {fileID: 11400000, guid: 6ba345868a6152140b96ab594e114fad, type: 2}
+  maxEnemies: 1
+  spawnInterval: 120
+  baseSortingOrder: 4
 --- !u!1 &891643444
 GameObject:
   m_ObjectHideFlags: 0
@@ -32678,6 +32730,10 @@ PrefabInstance:
     - target: {fileID: 3818760079954638966, guid: afb33120222e7fa4499bdbe4d188fe9b, type: 3}
       propertyPath: m_Name
       value: keyCardB
+      objectReference: {fileID: 0}
+    - target: {fileID: 3818760079954638966, guid: afb33120222e7fa4499bdbe4d188fe9b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -44838,6 +44894,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: keyCardA
       objectReference: {fileID: 0}
+    - target: {fileID: 6507070572466968008, guid: 86407c73f1f24b948be46684dee96d31, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -48845,6 +48905,10 @@ PrefabInstance:
     - target: {fileID: 4077065784580654193, guid: 408d5adec9253c9458ddf8e1da11411e, type: 3}
       propertyPath: m_Name
       value: keyCardC
+      objectReference: {fileID: 0}
+    - target: {fileID: 4077065784580654193, guid: 408d5adec9253c9458ddf8e1da11411e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4336383887988107639, guid: 408d5adec9253c9458ddf8e1da11411e, type: 3}
       propertyPath: imageBeingActivated
@@ -57147,6 +57211,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -116.057}
+--- !u!1 &1927049973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1927049974}
+  - component: {fileID: 1927049975}
+  m_Layer: 0
+  m_Name: BossSpawner1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1927049974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927049973}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -190.58, y: -27.57, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 421141366}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1927049975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927049973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d6042343d1fe04fbe0b92fb53fd5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
+  enemyPool:
+  - {fileID: 11400000, guid: f7469c20d7bc92a48895f1002879e233, type: 2}
+  maxEnemies: 1
+  spawnInterval: 120
+  baseSortingOrder: 4
 --- !u!1 &1936213558
 GameObject:
   m_ObjectHideFlags: 0
@@ -59866,6 +59979,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2006891857
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2006891858}
+  - component: {fileID: 2006891859}
+  m_Layer: 0
+  m_Name: BossSpawner3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2006891858
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006891857}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.95, y: 75.86, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 421141366}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2006891859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006891857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d6042343d1fe04fbe0b92fb53fd5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemySpawner
+  enemyPool:
+  - {fileID: 11400000, guid: 690fb904550fbf24aba34825bcfcb110, type: 2}
+  maxEnemies: 1
+  spawnInterval: 120
+  baseSortingOrder: 4
 --- !u!1 &2007831826
 GameObject:
   m_ObjectHideFlags: 0

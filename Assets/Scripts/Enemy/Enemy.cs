@@ -40,6 +40,7 @@ namespace AdequateEnough
         [SerializeField] private float wanderPauseMax = 3f;
 
         [Header("Linger")]
+        [SerializeField] private float airborneStuckTimeout = 1.2f;
         [SerializeField] private float lingerMin = 1f;
         [SerializeField] private float lingerMax = 3f;
         [SerializeField] private float dirChangeCooldown = 0.15f;
@@ -92,6 +93,9 @@ namespace AdequateEnough
         [SerializeField] private float meleeColliderLingerDuration = 0f;
         [SerializeField] private float meleeReturnDuration        = 0.3f;
 
+        [Header("Boss Override")]
+        [SerializeField] private bool isBoss = false;
+
         [Header("VisualUpdater")]
         [SerializeField] private Animator enemyAnimator;
         [SerializeField] private SpriteRenderer enemySpriterenderer;
@@ -101,6 +105,7 @@ namespace AdequateEnough
         [Header("Contact Retreat")]
         [SerializeField] private bool retreatAfterContact = false;
         [SerializeField] private float contactRetreatDuration = 1.5f;
+        [SerializeField] private float wallBlockDuration = 1.5f;
         [Header("Hit Effects")]
         [SerializeField] private Material flashMaterial; 
         [SerializeField] private float flashDuration = 0.08f;
@@ -123,6 +128,7 @@ namespace AdequateEnough
         private bool isGrounded;
         private float lastJumpTime;
         private float stuckTimer;
+        private float airborneStuckTimer;
         private float stairsAvoidTimer;
         private float defaultGravityScale;
 
@@ -144,6 +150,9 @@ namespace AdequateEnough
         private bool isRetreatingFromContact;
         private float contactRetreatTimer;
         private float contactRetreatDir;
+        private bool isWallBlocked;
+        private float wallBlockTimer;
+        private float wallBlockDir;
         private bool isShooting;
         private Coroutine shootCoroutine;
 
@@ -183,8 +192,9 @@ namespace AdequateEnough
                 attackDamage = data.ResolvedAttackDamage;
                 meleeDamage = attackDamage;
 
-                if (data.isBoss)
-                    transform.localScale *= data.ScaleMultiplier;
+                bool isBossEnemy = isBoss || data.isBoss;
+                if (isBossEnemy)
+                    transform.localScale *= data.isBoss ? data.ScaleMultiplier : 2.5f;
                 else
                     ApplyCommonVariation();
             }
@@ -232,6 +242,19 @@ namespace AdequateEnough
         {
             if (isDead) return;
             CheckGround();
+            if (!isAttacking && !isShooting && !isLingering && Mathf.Abs(rb.linearVelocity.x) < 0.3f)
+            {
+                airborneStuckTimer += Time.fixedDeltaTime;
+                if (airborneStuckTimer >= airborneStuckTimeout)
+                {
+                    chaseDir = -chaseDir;
+                    airborneStuckTimer = 0f;
+                }
+            }
+            else
+            {
+                airborneStuckTimer = 0f;
+            }
             PushPlayerIfOverlapping();
             if (stairsAvoidTimer > 0f) stairsAvoidTimer -= Time.fixedDeltaTime;
 
@@ -244,6 +267,22 @@ namespace AdequateEnough
                 else
                 {
                     rb.linearVelocity = new Vector2(contactRetreatDir * retreatMoveSpeed, rb.linearVelocity.y);
+                    isMoving = true;
+                    return;
+                }
+            }
+
+            if (isWallBlocked)
+            {
+                wallBlockTimer -= Time.fixedDeltaTime;
+                if (wallBlockTimer <= 0f || HasWallAhead(wallBlockDir) || HasLedgeAhead(wallBlockDir))
+                {
+                    isWallBlocked = false;
+                    PickWanderTarget();
+                }
+                else
+                {
+                    rb.linearVelocity = new Vector2(wallBlockDir * moveSpeed, rb.linearVelocity.y);
                     isMoving = true;
                     return;
                 }
@@ -317,9 +356,18 @@ namespace AdequateEnough
             }
             if (enemyAnimator != null) enemyAnimator.SetBool("IsMoving", isMoving);
             if (rb.linearVelocityX > 0.1f)
-                enemySpriterenderer.flipX = invertFlipX;
+                SetFacing(invertFlipX ? 1f : -1f);
             else if (rb.linearVelocityX < -0.1f)
-                enemySpriterenderer.flipX = !invertFlipX;
+                SetFacing(invertFlipX ? -1f : 1f);
+        }
+
+        private void SetFacing(float dirSign)
+        {
+            if (enemySpriterenderer == null) return;
+            Transform t = enemySpriterenderer.transform.parent != null
+                ? enemySpriterenderer.transform.parent
+                : enemySpriterenderer.transform;
+            t.localEulerAngles = new Vector3(0f, dirSign > 0f ? 0f : 180f, 0f);
         }
         private void ChasePlayer()
         {
@@ -569,6 +617,13 @@ namespace AdequateEnough
             if (retreatAfterContact) TriggerContactRetreat();
         }
 
+        private void TriggerWallBlock(float awayDir)
+        {
+            wallBlockDir = awayDir;
+            wallBlockTimer = wallBlockDuration;
+            isWallBlocked = true;
+        }
+
         private void TriggerContactRetreat()
         {
             contactRetreatDir = player != null
@@ -585,8 +640,8 @@ namespace AdequateEnough
             isDead = true;
 
             if (data?.deathSFX != null) AudioManager.Instance?.PlaySFX(data.deathSFX);
-            if (data != null && data.isBoss && player != null)
-                player.GiveNextKeycard();
+            if (data != null && data.isBoss && data.keycardDropPrefab != null)
+                Instantiate(data.keycardDropPrefab, transform.position, Quaternion.identity);
             Time.timeScale = savedTimeScale;
             if (weaponCollider != null) weaponCollider.enabled = false;
             // TODO: death animation, despawn logic
@@ -614,6 +669,7 @@ namespace AdequateEnough
             return !Physics2D.Raycast(origin, Vector2.down, groundCheckDistance + 0.2f, groundLayer);
         }
 
+        // Returns -1f if the wall ahead is too tall to jump — caller should reverse direction instead.
         private float CalculateJumpForce(float dirSign)
         {
             if (col == null) return jumpForce;
@@ -632,14 +688,33 @@ namespace AdequateEnough
             if (heightNeeded <= 0f) return jumpForceMin;
             float gravity = Mathf.Abs(Physics2D.gravity.y * rb.gravityScale);
             float needed  = Mathf.Sqrt(2f * gravity * heightNeeded);
+            if (needed > jumpForce) return -1f;
             return Mathf.Clamp(needed, jumpForceMin, jumpForce);
+        }
+
+        private bool IsWallToppedAhead(float moveDir)
+        {
+            if (col == null) return true;
+            Vector2 topOrigin = new Vector2(col.bounds.center.x, col.bounds.max.y);
+            return Physics2D.Raycast(topOrigin, Vector2.right * moveDir, wallCheckDistance, obstacleLayer);
         }
 
         private void TryJump(float moveDir)
         {
             if (!isGrounded || Time.fixedTime < lastJumpTime + jumpCooldown) return;
             if (!HasWallAhead(moveDir)) return;
+
+            if (!IsWallToppedAhead(moveDir))
+            {
+                // Low obstacle — top of collider clears it, jump freely
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                lastJumpTime = Time.fixedTime;
+                stuckTimer = 0f;
+                return;
+            }
+
             float jf = CalculateJumpForce(moveDir);
+            if (jf < 0f) { TriggerWallBlock(-moveDir); stuckTimer = 0f; return; }
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jf);
             lastJumpTime = Time.fixedTime;
             stuckTimer = 0f;
@@ -659,7 +734,15 @@ namespace AdequateEnough
                 stuckTimer += Time.fixedDeltaTime;
                 if (stuckTimer > 0.25f && Time.fixedTime >= lastJumpTime + jumpCooldown)
                 {
+                    if (!IsWallToppedAhead(dirSign))
+                    {
+                        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                        lastJumpTime = Time.fixedTime;
+                        stuckTimer = 0f;
+                        return;
+                    }
                     float jf = CalculateJumpForce(dirSign);
+                    if (jf < 0f) { TriggerWallBlock(-dirSign); stuckTimer = 0f; return; }
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, jf);
                     lastJumpTime = Time.fixedTime;
                     stuckTimer = 0f;
