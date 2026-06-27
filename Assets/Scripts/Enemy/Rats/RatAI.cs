@@ -7,6 +7,7 @@ public class RatAI : MonoBehaviour
     public float walkSpeed = 2f;
     public float runSpeed = 5f;
     public float detectionRadius = 4f;
+    public float stopRunningRadius = 7f;
     public float minWanderTime = 1f;
     public float maxWanderTime = 3f;
 
@@ -67,13 +68,9 @@ public class RatAI : MonoBehaviour
 
         // If player is close, switch to running away
         if (distanceToPlayer <= detectionRadius)
-        {
             isRunningAway = true;
-        }
-        else
-        {
+        else if (distanceToPlayer > stopRunningRadius)
             isRunningAway = false;
-        }
     }
 
     void PatrolMovement()
