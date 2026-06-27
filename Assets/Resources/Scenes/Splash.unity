@@ -946,6 +946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.MainMenuManager
   mainPanel: {fileID: 1069022811}
   settingsPanel: {fileID: 84024944}
+  dustParticles: {fileID: 1771037510}
   videoPanel: {fileID: 51620537}
   videoPlayer: {fileID: 51620539}
   introAudio: {fileID: 8300000, guid: e3433fb432e2a384f99949716b1c3690, type: 3}
