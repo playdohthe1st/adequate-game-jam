@@ -348,6 +348,54 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &7320910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7320911}
+  - component: {fileID: 7320912}
+  m_Layer: 0
+  m_Name: RatSpawner (41)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7320911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320910}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 291.9, y: 37, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7320912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &8950383
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +581,54 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.56855, y: 6.4632397}
   m_EdgeRadius: 0
+--- !u!1 &16025846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 16025847}
+  - component: {fileID: 16025848}
+  m_Layer: 0
+  m_Name: RatSpawner (34)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &16025847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16025846}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 265.1, y: 23.8, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &16025848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16025846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &19403117
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,6 +952,54 @@ Transform:
   - {fileID: 752075651}
   m_Father: {fileID: 1594129727}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &30683262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 30683263}
+  - component: {fileID: 30683264}
+  m_Layer: 0
+  m_Name: RatSpawner (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &30683263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30683262}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.3, y: -3.52, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &30683264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30683262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &33107873
 GameObject:
   m_ObjectHideFlags: 0
@@ -3081,6 +3225,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &133786562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 133786563}
+  - component: {fileID: 133786564}
+  m_Layer: 0
+  m_Name: RatSpawner (31)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &133786563
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133786562}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 334.6, y: 14, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &133786564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133786562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &134542720
 GameObject:
   m_ObjectHideFlags: 0
@@ -5512,6 +5704,54 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &209239222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 209239223}
+  - component: {fileID: 209239224}
+  m_Layer: 0
+  m_Name: RatSpawner (37)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &209239223
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209239222}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 251.3, y: 37, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &209239224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209239222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &211601924
 GameObject:
   m_ObjectHideFlags: 0
@@ -6179,6 +6419,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 79.02}
+--- !u!1 &240912921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 240912922}
+  - component: {fileID: 240912923}
+  m_Layer: 0
+  m_Name: RatSpawner (43)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &240912922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240912921}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 293, y: 47, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &240912923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240912921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &248977420
 GameObject:
   m_ObjectHideFlags: 0
@@ -6683,6 +6971,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1871535613}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &255920733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 255920734}
+  - component: {fileID: 255920735}
+  m_Layer: 0
+  m_Name: RatSpawner (56)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &255920734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255920733}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 44.9, y: 81.6, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &255920735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255920733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &257155142
 GameObject:
   m_ObjectHideFlags: 0
@@ -6910,6 +7246,54 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.56855, y: 6.4632397}
   m_EdgeRadius: 0
+--- !u!1 &262338757
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 262338758}
+  - component: {fileID: 262338759}
+  m_Layer: 0
+  m_Name: RatSpawner (13)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &262338758
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262338757}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 101.3, y: 45.3, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &262338759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262338757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &263825212
 GameObject:
   m_ObjectHideFlags: 0
@@ -8317,6 +8701,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 93.307}
+--- !u!1 &314889819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 314889820}
+  - component: {fileID: 314889821}
+  m_Layer: 0
+  m_Name: RatSpawner (22)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &314889820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314889819}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 190, y: 9.7, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &314889821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314889819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &318702413
 GameObject:
   m_ObjectHideFlags: 0
@@ -8354,6 +8786,54 @@ Transform:
   - {fileID: 677015150}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &320722207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 320722208}
+  - component: {fileID: 320722209}
+  m_Layer: 0
+  m_Name: RatSpawner (27)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &320722208
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320722207}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 274.9, y: 14, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &320722209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320722207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &323882193
 GameObject:
   m_ObjectHideFlags: 0
@@ -8492,6 +8972,54 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &330242558
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 330242559}
+  - component: {fileID: 330242560}
+  m_Layer: 0
+  m_Name: RatSpawner (60)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &330242559
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330242558}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -113.7, y: 6.8, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &330242560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330242558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &331376656
 GameObject:
   m_ObjectHideFlags: 0
@@ -9736,6 +10264,54 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &378198909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 378198910}
+  - component: {fileID: 378198911}
+  m_Layer: 0
+  m_Name: RatSpawner (16)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &378198910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378198909}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 88.2, y: -1.8, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &378198911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378198909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &378627061
 GameObject:
   m_ObjectHideFlags: 0
@@ -11408,6 +11984,54 @@ Transform:
   - {fileID: 1979423682}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &425564908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 425564909}
+  - component: {fileID: 425564910}
+  m_Layer: 0
+  m_Name: RatSpawner (49)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &425564909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425564908}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 366.9, y: 34.9, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &425564910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425564908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &429464358
 GameObject:
   m_ObjectHideFlags: 0
@@ -11863,6 +12487,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &434826483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 434826484}
+  - component: {fileID: 434826485}
+  m_Layer: 0
+  m_Name: RatSpawner (59)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &434826484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434826483}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -127.8, y: 7.4, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &434826485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434826483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
+--- !u!1 &436040542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 436040543}
+  - component: {fileID: 436040544}
+  m_Layer: 0
+  m_Name: RatSpawner (65)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &436040543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436040542}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -188.62, y: -31.63, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &436040544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436040542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &440643416
 GameObject:
   m_ObjectHideFlags: 0
@@ -14577,6 +15297,102 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &546081760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 546081761}
+  - component: {fileID: 546081762}
+  m_Layer: 0
+  m_Name: RatSpawner (20)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &546081761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546081760}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 185.4, y: -1.8, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &546081762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546081760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
+--- !u!1 &548801227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 548801228}
+  - component: {fileID: 548801229}
+  m_Layer: 0
+  m_Name: RatSpawner (54)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &548801228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548801227}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 23.2, y: 81.3, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &548801229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548801227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &552909927
 GameObject:
   m_ObjectHideFlags: 0
@@ -14916,6 +15732,54 @@ Transform:
   - {fileID: 1917806312}
   m_Father: {fileID: 677015150}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &568426921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 568426922}
+  - component: {fileID: 568426923}
+  m_Layer: 0
+  m_Name: RatSpawner (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &568426922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568426921}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 26.9, y: -3.52, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &568426923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568426921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &570082780
 GameObject:
   m_ObjectHideFlags: 0
@@ -15189,6 +16053,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -116.057}
+--- !u!1 &575243936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 575243937}
+  - component: {fileID: 575243938}
+  m_Layer: 0
+  m_Name: RatSpawner (53)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &575243937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575243936}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 21.8, y: 69.3, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &575243938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575243936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &575656378
 GameObject:
   m_ObjectHideFlags: 0
@@ -15813,6 +16725,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &594469107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 594469108}
+  - component: {fileID: 594469109}
+  m_Layer: 0
+  m_Name: RatSpawner (30)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &594469108
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594469107}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 316.5, y: 14, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &594469109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594469107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &595720635
 GameObject:
   m_ObjectHideFlags: 0
@@ -16685,6 +17645,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &626881366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 626881367}
+  - component: {fileID: 626881368}
+  m_Layer: 0
+  m_Name: RatSpawner (52)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &626881367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626881366}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 43.4, y: 69.3, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &626881368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626881366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &627377113
 GameObject:
   m_ObjectHideFlags: 0
@@ -16962,6 +17970,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -48.23}
+--- !u!1 &647964939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 647964940}
+  - component: {fileID: 647964941}
+  m_Layer: 0
+  m_Name: RatSpawner (62)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &647964940
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647964939}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -166.63, y: -31.9, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &647964941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647964939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &654364960
 GameObject:
   m_ObjectHideFlags: 0
@@ -18010,6 +19066,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &709687331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 709687332}
+  - component: {fileID: 709687333}
+  m_Layer: 0
+  m_Name: RatSpawner (39)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &709687332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709687331}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 278, y: 37, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &709687333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709687331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &717109470
 GameObject:
   m_ObjectHideFlags: 0
@@ -18466,6 +19570,104 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &727004424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 727004425}
+  m_Layer: 0
+  m_Name: AllRatsSpawners
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &727004425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727004424}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.05203, y: -0, z: -22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1334270800}
+  - {fileID: 971511555}
+  - {fileID: 30683263}
+  - {fileID: 568426922}
+  - {fileID: 814273075}
+  - {fileID: 1155505014}
+  - {fileID: 995326156}
+  - {fileID: 970266024}
+  - {fileID: 1622311471}
+  - {fileID: 856264516}
+  - {fileID: 737492521}
+  - {fileID: 1175713211}
+  - {fileID: 1328778112}
+  - {fileID: 262338758}
+  - {fileID: 835422233}
+  - {fileID: 1553643134}
+  - {fileID: 378198910}
+  - {fileID: 1386056006}
+  - {fileID: 1387782512}
+  - {fileID: 1718978037}
+  - {fileID: 546081761}
+  - {fileID: 1600907317}
+  - {fileID: 314889820}
+  - {fileID: 1402119585}
+  - {fileID: 786053194}
+  - {fileID: 1095861882}
+  - {fileID: 1193330424}
+  - {fileID: 320722208}
+  - {fileID: 1601573449}
+  - {fileID: 1791858518}
+  - {fileID: 594469108}
+  - {fileID: 133786563}
+  - {fileID: 1907922627}
+  - {fileID: 1235224915}
+  - {fileID: 16025847}
+  - {fileID: 1959812340}
+  - {fileID: 957359635}
+  - {fileID: 209239223}
+  - {fileID: 1908453894}
+  - {fileID: 709687332}
+  - {fileID: 1152265838}
+  - {fileID: 7320911}
+  - {fileID: 1523589368}
+  - {fileID: 240912922}
+  - {fileID: 1156587185}
+  - {fileID: 926788361}
+  - {fileID: 1111671639}
+  - {fileID: 1316000462}
+  - {fileID: 1465163091}
+  - {fileID: 425564909}
+  - {fileID: 2001694244}
+  - {fileID: 1732231262}
+  - {fileID: 626881367}
+  - {fileID: 575243937}
+  - {fileID: 548801228}
+  - {fileID: 803057592}
+  - {fileID: 255920734}
+  - {fileID: 1151496845}
+  - {fileID: 1180850613}
+  - {fileID: 434826484}
+  - {fileID: 330242559}
+  - {fileID: 1409997062}
+  - {fileID: 647964940}
+  - {fileID: 1661810753}
+  - {fileID: 1109440595}
+  - {fileID: 436040543}
+  - {fileID: 1191205617}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &727559140
 GameObject:
   m_ObjectHideFlags: 0
@@ -18648,6 +19850,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &737492520
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 737492521}
+  - component: {fileID: 737492522}
+  m_Layer: 0
+  m_Name: RatSpawner (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &737492521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737492520}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 75, y: 18.7, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &737492522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737492520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1001 &737618686
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19906,108 +21156,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &767341894
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 767341898}
-  - component: {fileID: 767341897}
-  - component: {fileID: 767341896}
-  - component: {fileID: 767341895}
-  m_Layer: 5
-  m_Name: SceneTransitionCanvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &767341895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767341894}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &767341896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767341894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.5
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!223 &767341897
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767341894}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!224 &767341898
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767341894}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1979645385}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
 --- !u!1 &771376549
 GameObject:
   m_ObjectHideFlags: 0
@@ -20668,6 +21816,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &786053193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 786053194}
+  - component: {fileID: 786053195}
+  m_Layer: 0
+  m_Name: RatSpawner (24)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &786053194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786053193}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 195.4, y: 9.7, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &786053195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786053193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &786313166
 GameObject:
   m_ObjectHideFlags: 0
@@ -21409,94 +22605,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 5.6784973, y: 0.89103746}
   m_EdgeRadius: 0
---- !u!1 &793837420
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 793837421}
-  - component: {fileID: 793837424}
-  - component: {fileID: 793837423}
-  - component: {fileID: 793837422}
-  m_Layer: 5
-  m_Name: ScreenFade
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &793837421
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 793837420}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 120.07, y: 120.07, z: 120.07}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 1979645385}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 94.38086, y: 312.2292}
-  m_SizeDelta: {x: 1920, y: 1080}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!225 &793837422
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 793837420}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
---- !u!114 &793837423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 793837420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2a12ecfa30d416d458d925b77e055b82, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &793837424
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 793837420}
-  m_CullTransparentMesh: 1
 --- !u!1 &798232260
 GameObject:
   m_ObjectHideFlags: 0
@@ -21907,6 +23015,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &803057591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 803057592}
+  - component: {fileID: 803057593}
+  m_Layer: 0
+  m_Name: RatSpawner (55)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &803057592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803057591}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 44.9, y: 81.6, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &803057593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803057591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &803562149
 GameObject:
   m_ObjectHideFlags: 0
@@ -22227,6 +23383,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &814273074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 814273075}
+  - component: {fileID: 814273076}
+  m_Layer: 0
+  m_Name: RatSpawner (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &814273075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814273074}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 62.1, y: 7.5, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &814273076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814273074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &818741914
 GameObject:
   m_ObjectHideFlags: 0
@@ -22867,6 +24071,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &835422232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 835422233}
+  - component: {fileID: 835422234}
+  m_Layer: 0
+  m_Name: RatSpawner (14)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &835422233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835422232}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 119.8, y: 45.3, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &835422234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835422232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &838194415
 GameObject:
   m_ObjectHideFlags: 0
@@ -23877,6 +25129,54 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &856264515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 856264516}
+  - component: {fileID: 856264517}
+  m_Layer: 0
+  m_Name: RatSpawner (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &856264516
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856264515}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 88.2, y: 18.7, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &856264517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856264515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1001 &856318298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26387,6 +27687,54 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &926788360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 926788361}
+  - component: {fileID: 926788362}
+  m_Layer: 0
+  m_Name: RatSpawner (45)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &926788361
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926788360}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 247.3, y: 47, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &926788362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926788360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &932541594
 GameObject:
   m_ObjectHideFlags: 0
@@ -27198,6 +28546,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -8.814}
+--- !u!1 &957359634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 957359635}
+  - component: {fileID: 957359636}
+  m_Layer: 0
+  m_Name: RatSpawner (36)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &957359635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957359634}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 237.3, y: 23.8, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &957359636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957359634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &961936998
 GameObject:
   m_ObjectHideFlags: 0
@@ -27518,6 +28914,102 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &970266023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 970266024}
+  - component: {fileID: 970266025}
+  m_Layer: 0
+  m_Name: RatSpawner (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &970266024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970266023}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 106.3, y: 7.5, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &970266025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970266023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
+--- !u!1 &971511554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 971511555}
+  - component: {fileID: 971511556}
+  m_Layer: 0
+  m_Name: RatSpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &971511555
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971511554}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.9, y: -3.52, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &971511556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971511554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1001 &975426853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27994,6 +29486,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &995326155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 995326156}
+  - component: {fileID: 995326157}
+  m_Layer: 0
+  m_Name: RatSpawner (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &995326156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995326155}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 97.7, y: 7.5, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &995326157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995326155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &996105870
 GameObject:
   m_ObjectHideFlags: 0
@@ -31069,6 +32609,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 319362605165811865, guid: afb33120222e7fa4499bdbe4d188fe9b, type: 3}
   m_PrefabInstance: {fileID: 1092534124}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1095861881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1095861882}
+  - component: {fileID: 1095861883}
+  m_Layer: 0
+  m_Name: RatSpawner (25)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1095861882
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095861881}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 215.9, y: 13.2, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1095861883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095861881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1099474467
 GameObject:
   m_ObjectHideFlags: 0
@@ -31245,6 +32833,102 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9151427847911130635, guid: a122c87ea5d8f2b4bbd674bd2249fdb7, type: 3}
   m_PrefabInstance: {fileID: 1105360691}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1109440594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1109440595}
+  - component: {fileID: 1109440596}
+  m_Layer: 0
+  m_Name: RatSpawner (64)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1109440595
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109440594}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -182.01, y: -31.73, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1109440596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109440594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
+--- !u!1 &1111671638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1111671639}
+  - component: {fileID: 1111671640}
+  m_Layer: 0
+  m_Name: RatSpawner (46)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1111671639
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111671638}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 349.8, y: 34.9, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1111671640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111671638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1117187522
 GameObject:
   m_ObjectHideFlags: 0
@@ -32082,6 +33766,198 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1151496844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1151496845}
+  - component: {fileID: 1151496846}
+  m_Layer: 0
+  m_Name: RatSpawner (57)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1151496845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151496844}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -102.6, y: -0.6, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1151496846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151496844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
+--- !u!1 &1152265837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1152265838}
+  - component: {fileID: 1152265839}
+  m_Layer: 0
+  m_Name: RatSpawner (40)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1152265838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152265837}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 285.9, y: 37, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1152265839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152265837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
+--- !u!1 &1155505013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1155505014}
+  - component: {fileID: 1155505015}
+  m_Layer: 0
+  m_Name: RatSpawner (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1155505014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155505013}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 84, y: 7.5, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1155505015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155505013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
+--- !u!1 &1156587184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1156587185}
+  - component: {fileID: 1156587186}
+  m_Layer: 0
+  m_Name: RatSpawner (44)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1156587185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156587184}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 271.2, y: 47, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1156587186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156587184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1169629231
 GameObject:
   m_ObjectHideFlags: 0
@@ -32355,6 +34231,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1175713210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1175713211}
+  - component: {fileID: 1175713212}
+  m_Layer: 0
+  m_Name: RatSpawner (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1175713211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175713210}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 48.9, y: 45.3, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1175713212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175713210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1178237880
 GameObject:
   m_ObjectHideFlags: 0
@@ -32446,6 +34370,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1180850612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1180850613}
+  - component: {fileID: 1180850614}
+  m_Layer: 0
+  m_Name: RatSpawner (58)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1180850613
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180850612}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -127.7, y: -2, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1180850614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180850612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1190163323
 GameObject:
   m_ObjectHideFlags: 0
@@ -32524,6 +34496,102 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 34.73101, y: 0.89103746}
   m_EdgeRadius: 0
+--- !u!1 &1191205616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1191205617}
+  - component: {fileID: 1191205618}
+  m_Layer: 0
+  m_Name: RatSpawner (66)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1191205617
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191205616}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -169.5, y: -3.2, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1191205618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191205616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
+--- !u!1 &1193330423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1193330424}
+  - component: {fileID: 1193330425}
+  m_Layer: 0
+  m_Name: RatSpawner (26)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1193330424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193330423}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 256.9, y: 14, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1193330425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193330423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1194865882
 GameObject:
   m_ObjectHideFlags: 0
@@ -33631,6 +35699,54 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1235224914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1235224915}
+  - component: {fileID: 1235224916}
+  m_Layer: 0
+  m_Name: RatSpawner (33)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1235224915
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235224914}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 277.8, y: 23.8, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1235224916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235224914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1236899048
 GameObject:
   m_ObjectHideFlags: 0
@@ -36009,6 +38125,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1316000461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1316000462}
+  - component: {fileID: 1316000463}
+  m_Layer: 0
+  m_Name: RatSpawner (47)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1316000462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316000461}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 356, y: 34.9, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1316000463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316000461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1316746686
 GameObject:
   m_ObjectHideFlags: 0
@@ -36376,11 +38540,107 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1328778111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1328778112}
+  - component: {fileID: 1328778113}
+  m_Layer: 0
+  m_Name: RatSpawner (12)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1328778112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328778111}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 73.3, y: 45.3, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1328778113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328778111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!4 &1333479066 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8680775113140766297, guid: 6c2baa043d22abb418cf9976f0beafa4, type: 3}
   m_PrefabInstance: {fileID: 67764578}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1334270799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1334270800}
+  - component: {fileID: 1334270801}
+  m_Layer: 0
+  m_Name: RatSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1334270800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334270799}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14.827969, y: -3.52, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1334270801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334270799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1339213529
 GameObject:
   m_ObjectHideFlags: 0
@@ -37769,6 +40029,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1384158031}
   m_CullTransparentMesh: 1
+--- !u!1 &1386056005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1386056006}
+  - component: {fileID: 1386056007}
+  m_Layer: 0
+  m_Name: RatSpawner (17)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1386056006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386056005}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 111, y: -1.8, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1386056007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386056005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1386928773
 GameObject:
   m_ObjectHideFlags: 0
@@ -37907,6 +40215,54 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1387782511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1387782512}
+  - component: {fileID: 1387782513}
+  m_Layer: 0
+  m_Name: RatSpawner (18)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1387782512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387782511}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 135.9, y: -1.8, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1387782513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387782511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1390252955
 GameObject:
   m_ObjectHideFlags: 0
@@ -38242,6 +40598,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1402119584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1402119585}
+  - component: {fileID: 1402119586}
+  m_Layer: 0
+  m_Name: RatSpawner (23)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1402119585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402119584}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 203.8, y: 9.7, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1402119586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402119584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1402872081
 GameObject:
   m_ObjectHideFlags: 0
@@ -38333,6 +40737,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 29990202}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1409997061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1409997062}
+  - component: {fileID: 1409997063}
+  m_Layer: 0
+  m_Name: RatSpawner (61)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1409997062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409997061}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -101.1, y: 7, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1409997063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409997061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1418317116
 GameObject:
   m_ObjectHideFlags: 0
@@ -38635,7 +41087,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1424178611}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 3b9998949800d124db559b86a83556ff, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: b451431775418db4d9d2c8e4a8c99a55, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -40215,6 +42667,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -246.47699}
+--- !u!1 &1465163090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1465163091}
+  - component: {fileID: 1465163092}
+  m_Layer: 0
+  m_Name: RatSpawner (48)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1465163091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465163090}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 361.9, y: 34.9, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1465163092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465163090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1466011486
 GameObject:
   m_ObjectHideFlags: 0
@@ -41952,6 +44452,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1523589367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1523589368}
+  - component: {fileID: 1523589369}
+  m_Layer: 0
+  m_Name: RatSpawner (42)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1523589368
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523589367}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 305, y: 47, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1523589369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523589367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1523796819
 GameObject:
   m_ObjectHideFlags: 0
@@ -42868,6 +45416,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1553643133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1553643134}
+  - component: {fileID: 1553643135}
+  m_Layer: 0
+  m_Name: RatSpawner (15)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1553643134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553643133}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 104.9, y: -1.8, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1553643135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553643133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1554237260
 GameObject:
   m_ObjectHideFlags: 0
@@ -44253,6 +46849,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1600907316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1600907317}
+  - component: {fileID: 1600907318}
+  m_Layer: 0
+  m_Name: RatSpawner (21)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1600907317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600907316}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 196.4, y: -1.8, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1600907318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600907316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
+--- !u!1 &1601573448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1601573449}
+  - component: {fileID: 1601573450}
+  m_Layer: 0
+  m_Name: RatSpawner (28)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1601573449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601573448}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 281.9, y: 14, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1601573450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601573448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1603934403
 GameObject:
   m_ObjectHideFlags: 0
@@ -45049,6 +47741,54 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.4281006, y: 19.834492}
   m_EdgeRadius: 0
+--- !u!1 &1622311470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1622311471}
+  - component: {fileID: 1622311472}
+  m_Layer: 0
+  m_Name: RatSpawner (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1622311471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622311470}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 110, y: 18.7, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1622311472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622311470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1001 &1622821820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45059,11 +47799,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3021062566921754492, guid: 6e4aa782eba3c7f4091746986595c32b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 328.61462
+      value: -184.38539
       objectReference: {fileID: 0}
     - target: {fileID: 3021062566921754492, guid: 6e4aa782eba3c7f4091746986595c32b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.923359
+      value: -0.67664075
       objectReference: {fileID: 0}
     - target: {fileID: 3021062566921754492, guid: 6e4aa782eba3c7f4091746986595c32b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -45123,11 +47863,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7214368498428932958, guid: 6e4aa782eba3c7f4091746986595c32b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 328.61462
+      value: -184.38539
       objectReference: {fileID: 0}
     - target: {fileID: 7214368498428932958, guid: 6e4aa782eba3c7f4091746986595c32b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.923359
+      value: -0.67664075
       objectReference: {fileID: 0}
     - target: {fileID: 7214368498428932958, guid: 6e4aa782eba3c7f4091746986595c32b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -45976,6 +48716,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1264327094184233689, guid: 408d5adec9253c9458ddf8e1da11411e, type: 3}
   m_PrefabInstance: {fileID: 1652709010}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1661810752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1661810753}
+  - component: {fileID: 1661810754}
+  m_Layer: 0
+  m_Name: RatSpawner (63)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1661810753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661810752}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -178, y: -31.83, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1661810754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661810752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1665004816
 GameObject:
   m_ObjectHideFlags: 0
@@ -47517,6 +50305,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -261.408}
+--- !u!1 &1718978036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1718978037}
+  - component: {fileID: 1718978038}
+  m_Layer: 0
+  m_Name: RatSpawner (19)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1718978037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718978036}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 159.9, y: -1.8, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1718978038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718978036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1724914285
 GameObject:
   m_ObjectHideFlags: 0
@@ -47790,6 +50626,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1732231261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1732231262}
+  - component: {fileID: 1732231263}
+  m_Layer: 0
+  m_Name: RatSpawner (51)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1732231262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732231261}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 366.2, y: 34.9, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1732231263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732231261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1736541711
 GameObject:
   m_ObjectHideFlags: 0
@@ -49646,6 +52530,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1791858517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1791858518}
+  - component: {fileID: 1791858519}
+  m_Layer: 0
+  m_Name: RatSpawner (29)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1791858518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791858517}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 290.1, y: 14, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1791858519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791858517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1796859927
 GameObject:
   m_ObjectHideFlags: 0
@@ -53210,6 +56142,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -104.728}
+--- !u!1 &1907922626
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1907922627}
+  - component: {fileID: 1907922628}
+  m_Layer: 0
+  m_Name: RatSpawner (32)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1907922627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907922626}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 321.4, y: 14, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1907922628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907922626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1908154222
 GameObject:
   m_ObjectHideFlags: 0
@@ -53301,6 +56281,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1036087442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1908453893
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1908453894}
+  - component: {fileID: 1908453895}
+  m_Layer: 0
+  m_Name: RatSpawner (38)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1908453894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908453893}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 269.7, y: 37, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1908453895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908453893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &1912412084
 GameObject:
   m_ObjectHideFlags: 0
@@ -54835,6 +57863,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6502564691719161429, guid: 45e671db7719af4498a474536f45dd37, type: 3}
   m_PrefabInstance: {fileID: 1957017952}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1959812339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1959812340}
+  - component: {fileID: 1959812341}
+  m_Layer: 0
+  m_Name: RatSpawner (35)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1959812340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959812339}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 254.2, y: 23.8, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1959812341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959812339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1001 &1960601636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55607,55 +58683,6 @@ MonoBehaviour:
   maxEnemies: 2
   spawnInterval: 5
   baseSortingOrder: 4
---- !u!1 &1979645384
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1979645385}
-  - component: {fileID: 1979645386}
-  m_Layer: 0
-  m_Name: ScreenFader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1979645385
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979645384}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -70.785645, y: -234.17189, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 793837421}
-  m_Father: {fileID: 767341898}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1979645386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979645384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27f44f7ec92905641b90e4a39b55f493, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.ScreenFader
-  blackScreen: {fileID: 793837422}
-  fadeDuration: 2
-  respawnFadeDuration: 2
-  changeRoomFadeDuration: 1
 --- !u!1 &1981394097
 GameObject:
   m_ObjectHideFlags: 0
@@ -56358,6 +59385,54 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &2001694243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2001694244}
+  - component: {fileID: 2001694245}
+  m_Layer: 0
+  m_Name: RatSpawner (50)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2001694244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001694243}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 370.3, y: 34.9, z: 22.29585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727004425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2001694245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001694243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464524f26421c074b9dea99642123b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RatSpawner
+  ratPrefabs:
+  - {fileID: 5887392272870797210, guid: 83cde359b18a71f428869e0502d974a1, type: 3}
+  - {fileID: 631381799345327517, guid: 7f71cf7a2d255cc428f08bd8e4cc7aae, type: 3}
+  - {fileID: 7065263292608850546, guid: c69ad5af83df4ce4182ce5adbb5fde44, type: 3}
 --- !u!1 &2003500037
 GameObject:
   m_ObjectHideFlags: 0
@@ -59823,11 +62898,11 @@ PrefabInstance:
       objectReference: {fileID: 1901498827}
     - target: {fileID: 6228679970223528795, guid: d49feed651a775d408a15f0cc5492606, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 330
+      value: -183
       objectReference: {fileID: 0}
     - target: {fileID: 6228679970223528795, guid: d49feed651a775d408a15f0cc5492606, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.2
+      value: -4.4
       objectReference: {fileID: 0}
     - target: {fileID: 6228679970223528795, guid: d49feed651a775d408a15f0cc5492606, type: 3}
       propertyPath: m_LocalPosition.z
@@ -61081,4 +64156,4 @@ SceneRoots:
   - {fileID: 318702414}
   - {fileID: 1036087442}
   - {fileID: 1007678681}
-  - {fileID: 767341898}
+  - {fileID: 727004425}
