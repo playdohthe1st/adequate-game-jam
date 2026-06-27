@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Video; // Required for the VideoPlayer component
+using UnityEngine.Video;
 
 namespace AdequateEnough
 {
@@ -10,9 +11,14 @@ namespace AdequateEnough
         [SerializeField] private GameObject mainPanel;
         [SerializeField] private GameObject settingsPanel;
 
+        [Header("Particles")]
+        [SerializeField] private GameObject dustParticles;
+
         [Header("Video Intro Settings")]
         [SerializeField] private GameObject videoPanel; // GameObject holding your RawImage and VideoPlayer
         [SerializeField] private VideoPlayer videoPlayer; // Drag the VideoPlayer component here
+        [SerializeField] private AudioClip introAudio;
+        private AudioSource audioSource;
 
         [Header("Credits")]
         [SerializeField] private GameObject creditsPanel;
@@ -22,6 +28,8 @@ namespace AdequateEnough
         private void Awake()
         {
             creditsPanel.SetActive(false);
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
         }
         private void Start()
         {
@@ -41,19 +49,35 @@ namespace AdequateEnough
             if (videoPlayer != null && videoPanel != null)
             {
                 isVideoPlaying = true;
-
-                // Hide the main menu UI buttons
                 mainPanel.SetActive(false);
-
-                // Turn on the video panel and play
-                videoPanel.SetActive(true);
-                videoPlayer.Play();
+                if (dustParticles != null) dustParticles.SetActive(false);
+                StartCoroutine(PlayIntroVideo());
             }
             else
             {
-                // Fallback: If no video is assigned, skip straight to the game
                 StartGameTransition();
             }
+        }
+
+        private IEnumerator PlayIntroVideo()
+        {
+            yield return StartCoroutine(ScreenFader.Instance.Fade(0f, 1f, 1f));
+
+            videoPanel.SetActive(true);
+            videoPlayer.Prepare();
+            while (!videoPlayer.isPrepared)
+                yield return null;
+
+            videoPlayer.Play();
+
+            if (introAudio != null)
+            {
+                audioSource.clip = introAudio;
+                audioSource.Play();
+            }
+
+            yield return new WaitForEndOfFrame();
+            yield return StartCoroutine(ScreenFader.Instance.Fade(1f, 0f, 0.3f));
         }
         public void OnCreditsPressed()
         {
@@ -61,18 +85,6 @@ namespace AdequateEnough
             creditsScroll = creditsPanel.GetComponentInChildren<CreditsScroll>();
             creditsScroll.StartCredits();
 
-        }
-
-        private void Update()
-        {
-            // Allow the player to skip the video using standard skip keys
-            if (isVideoPlaying)
-            {
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return))
-                {
-                    StartGameTransition();
-                }
-            }
         }
 
         // Automatically runs when the video finishes playing naturally
@@ -84,6 +96,7 @@ namespace AdequateEnough
         private void StartGameTransition()
         {
             isVideoPlaying = false;
+            audioSource.Stop();
 
             // Clean up the event listener to prevent any errors/leaks
             if (videoPlayer != null)
