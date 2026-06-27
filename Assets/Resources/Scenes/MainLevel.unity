@@ -42425,7 +42425,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "<align=center><size=150%><color=#FFFF><b>Project Runner</b></color></size></align>\n\r\nPlaydoh 
     - Game Director & Co-ordinator\r\n\n<align=center><size=150%><color=#FFFF><b>Artists</b></color></size></align>\r\n
-    \r\nSivel - Lead Art Direction & artist\r\nOzzy - Concept Artist\r\nSiti Arina
+    \r\nSivel - Lead Art Direction & Artist\r\nOzzy - Concept Artist\r\nSiti Arina
     / Ruba - Artist & Animator\r\nShann - Artist\r\nLakesnake - Artist\n\r\n<align=center><size=150%><color=#FFFF><b>Music
     + SFX</b></color></size></align>\r\n\r\nJuniper Wren Harris - Sound Design &
     Composition \r\n\n<align=center><size=150%><color=#FFFF><b>Programmers</b></color></size></align>\r\n\nCapothenics/Felipe
@@ -62087,6 +62087,18 @@ PrefabInstance:
       propertyPath: creditScreen
       value: 
       objectReference: {fileID: 1901498827}
+    - target: {fileID: 4435749734172417330, guid: d49feed651a775d408a15f0cc5492606, type: 3}
+      propertyPath: doorEnterSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: c9d44d91d71b7a245adb08c84c243abb, type: 3}
+    - target: {fileID: 4435749734172417330, guid: d49feed651a775d408a15f0cc5492606, type: 3}
+      propertyPath: doorLockedSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 85913f7d249f10d49be77611221d0c75, type: 3}
+    - target: {fileID: 4435749734172417330, guid: d49feed651a775d408a15f0cc5492606, type: 3}
+      propertyPath: doorSuccessSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 214fd5f46d552404bbe593afe532f8ef, type: 3}
     - target: {fileID: 6228679970223528795, guid: d49feed651a775d408a15f0cc5492606, type: 3}
       propertyPath: m_LocalPosition.x
       value: -191.3

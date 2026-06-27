@@ -96,6 +96,9 @@ namespace AdequateEnough
         [SerializeField] private AudioClip rollLoopSFX;
         [SerializeField] private AudioClip playerHurtSFX;
         [SerializeField] private AudioClip keycardSFX;
+        [SerializeField] private AudioClip doorSuccessSFX;
+        [SerializeField] private AudioClip doorLockedSFX;
+        [SerializeField] private AudioClip doorEnterSFX;
         [Header("Landing SFX")]
         [SerializeField] private AudioClip[] landStoneSFX;
         [SerializeField] private AudioClip[] landWoodSFX;
@@ -274,10 +277,13 @@ namespace AdequateEnough
 
             if (currentKeycard >= currentDoor.requiredLevel)
             {
+                if (doorSuccessSFX != null) AudioManager.Instance?.PlaySFX(doorSuccessSFX);
+                if (doorEnterSFX != null) AudioManager.Instance?.PlaySFX(doorEnterSFX);
                 ScreenFader.Instance.StartCoroutine(ScreenFader.Instance.FadeOutToRoom(gameObject, currentDoor.destination));
             }
             else
             {
+                if (doorLockedSFX != null) AudioManager.Instance?.PlaySFX(doorLockedSFX);
                 Debug.Log("Locked! You need a " + currentDoor.requiredLevel + " card.");
             }
         }

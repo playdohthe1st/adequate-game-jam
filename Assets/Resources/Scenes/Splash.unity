@@ -950,6 +950,7 @@ MonoBehaviour:
   videoPanel: {fileID: 51620537}
   videoPlayer: {fileID: 51620539}
   introAudio: {fileID: 8300000, guid: e3433fb432e2a384f99949716b1c3690, type: 3}
+  introAudioDelay: 0.5
   creditsPanel: {fileID: 369860378}
 --- !u!4 &849393569
 Transform:
@@ -1427,6 +1428,7 @@ GameObject:
   - component: {fileID: 1190521385}
   - component: {fileID: 1190521384}
   - component: {fileID: 1190521383}
+  - component: {fileID: 1190521386}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -1548,6 +1550,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190521381}
   m_CullTransparentMesh: 1
+--- !u!114 &1190521386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190521381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d9a2a049250f2478f254de4324c713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.UIAudio
+  hoverSFX: {fileID: 8300000, guid: dc2eec460ad0ce249894732334350edd, type: 3}
+  clickSFX: {fileID: 8300000, guid: 3820cf4d5dca1f84a973c73e5ffd22dc, type: 3}
+  backSFX: {fileID: 8300000, guid: 24fbe6686941bab429c53d76db551d71, type: 3}
+  isBackButton: 0
 --- !u!1001 &1203952897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1783,7 +1801,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6195303585948395864, guid: 5a48baf3babf29442b6d2240cafe6e0f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1698961416}
   m_SourcePrefab: {fileID: 100100000, guid: 5a48baf3babf29442b6d2240cafe6e0f, type: 3}
 --- !u!224 &1203952898 stripped
 RectTransform:
@@ -1928,6 +1949,7 @@ GameObject:
   - component: {fileID: 1513622959}
   - component: {fileID: 1513622958}
   - component: {fileID: 1513622957}
+  - component: {fileID: 1513622960}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -2049,6 +2071,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1513622955}
   m_CullTransparentMesh: 1
+--- !u!114 &1513622960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513622955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d9a2a049250f2478f254de4324c713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.UIAudio
+  hoverSFX: {fileID: 8300000, guid: dc2eec460ad0ce249894732334350edd, type: 3}
+  clickSFX: {fileID: 8300000, guid: 3820cf4d5dca1f84a973c73e5ffd22dc, type: 3}
+  backSFX: {fileID: 8300000, guid: 24fbe6686941bab429c53d76db551d71, type: 3}
+  isBackButton: 0
 --- !u!1 &1593113607
 GameObject:
   m_ObjectHideFlags: 0
@@ -2153,6 +2191,7 @@ GameObject:
   - component: {fileID: 1614707837}
   - component: {fileID: 1614707836}
   - component: {fileID: 1614707835}
+  - component: {fileID: 1614707838}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -2274,6 +2313,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614707833}
   m_CullTransparentMesh: 1
+--- !u!114 &1614707838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614707833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d9a2a049250f2478f254de4324c713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.UIAudio
+  hoverSFX: {fileID: 8300000, guid: dc2eec460ad0ce249894732334350edd, type: 3}
+  clickSFX: {fileID: 8300000, guid: 3820cf4d5dca1f84a973c73e5ffd22dc, type: 3}
+  backSFX: {fileID: 8300000, guid: 24fbe6686941bab429c53d76db551d71, type: 3}
+  isBackButton: 0
 --- !u!1 &1697717153
 GameObject:
   m_ObjectHideFlags: 0
@@ -2411,6 +2466,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1697717153}
   m_CullTransparentMesh: 1
+--- !u!1 &1698961411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6195303585948395864, guid: 5a48baf3babf29442b6d2240cafe6e0f, type: 3}
+  m_PrefabInstance: {fileID: 1203952897}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1698961416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698961411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d9a2a049250f2478f254de4324c713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.UIAudio
+  hoverSFX: {fileID: 0}
+  clickSFX: {fileID: 0}
+  backSFX: {fileID: 8300000, guid: 24fbe6686941bab429c53d76db551d71, type: 3}
+  isBackButton: 1
 --- !u!1 &1771037510
 GameObject:
   m_ObjectHideFlags: 0

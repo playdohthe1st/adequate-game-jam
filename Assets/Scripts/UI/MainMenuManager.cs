@@ -18,6 +18,7 @@ namespace AdequateEnough
         [SerializeField] private GameObject videoPanel; // GameObject holding your RawImage and VideoPlayer
         [SerializeField] private VideoPlayer videoPlayer; // Drag the VideoPlayer component here
         [SerializeField] private AudioClip introAudio;
+        [SerializeField] private float introAudioDelay = 0f;
         private AudioSource audioSource;
 
         [Header("Credits")]
@@ -73,12 +74,21 @@ namespace AdequateEnough
             if (introAudio != null)
             {
                 audioSource.clip = introAudio;
-                audioSource.Play();
+                if (introAudioDelay > 0f)
+                    StartCoroutine(PlayAudioDelayed());
+                else
+                    audioSource.Play();
             }
 
             yield return new WaitForEndOfFrame();
             yield return StartCoroutine(ScreenFader.Instance.Fade(1f, 0f, 0.3f));
         }
+        private IEnumerator PlayAudioDelayed()
+        {
+            yield return new WaitForSeconds(introAudioDelay);
+            audioSource.Play();
+        }
+
         public void OnCreditsPressed()
         {
             creditsPanel.SetActive(true);
