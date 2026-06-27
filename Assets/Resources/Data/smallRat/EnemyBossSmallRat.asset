@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d809de522e32a644da7ec53636dd3bea, type: 3}
   m_Name: EnemyBossSmallRat
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemyData
-  enemyPrefab: {fileID: 4752224983724861292, guid: 6106a160e69b77f459faafea8efa5e67, type: 3}
+  enemyPrefab: {fileID: 4752224983724861292, guid: b1d30c7e7d3c8db4c83ede5caabf4fe1, type: 3}
   health: 20
   attackDamage: 10
   canMelee: 0
@@ -21,3 +21,4 @@ MonoBehaviour:
   hurtSFX: {fileID: 8300000, guid: 9ee091d314df284459a554a9be947f28, type: 3}
   deathSFX: {fileID: 0}
   isBoss: 1
+  keycardDropPrefab: {fileID: 4077065784580654193, guid: 408d5adec9253c9458ddf8e1da11411e, type: 3}

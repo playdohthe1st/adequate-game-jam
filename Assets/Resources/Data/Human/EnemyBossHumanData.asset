@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d809de522e32a644da7ec53636dd3bea, type: 3}
   m_Name: EnemyBossHumanData
   m_EditorClassIdentifier: Assembly-CSharp::AdequateEnough.EnemyData
-  enemyPrefab: {fileID: 4752224983724861292, guid: e7556bc31cc825e4fb2a04fd18329416, type: 3}
+  enemyPrefab: {fileID: 4752224983724861292, guid: 572fa46d8801cc948b6625117ac8f5f2, type: 3}
   health: 100
   attackDamage: 15
   canMelee: 1
@@ -21,3 +21,4 @@ MonoBehaviour:
   hurtSFX: {fileID: 8300000, guid: 9ee091d314df284459a554a9be947f28, type: 3}
   deathSFX: {fileID: 0}
   isBoss: 1
+  keycardDropPrefab: {fileID: 3818760079954638966, guid: afb33120222e7fa4499bdbe4d188fe9b, type: 3}

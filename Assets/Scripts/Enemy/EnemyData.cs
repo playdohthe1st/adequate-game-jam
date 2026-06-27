@@ -23,6 +23,7 @@ namespace AdequateEnough
 
         [Header("Boss")]
         public bool isBoss;
+        public GameObject keycardDropPrefab;
 
         // Boss enemies get 2x health and attack damage, and spawn at 1.5x scale
         public float ResolvedHealth => isBoss ? health * 2f : health;
