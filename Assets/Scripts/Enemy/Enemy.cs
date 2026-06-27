@@ -276,7 +276,7 @@ namespace AdequateEnough
             if (isWallBlocked)
             {
                 wallBlockTimer -= Time.fixedDeltaTime;
-                if (wallBlockTimer <= 0f || HasWallAhead(wallBlockDir) || HasLedgeAhead(wallBlockDir))
+                if (wallBlockTimer <= 0f || HasWallAhead(wallBlockDir))
                 {
                     isWallBlocked = false;
                     PickWanderTarget();
@@ -652,9 +652,11 @@ namespace AdequateEnough
         private void CheckGround()
         {
             if (col == null) { isGrounded = false; return; }
-            Vector2 center = new Vector2(col.bounds.center.x, col.bounds.min.y - groundCheckDistance * 0.5f);
-            Vector2 size   = new Vector2(col.bounds.size.x * 0.8f, groundCheckDistance);
-            isGrounded = Physics2D.OverlapBox(center, size, 0f, groundLayer) != null;
+            float halfW = col.bounds.extents.x * 0.85f;
+            Vector2 bottom = new Vector2(col.bounds.center.x, col.bounds.min.y);
+            isGrounded = Physics2D.Raycast(bottom,                          Vector2.down, groundCheckDistance, groundLayer)
+                      || Physics2D.Raycast(bottom + Vector2.right * halfW,  Vector2.down, groundCheckDistance, groundLayer)
+                      || Physics2D.Raycast(bottom + Vector2.left  * halfW,  Vector2.down, groundCheckDistance, groundLayer);
         }
 
         private bool HasWallAhead(float dir)
@@ -723,13 +725,6 @@ namespace AdequateEnough
 
         private void ApplyGroundedMove(float dirSign, float speed)
         {
-            if (isGrounded && HasLedgeAhead(dirSign))
-            {
-                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-                stuckTimer = 0f;
-                return;
-            }
-
             if (isGrounded && Mathf.Abs(rb.linearVelocity.x) < 0.3f && rb.linearVelocity.y <= 0.1f)
             {
                 stuckTimer += Time.fixedDeltaTime;
