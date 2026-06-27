@@ -305,7 +305,6 @@ namespace AdequateEnough
             {
                 currentKeycard++;
                 OnKeycardUpgraded?.Invoke(currentKeycard);
-                if (keycardSFX != null) AudioManager.Instance?.PlaySFX(keycardSFX);
             }
         }
         public void SetKeycardLevel(KeycardLevel newLevel)
@@ -313,8 +312,8 @@ namespace AdequateEnough
             if (newLevel > currentKeycard)
             {
                 currentKeycard = newLevel;
-                Debug.Log("Keycard set to: " + currentKeycard.ToString());
                 OnKeycardUpgraded?.Invoke(currentKeycard);
+                if (keycardSFX != null) AudioManager.Instance?.PlaySFX(keycardSFX);
             }
         }
 

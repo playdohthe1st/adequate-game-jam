@@ -228,7 +228,7 @@ MonoBehaviour:
   jumpForce: 10
   jumpCooldown: 0.8
   jumpProbeHeight: 3
-  jumpClearance: 2
+  jumpClearance: 3
   regenRate: 0
   regenDelay: 20
   contactDamageCooldown: 1
@@ -237,6 +237,7 @@ MonoBehaviour:
   wanderSpeed: 1.5
   wanderPauseMin: 1
   wanderPauseMax: 3
+  airborneStuckTimeout: 1.2
   lingerMin: 1
   lingerMax: 3
   dirChangeCooldown: 0.15
@@ -276,6 +277,7 @@ MonoBehaviour:
   meleeStrikeDuration: 0.12
   meleeColliderLingerDuration: 0
   meleeReturnDuration: 0.3
+  isBoss: 0
   enemyAnimator: {fileID: 0}
   enemySpriterenderer: {fileID: 871650604528216065}
   idleStateName: PlayerIdl

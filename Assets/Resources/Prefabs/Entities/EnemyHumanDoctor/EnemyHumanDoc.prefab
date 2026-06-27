@@ -399,6 +399,7 @@ MonoBehaviour:
   wanderSpeed: 1.5
   wanderPauseMin: 1
   wanderPauseMax: 3
+  airborneStuckTimeout: 1.2
   lingerMin: 1
   lingerMax: 3
   dirChangeCooldown: 0.15
@@ -438,12 +439,14 @@ MonoBehaviour:
   meleeStrikeDuration: 0.929
   meleeColliderLingerDuration: 1.286
   meleeReturnDuration: 0
+  isBoss: 0
   enemyAnimator: {fileID: 8903385214348482000}
   enemySpriterenderer: {fileID: 871650604528216065}
   idleStateName: PlayerIdl
-  invertFlipX: 0
+  invertFlipX: 1
   retreatAfterContact: 0
   contactRetreatDuration: 1.5
+  wallBlockDuration: 1.5
   flashMaterial: {fileID: 2100000, guid: c058ea4d0428d734aa413775a31a2b6e, type: 2}
   flashDuration: 0.08
   hitStopDuration: 0.1
