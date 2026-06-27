@@ -690,17 +690,9 @@ namespace AdequateEnough
             isDead = true;
             rb.linearVelocity = Vector2.zero;
             if (ScreenFader.Instance != null)
-            {
-                deathScreen.SetActive(true);
-            }
-            // if (Respawn Logic if is going to have one)
-            // {
-            //     if (ScreenFader.Instance != null)
-            //         ScreenFader.Instance.RespawnFade(Respawn);
-            //     else
-            //        Respawn();
-            //}
-
+                ScreenFader.Instance.RespawnFade(Respawn);
+            else
+                Respawn();
         }
         public void Win()
         {
@@ -753,6 +745,7 @@ namespace AdequateEnough
         }
         private void Respawn()
         {
+            if (deathScreen != null) deathScreen.SetActive(false);
             bool noCheckpoint = CheckpointManager.Instance == null || !CheckpointManager.Instance.HasActiveCheckpoint;
             if (noCheckpoint) OnRespawnedAtOrigin?.Invoke();
 

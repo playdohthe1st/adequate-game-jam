@@ -507,7 +507,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 8903385214348482000}
   enemySpriterenderer: {fileID: 871650604528216065}
   idleStateName: PlayerIdl
-  invertFlipX: 0
+  invertFlipX: 1
   retreatAfterContact: 0
   contactRetreatDuration: 1.5
   wallBlockDuration: 1.5
