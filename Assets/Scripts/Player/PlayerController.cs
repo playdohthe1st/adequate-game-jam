@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Video;
+
 public enum KeycardLevel
 {
     None = 0,
@@ -12,9 +12,9 @@ public enum KeycardLevel
     SectorB = 2,
     SectorC = 3
 }
+
 namespace AdequateEnough
 {
-    
     public class PlayerController : MonoBehaviour
     {
         public enum PlayerState { Grounded, Airborne, Spinning }
@@ -24,36 +24,22 @@ namespace AdequateEnough
         [SerializeField] private float maxSpeed = 8f;
         [SerializeField] private float acceleration = 10f;
         [SerializeField] private float deceleration = 12f;
-        // How quickly smoothedInput catches up to raw input - lower values feel floatier
         [SerializeField] private float inputSmoothing = 12f;
 
         [Header("Jump")]
         [SerializeField] private float jumpForce = 15f;
-        // When the player releases jump early, multiply upward velocity by this to cut the jump short
         [SerializeField] private float jumpCutMultiplier = 0.4f;
-        // Coyote time lets the player jump for a brief window after walking off a ledge.
-        // Without it, jumping right at the edge of a platform feels unfair.
         [SerializeField] private float coyoteTime = 0.12f;
-        // Jump buffering lets the player press jump slightly before landing and still get a jump.
-        // Without it, pressing jump a frame too early feels like the input was ignored.
         [SerializeField] private float jumpBufferTime = 0.12f;
 
         [Header("Air Control")]
-        // Fraction of ground acceleration applied in the air. Keeping this low makes
-        // the player feel committed to their jump direction without being completely locked in.
         [SerializeField][Range(0f, 1f)] private float airControlMultiplier = 0.3f;
-        // Much lower air control during a spin — the player is committed to their launch direction
         [SerializeField][Range(0f, 1f)] private float spinAirControlMultiplier = 0.05f;
 
         [Header("Gravity")]
-        // Multiplied against the default gravity when the player is falling.
-        // A value above 1 makes falls feel snappier and less floaty.
         [SerializeField] private float fallGravityMultiplier = 2.5f;
-        // When vertical speed drops below this threshold near the top of a jump, we're at the apex
         [SerializeField] private float apexThreshold = 2f;
-        // Reduce gravity at the apex so the player hangs in the air briefly at the peak
         [SerializeField] private float apexGravityMultiplier = 0.5f;
-        // Slight speed boost at the apex lets the player cover more horizontal distance at the top of a jump
         [SerializeField] private float apexSpeedBoost = 1.3f;
 
         [Header("Landing Squash")]
@@ -62,9 +48,9 @@ namespace AdequateEnough
         [SerializeField] private float squashRecoverDuration = 0.12f;
 
         [Header("Fall Stretch Settings")]
-        [SerializeField] private float maxFallStretch = 0.15f;   
-        [SerializeField] private float maxFallSpeed = 20f;         
-        [SerializeField] private float fallStretchLerpSpeed = 10f; 
+        [SerializeField] private float maxFallStretch = 0.15f;
+        [SerializeField] private float maxFallSpeed = 20f;
+        [SerializeField] private float fallStretchLerpSpeed = 10f;
 
         [Header("Ground Check")]
         [SerializeField] private Transform groundCheck;
@@ -75,27 +61,29 @@ namespace AdequateEnough
         [SerializeField] private float slopeCheckDistance = 0.5f;
         [SerializeField] private float maxSlopeAngle = 45f;
         [SerializeField] private float knockbackSlopeDisableDuration = 0.6f;
-        // Cap speed on slopes so the player doesn't accelerate infinitely downhill
         [SerializeField] private float maxSlopeSpeed = 6f;
-        // No friction while moving so the player slides smoothly; full friction while standing to prevent sliding
         [SerializeField] private PhysicsMaterial2D noFriction;
         [SerializeField] private PhysicsMaterial2D fullFriction;
 
         [Header("Health")]
         [SerializeField] private float maxHealth = 100f;
         [SerializeField] private float regenRate = 5f;
-        // How many seconds after taking damage before regen kicks in
         [SerializeField] private float regenDelay = 10f;
+
+        [Header("Invincibility Frames (I-Frames)")]
+        [Tooltip("How long the player is invincible after taking damage")]
+        [SerializeField] private float invincibilityDuration = 0.8f;
+        private float invincibilityTimer;
+
+        [Header("Hurt and Death Visuals")]
+        [SerializeField] private string hurtAnimTrigger = "Hurt";
 
         [Header("Spin")]
         [SerializeField] private float spinForce = 20f;
         [SerializeField] private float spinMaxSpeed = 18f;
-        // How fast spinMaxSpeed decays back down to maxSpeed each fixed frame
         [SerializeField] private float spinDecayRate = 4f;
         [SerializeField] private float spinCooldown = 1.5f;
-        // Reduced gravity when spinning upward so the spin feels like it has lift
         [SerializeField] private float upwardSpinGravityScale = 0.5f;
-        // How many units above the spin's origin the player can travel before upward velocity is cut
         [SerializeField] private float spinMaxRise = 6f;
         [SerializeField] private float spinDamage = 20f;
 
@@ -130,15 +118,12 @@ namespace AdequateEnough
         [SerializeField] private Animator playerAnimator;
         [SerializeField] private SpriteRenderer playerSpriterender;
         [SerializeField] private Transform spriteTransform;
-        //Particles
         [SerializeField] private GameObject landingSmokePrefab;
         [SerializeField] private ScreenFader screenFader;
-        // ui
         [SerializeField] private GameObject deathScreen;
         [SerializeField] private GameObject creditScreen;
         [SerializeField] private Image healthImage;
-        //end video     
-        [SerializeField] private GameObject videoPanel; 
+        [SerializeField] private GameObject videoPanel;
         [SerializeField] private VideoPlayer videoPlayer;
         private Coroutine videoRoutineInstance;
         public bool isVideoPlaying = false;
@@ -170,7 +155,6 @@ namespace AdequateEnough
         private bool wasJumpHeld;
         private bool wasGrounded;
         private Coroutine squashCoroutine;
-        // Prevents landing squash from triggering immediately on spawn or respawn
         private float skipLandingUntil;
         private float nextSquashTime;
         private Vector3 defaultScale;
@@ -189,16 +173,13 @@ namespace AdequateEnough
         public bool IsDead => isDead;
         public bool IsSpinning => isSpinning;
 
-        // Fired when the player respawns at the original spawn point with no checkpoint active
         public static event System.Action OnRespawnedAtOrigin;
 
-        // True while the coyote time window is open, meaning the player can still jump
         private bool CanJump => coyoteTimeCounter > 0f;
-        // True near the top of a jump where vertical speed has almost stalled
         private bool IsAtApex => !isGrounded && Mathf.Abs(rb.linearVelocity.y) < apexThreshold;
 
         private void Awake()
-        {         
+        {
             rb = GetComponent<Rigidbody2D>();
             col = GetComponent<CapsuleCollider2D>();
             input = GetComponent<InputManager>();
@@ -220,8 +201,7 @@ namespace AdequateEnough
             footstepSource.playOnAwake = false;
             footstepSource.spatialBlend = 0f;
         }
-        // Input reading and non-physics state changes go in Update so they run every rendered frame.
-        // Physics forces go in FixedUpdate so they run at a fixed timestep, independent of frame rate.
+
         public void Start()
         {
             if (videoPlayer != null)
@@ -234,11 +214,11 @@ namespace AdequateEnough
                 if (footstepSource != null) footstepSource.outputAudioMixerGroup = sfxGroup;
             }
         }
+
         private void Update()
         {
             HandleRegen();
             if (isDead) return;
-            //StopVideo();
             CheckGround();
             DetectLanding();
             CheckSlope();
@@ -249,7 +229,7 @@ namespace AdequateEnough
             HandleGravity();
             VisualUpdater();
             HandleFallStretch();
-            // Buffer the input flags here so they're not missed if FixedUpdate runs late
+
             if (input.GetJumpPressed()) jumpBufferCounter = jumpBufferTime;
             if (input.GetSpinPressed()) spinQueued = true;
             TryDropThrough();
@@ -258,47 +238,17 @@ namespace AdequateEnough
             {
                 screenFader = FindAnyObjectByType<ScreenFader>();
             }
-            // for skip finalCutsene video 
-         
         }
 
         private void FixedUpdate()
         {
-         
             if (isDead) return;
-
             HandleSpinDecay();
             Move();
             TryJump();
             TrySpin();
-
         }
 
-        // Lerp toward raw input each frame instead of using it directly.
-        // This gives the movement a slight ramp-up/ramp-down feel without needing a state machine.
-
-        //private void StopVideo()
-        //{
-        //    if (isVideoPlaying)
-         //   {
-         //       if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return))
-         //       {
-         //           if (videoPlayer != null)
-         //           {
-         //               videoPlayer.loopPointReached -= OnVideoFinished;
-         //               videoPlayer.Stop();
-         //           }
-         //
-          //          if (videoRoutineInstance != null)
-          //          {
-          //              StopCoroutine(videoRoutineInstance);
-         //               videoRoutineInstance = null;
-         //           }
-         //
-         //           StartCoroutine(StartCredits());
-         //       }
-         //   }
-        //}
         public void GiveNextKeycard()
         {
             if (currentKeycard < KeycardLevel.SectorC)
@@ -307,6 +257,7 @@ namespace AdequateEnough
                 OnKeycardUpgraded?.Invoke(currentKeycard);
             }
         }
+
         public void SetKeycardLevel(KeycardLevel newLevel)
         {
             if (newLevel > currentKeycard)
@@ -321,7 +272,6 @@ namespace AdequateEnough
         {
             if (currentDoor == null) return;
 
-            // Compare the player's card level against the door's required level
             if (currentKeycard >= currentDoor.requiredLevel)
             {
                 ScreenFader.Instance.StartCoroutine(ScreenFader.Instance.FadeOutToRoom(gameObject, currentDoor.destination));
@@ -331,6 +281,7 @@ namespace AdequateEnough
                 Debug.Log("Locked! You need a " + currentDoor.requiredLevel + " card.");
             }
         }
+
         private void SmoothInput()
         {
             smoothedInput = Vector2.Lerp(smoothedInput, input.GetMove(), inputSmoothing * Time.deltaTime);
@@ -338,8 +289,7 @@ namespace AdequateEnough
 
         private void VisualUpdater()
         {
-            // animation
-            playerAnimator.SetBool("IsSpinning", isSpinning); // this set bool is spining on animator controller to the is spining on the player controller
+            playerAnimator.SetBool("IsSpinning", isSpinning);
             playerAnimator.SetBool("IsGrounded", isGrounded);
             if (input.GetMove().magnitude > 0)
             {
@@ -349,7 +299,7 @@ namespace AdequateEnough
             {
                 playerAnimator.SetBool("IsMoving", false);
             }
-            // flipSprite
+
             if (input.GetMove().x < 0)
             {
                 playerSpriterender.flipX = false;
@@ -358,22 +308,46 @@ namespace AdequateEnough
             {
                 playerSpriterender.flipX = true;
             }
-            healthImage.fillAmount = currentHealth / maxHealth; 
 
+            // Flicker opacity while invincible to give the player visual feedback
+            if (invincibilityTimer > 0f)
+            {
+                float alpha = Mathf.PingPong(Time.time * 15f, 0.7f) + 0.3f;
+                if (playerSpriterender != null)
+                {
+                    Color c = playerSpriterender.color;
+                    playerSpriterender.color = new Color(c.r, c.g, c.b, alpha);
+                }
+            }
+            else
+            {
+                // Ensure opacity is reset to 100% when invincibility ends
+                if (playerSpriterender != null && playerSpriterender.color.a != 1f)
+                {
+                    Color c = playerSpriterender.color;
+                    playerSpriterender.color = new Color(c.r, c.g, c.b, 1f);
+                }
+            }
+
+            healthImage.fillAmount = currentHealth / maxHealth;
         }
+
         private void UpdateTimers()
         {
-            // Reset coyote time while grounded; count it down once in the air
             coyoteTimeCounter = isGrounded ? coyoteTime : coyoteTimeCounter - Time.deltaTime;
             jumpBufferCounter -= Time.deltaTime;
+
+            // Tick down the invincibility frame timer
+            if (invincibilityTimer > 0f)
+            {
+                invincibilityTimer -= Time.deltaTime;
+            }
         }
 
         private void HandleVariableJump()
         {
             bool jumpHeld = input.GetJumpHeld();
 
-            // Only cut the jump on the exact frame the player releases the button while still rising.
-            // This gives shorter hops for taps and full jumps for holds.
             if (wasJumpHeld && !jumpHeld && rb.linearVelocity.y > 0f && !isGrounded && !isSpinning)
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMultiplier);
 
@@ -382,9 +356,6 @@ namespace AdequateEnough
 
         private void HandleGravity()
         {
-            // Kill gravity while standing still on a slope so the player can't slide down.
-            // Velocity is also zeroed in Move(), but gravity reapplies every physics step —
-            // both together are needed to fully prevent creep.
             if ((isOnSlope && Mathf.Abs(input.GetMove().x) < 0.01f) || isOnStairs)
             {
                 rb.gravityScale = 0f;
@@ -457,7 +428,6 @@ namespace AdequateEnough
             {
                 float controlMult = isSpinning ? spinAirControlMultiplier : airControlMultiplier;
 
-                // In the air we apply reduced force and can't exceed maxSpeed (with apex boost applied)
                 if (Mathf.Abs(smoothedInput.x) > 0.01f)
                 {
                     float effectiveMaxSpeed = (IsAtApex ? maxSpeed * apexSpeedBoost : maxSpeed) * speedMultiplier;
@@ -471,8 +441,6 @@ namespace AdequateEnough
                 return;
             }
 
-            // Stairs: bypass AddForce entirely and set velocity directly along the slope surface.
-            // Force-based movement produces unpredictable directions on angled surfaces.
             if (isOnStairs)
             {
                 if (Mathf.Abs(smoothedInput.x) < 0.01f)
@@ -531,7 +499,6 @@ namespace AdequateEnough
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             if (jumpSFX != null) AudioManager.Instance?.PlaySFX(jumpSFX);
 
-            // 2. Start the animation normally without a physics delay
             squashCoroutine = StartCoroutine(JumpingSquash());
         }
 
@@ -549,14 +516,11 @@ namespace AdequateEnough
             if (spinIntroSFX != null) AudioManager.Instance?.PlaySFX(spinIntroSFX);
             if (rollLoopSource != null && !rollLoopSource.isPlaying) rollLoopSource.Play();
 
-            // If the player is holding a direction, snap it to the nearest 45 degree angle.
-            // Otherwise default to the last direction the player was facing.
             Vector2 rawInput = input.GetMove();
             Vector2 spinDirection = rawInput.sqrMagnitude > 0.001f
                 ? Get8WayDirection(rawInput)
                 : new Vector2(lastFacingDirection, 0f);
 
-            // Reduce gravity for upward spins so they feel more like a leap than a straight shot
             if (spinDirection.y > 0.1f)
                 rb.gravityScale = upwardSpinGravityScale;
 
@@ -565,14 +529,10 @@ namespace AdequateEnough
             currentMaxSpeed = spinMaxSpeed * speedMultiplier;
         }
 
-        // Each FixedUpdate, bleed currentMaxSpeed back toward the normal maxSpeed.
-        // When they're equal the spin is over and we restore gravity.
         private void HandleSpinDecay()
         {
             if (!isSpinning) return;
 
-            // Smoothly scale down upward velocity as the player rises toward the cap.
-            // At the origin t=0 so the cap is the full initial velocity; at the cap t=1 so it's clamped to 0.
             if (rb.linearVelocity.y > 0f && spinInitialYVelocity > 0f)
             {
                 float t = Mathf.Clamp01((transform.position.y - spinStartY) / spinMaxRise);
@@ -612,8 +572,6 @@ namespace AdequateEnough
             {
                 Physics2D.IgnoreCollision(col, platform, true);
 
-                // Wait a minimum time, then keep waiting until the player is fully clear.
-                // Re-enabling while still inside would snap the player back up.
                 yield return new WaitForSeconds(0.15f);
                 float safetyTimeout = Time.time + 2f;
                 while (Physics2D.Distance(col, platform).distance < 0f && Time.time < safetyTimeout)
@@ -625,7 +583,6 @@ namespace AdequateEnough
             isDropping = false;
         }
 
-        // Snaps an arbitrary input direction to the 8 cardinal/diagonal directions (every 45 degrees)
         private Vector2 Get8WayDirection(Vector2 input)
         {
             float angle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
@@ -674,9 +631,21 @@ namespace AdequateEnough
         public void TakeDamage(float amount)
         {
             if (isDead) return;
+
+            // IGNORE DAMAGE if the player is currently within their invincibility window
+            if (invincibilityTimer > 0f) return;
+
             currentHealth = Mathf.Max(currentHealth - amount, 0f);
             timeSinceLastDamage = 0f;
             slopeDisableTimer = knockbackSlopeDisableDuration;
+
+            // Trigger the invincibility frames
+            invincibilityTimer = invincibilityDuration;
+
+            // Trigger the player taking hit animation
+            if (playerAnimator != null && !string.IsNullOrEmpty(hurtAnimTrigger))
+                playerAnimator.SetTrigger(hurtAnimTrigger);
+
             if (playerHurtSFX != null) AudioManager.Instance?.PlaySFX(playerHurtSFX);
             if (currentHealth <= 0f) Die();
         }
@@ -694,13 +663,13 @@ namespace AdequateEnough
             else
                 Respawn();
         }
+
         public void Win()
         {
-    
-                if (isVideoPlaying) return;
-                TriggerVideoSequence();
- 
+            if (isVideoPlaying) return;
+            TriggerVideoSequence();
         }
+
         public void TriggerVideoSequence()
         {
             if (!isVideoPlaying)
@@ -708,11 +677,11 @@ namespace AdequateEnough
                 videoRoutineInstance = StartCoroutine(StartVideo());
             }
         }
+
         private IEnumerator StartVideo()
         {
             isVideoPlaying = true;
 
-            // 1. Fade to Black
             yield return StartCoroutine(ScreenFader.Instance.Fade(0f, 1f, 1f));
             if (videoPlayer != null && videoPanel != null)
             {
@@ -725,6 +694,7 @@ namespace AdequateEnough
                 StartCoroutine(StartCredits());
             }
         }
+
         private void OnVideoFinished(VideoPlayer vp)
         {
             StopAllCoroutines();
@@ -743,6 +713,7 @@ namespace AdequateEnough
             }
             yield return StartCoroutine(ScreenFader.Instance.Fade(1f, 0f, 1f));
         }
+
         private void Respawn()
         {
             if (deathScreen != null) deathScreen.SetActive(false);
@@ -761,11 +732,12 @@ namespace AdequateEnough
             isSpinning = false;
             isDead = false;
 
-            // Clean up any mid-animation squash and reset to normal scale
+            // Reset invincibility timer so player isn't invincible on spawn
+            invincibilityTimer = 0f;
+
             if (squashCoroutine != null) StopCoroutine(squashCoroutine);
             Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
             squashTarget.localScale = defaultScale;
-            // Prevent a false landing detection immediately after being placed at the spawn point
             skipLandingUntil = Time.time + 0.5f;
         }
 
@@ -777,7 +749,6 @@ namespace AdequateEnough
                 return;
             }
 
-            // Landing = was airborne last frame and is grounded this frame
             if (!wasGrounded && isGrounded && !isSpinning && Time.time >= nextSquashTime)
             {
                 nextSquashTime = Time.time + squashDuration + squashRecoverDuration + 0.1f;
@@ -785,13 +756,8 @@ namespace AdequateEnough
 
                 if (landingSmokePrefab != null)
                 {
-                    // Use groundCheckTransform if available, otherwise default to player position
                     Vector3 spawnPosition = groundCheck != null ? groundCheck.position : transform.position;
-
-                    // Instantiate the particle system
                     GameObject smoke = Instantiate(landingSmokePrefab, spawnPosition, Quaternion.identity);
-
-                    // Optional: Auto-destroy the particle object after 2 seconds so it doesn't clutter your hierarchy
                     Destroy(smoke, 2f);
                 }
 
@@ -802,13 +768,9 @@ namespace AdequateEnough
             wasGrounded = isGrounded;
         }
 
-        // Classic squash-and-stretch landing feedback: quickly flatten the sprite wide on impact,
-        // then spring it back to normal. This is a juice/feel technique common in platformers.
         private System.Collections.IEnumerator LandingSquash()
         {
             Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
-
-            // Widen and shorten the scale to simulate impact compression
             Vector3 squashed = new Vector3(defaultScale.x * (1f + squashAmount), defaultScale.y * (1f - squashAmount), defaultScale.z);
 
             float elapsed = 0f;
@@ -819,7 +781,6 @@ namespace AdequateEnough
                 yield return null;
             }
 
-            // Spring back to default scale
             elapsed = 0f;
             while (elapsed < squashRecoverDuration)
             {
@@ -834,37 +795,27 @@ namespace AdequateEnough
 
         private void HandleFallStretch()
         {
-            // Check if player is in the air and moving downward
             bool isFalling = !isGrounded && rb.linearVelocity.y < -0.1f;
 
             if (isFalling)
             {
-                // 1. PLAYER MOVEMENT IS UNTOUCHED: 
-                // We do not modify rb.linearVelocity.x here anymore, allowing full air control.
-
-                // 2. APPLY STRETCH: Only if a high-priority jump/land coroutine isn't running
                 if (squashCoroutine == null)
                 {
                     Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
-
-                    // Calculate fall intensity based on velocity (0 = just started falling, 1 = max speed)
                     float fallPercentage = Mathf.Clamp01(Mathf.Abs(rb.linearVelocity.y) / maxFallSpeed);
                     float currentStretch = fallPercentage * maxFallStretch;
 
-                    // Narrow the width (X), stretch the height (Y)
                     Vector3 targetFallScale = new Vector3(
                         defaultScale.x * (1f - currentStretch),
                         defaultScale.y * (1f + currentStretch),
                         defaultScale.z
                     );
 
-                    // Smoothly ease into the stretched shape
                     squashTarget.localScale = Vector3.MoveTowards(squashTarget.localScale, targetFallScale, Time.deltaTime * fallStretchLerpSpeed);
                 }
             }
             else
             {
-                // If grounded or moving upward, and no coroutine is running, smoothly snap back to normal
                 if (squashCoroutine == null)
                 {
                     Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
@@ -872,6 +823,7 @@ namespace AdequateEnough
                 }
             }
         }
+
         private System.Collections.IEnumerator JumpingSquash()
         {
             Transform squashTarget = spriteTransform != null ? spriteTransform : transform;
@@ -888,7 +840,6 @@ namespace AdequateEnough
                 defaultScale.z
             );
 
-            // PHASE 1: Quick dip (Happens just as the player leaves the ground)
             float elapsed = 0f;
             float anticipationDuration = squashDuration * 0.3f;
             while (elapsed < anticipationDuration)
@@ -898,7 +849,6 @@ namespace AdequateEnough
                 yield return null;
             }
 
-            // PHASE 2: Stretch upward mid-air
             elapsed = 0f;
             float launchDuration = squashDuration * 0.7f;
             while (elapsed < launchDuration)
@@ -908,7 +858,6 @@ namespace AdequateEnough
                 yield return null;
             }
 
-            // PHASE 3: Recover to normal scale
             elapsed = 0f;
             while (elapsed < squashRecoverDuration)
             {
@@ -930,31 +879,31 @@ namespace AdequateEnough
             if (!hit) return SurfaceType.Stone;
             return hit.collider.tag switch
             {
-                "Wood"   => SurfaceType.Wood,
+                "Wood" => SurfaceType.Wood,
                 "Stairs" => SurfaceType.Wood,
-                "Metal"  => SurfaceType.Metal,
-                "Mud"    => SurfaceType.Mud,
-                "Bed"    => SurfaceType.Bed,
-                _        => SurfaceType.Stone
+                "Metal" => SurfaceType.Metal,
+                "Mud" => SurfaceType.Mud,
+                "Bed" => SurfaceType.Bed,
+                _ => SurfaceType.Stone
             };
         }
 
         private AudioClip[] GetLandClips(SurfaceType surface) => surface switch
         {
-            SurfaceType.Wood  => landWoodSFX,
+            SurfaceType.Wood => landWoodSFX,
             SurfaceType.Metal => landMetalSFX,
-            SurfaceType.Mud   => landMudSFX,
-            SurfaceType.Bed   => landBedSFX,
-            _                 => landStoneSFX
+            SurfaceType.Mud => landMudSFX,
+            SurfaceType.Bed => landBedSFX,
+            _ => landStoneSFX
         };
 
         private AudioClip[] GetFootstepClips(SurfaceType surface) => surface switch
         {
-            SurfaceType.Wood  => footWoodSFX,
+            SurfaceType.Wood => footWoodSFX,
             SurfaceType.Metal => footMetalSFX,
-            SurfaceType.Mud   => footMudSFX,
-            SurfaceType.Bed   => footBedSFX,
-            _                 => footStoneSFX
+            SurfaceType.Mud => footMudSFX,
+            SurfaceType.Bed => footBedSFX,
+            _ => footStoneSFX
         };
 
         private void PlayRandomSFX(AudioClip[] clips)
@@ -964,7 +913,6 @@ namespace AdequateEnough
             if (clip != null) AudioManager.Instance?.PlaySFX(clip);
         }
 
-        // Called by walk/run animation events
         public void PlayFootstepSFX()
         {
             if (!isGrounded || isDead || footstepSource == null) return;
@@ -1010,13 +958,11 @@ namespace AdequateEnough
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            // Handle combat damage
             if (isSpinning)
             {
                 col.gameObject.GetComponent<Enemy>()?.TakeDamage(spinDamage);
             }
 
-            // Handle touching a door
             Door door = col.gameObject.GetComponent<Door>();
             if (door != null)
             {
@@ -1024,12 +970,12 @@ namespace AdequateEnough
             }
         }
 
-        private void OnTriggerExit2D(Collider2D col) 
+        private void OnTriggerExit2D(Collider2D col)
         {
             Door door = col.gameObject.GetComponent<Door>();
             if (door != null && currentDoor == door)
             {
-                currentDoor = null; // No longer touching this door
+                currentDoor = null;
             }
         }
 

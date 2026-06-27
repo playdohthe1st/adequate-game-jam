@@ -11,7 +11,7 @@ public class EndGameDoor : MonoBehaviour
 
     void Update()
     {
-        if (playerInZone && Input.GetKeyDown(KeyCode.E))
+        if (playerInZone)
         {
             TriggerPlayerEndGame();
         }

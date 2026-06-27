@@ -26,12 +26,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2311003409301862019}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.22495107, w: 0.9743701}
-  m_LocalPosition: {x: 0.39, y: 1.39, z: 0}
-  m_LocalScale: {x: 348.2468, y: 58.37596, z: 20}
+  m_LocalRotation: {x: -0, y: -0, z: 0.22495107, w: 0.9743701}
+  m_LocalPosition: {x: 0.9069767, y: 3.232558, z: 0}
+  m_LocalScale: {x: 809.87616, y: 135.75804, z: 46.511627}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 7290635775813141238}
+  m_Father: {fileID: 6380777489545263119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 26}
 --- !u!212 &6481385882755271503
 SpriteRenderer:
@@ -168,7 +168,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.43, y: 0.43, z: 0.43}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 8271202264302063808}
   m_Father: {fileID: 7290635775813141238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &871650604528216065
@@ -286,7 +287,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6380777489545263119}
-  - {fileID: 8271202264302063808}
   - {fileID: 4084416270090700926}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -425,6 +425,7 @@ MonoBehaviour:
   meleeCooldown: 0.5
   meleeKnockbackForce: 25
   meleeShakeStrength: 20
+  useAnimationDrivenMelee: 0
   meleeRestPos: {x: 0.4, y: 1.39}
   meleeRestRot: 26
   meleeWindupPos: {x: 0.1, y: 3}
@@ -435,10 +436,10 @@ MonoBehaviour:
   meleeStrikeRot: -21
   meleeAnimTrigger: Attack
   meleeWindupDuration: 0
-  meleeHoldDuration: 1.857
-  meleeStrikeDuration: 0.929
-  meleeColliderLingerDuration: 1.286
-  meleeReturnDuration: 0
+  meleeHoldDuration: 0
+  meleeStrikeDuration: 0
+  meleeColliderLingerDuration: 0
+  meleeReturnDuration: 1
   isBoss: 1
   enemyAnimator: {fileID: 8903385214348482000}
   enemySpriterenderer: {fileID: 871650604528216065}

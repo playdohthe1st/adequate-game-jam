@@ -263,6 +263,7 @@ MonoBehaviour:
   meleeCooldown: 0.5
   meleeKnockbackForce: 25
   meleeShakeStrength: 20
+  useAnimationDrivenMelee: 0
   meleeRestPos: {x: 0.06, y: 1.57}
   meleeRestRot: 32
   meleeWindupPos: {x: 0.06, y: 2.268}
@@ -277,6 +278,18 @@ MonoBehaviour:
   meleeStrikeDuration: 0.12
   meleeColliderLingerDuration: 0
   meleeReturnDuration: 0.3
+  hurtAnimTrigger: Hurt
+  deathAnimTrigger: Die
+  deathBodyDuration: 3
+  fadeOutDuration: 1.5
+  flipDeathAnimation: 0
+  flipHurtAnimation: 0
+  hurtFlipDuration: 0.25
+  explodeOnDeath: 1
+  explosionParticlesPrefab: {fileID: 6420821704943702, guid: 703ced11148d57a45a7a285596b14ef1, type: 3}
+  explosionSFX: {fileID: 8300000, guid: c111788e42160d044846228e42244118, type: 3}
+  spawnOnExplodePrefab: {fileID: 4752224983724861292}
+  spawnOnExplodeCount: 0
   isBoss: 0
   enemyAnimator: {fileID: 0}
   enemySpriterenderer: {fileID: 871650604528216065}
