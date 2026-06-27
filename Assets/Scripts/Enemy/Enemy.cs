@@ -17,7 +17,7 @@ namespace AdequateEnough
 
         [Header("Navigation")]
         [SerializeField] private LayerMask groundLayer;
-        [SerializeField] private LayerMask obstacleLayer = ~0;
+        [SerializeField] private LayerMask obstacleLayer;
         [SerializeField] private float groundCheckDistance = 0.15f;
         [SerializeField] private float wallCheckDistance = 0.4f;
         [SerializeField] private float jumpForceMin = 3f;
@@ -242,7 +242,8 @@ namespace AdequateEnough
         {
             if (isDead) return;
             CheckGround();
-            if (!isAttacking && !isShooting && !isLingering && Mathf.Abs(rb.linearVelocity.x) < 0.3f)
+            bool nearPlayer = player != null && Mathf.Abs(player.transform.position.x - transform.position.x) <= chaseStopDistance;
+            if (!isAttacking && !isShooting && !isLingering && !nearPlayer && Mathf.Abs(rb.linearVelocity.x) < 0.3f)
             {
                 airborneStuckTimer += Time.fixedDeltaTime;
                 if (airborneStuckTimer >= airborneStuckTimeout)
