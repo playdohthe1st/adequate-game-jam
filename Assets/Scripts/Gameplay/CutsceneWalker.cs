@@ -8,6 +8,9 @@ namespace AdequateEnough
         [SerializeField] private Transform targetPoint;
         [SerializeField] private float walkSpeed = 4f;
         [SerializeField] private AudioClip rainSound;
+        [SerializeField] private string camFollowName = "CamFollow";
+        [SerializeField] private float camFollowY = 2.4f;
+        [SerializeField] private GameObject hud;
 
         public AudioSource RainSource { get; private set; }
 
@@ -40,6 +43,16 @@ namespace AdequateEnough
             cachedRb = rb;
             GetComponent<Collider2D>().enabled = false;
             input.enabled = false;
+
+            Transform camFollow = other.transform.Find(camFollowName);
+            if (camFollow != null)
+            {
+                Vector3 p = camFollow.localPosition;
+                p.y = camFollowY;
+                camFollow.localPosition = p;
+            }
+
+            hud?.SetActive(false);
             if (rainSound != null) RainSource.Play();
             StartCoroutine(Walk(rb, anim));
         }

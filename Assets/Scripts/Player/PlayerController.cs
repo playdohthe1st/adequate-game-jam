@@ -683,10 +683,16 @@ namespace AdequateEnough
             isVideoPlaying = true;
 
             yield return StartCoroutine(ScreenFader.Instance.Fade(0f, 1f, 1f));
+
             if (videoPlayer != null && videoPanel != null)
             {
                 videoPanel.SetActive(true);
+                videoPlayer.Prepare();
+                while (!videoPlayer.isPrepared)
+                    yield return null;
+
                 videoPlayer.Play();
+                yield return new WaitForEndOfFrame();
                 yield return StartCoroutine(ScreenFader.Instance.Fade(1f, 0f, 0.3f));
             }
             else
