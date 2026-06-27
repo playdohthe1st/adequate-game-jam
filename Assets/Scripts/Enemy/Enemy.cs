@@ -593,7 +593,7 @@ namespace AdequateEnough
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!isAttacking) return;
+            if (weaponCollider == null || !weaponCollider.enabled) return;
             var pc = other.GetComponent<PlayerController>();
             if (pc == null) return;
             if (pc.IsSpinning) return;

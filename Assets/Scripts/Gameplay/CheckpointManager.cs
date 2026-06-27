@@ -11,6 +11,7 @@ namespace AdequateEnough
         [SerializeField] private string mainMenuScene = "MainMenu";
 
         private Vector2 respawnPosition;
+        private bool hasKeycardCheckpoint;
         private readonly HashSet<Checkpoint> visited = new();
 
         private void Awake()
@@ -47,15 +48,17 @@ namespace AdequateEnough
         public void SetCheckpoint(Vector2 position)
         {
             respawnPosition = position;
+            hasKeycardCheckpoint = true;
         }
 
         public Vector2 GetRespawnPosition() => respawnPosition;
 
-        public bool HasActiveCheckpoint => visited.Count > 0;
+        public bool HasActiveCheckpoint => visited.Count > 0 || hasKeycardCheckpoint;
 
         private void Reset()
         {
             visited.Clear();
+            hasKeycardCheckpoint = false;
             respawnPosition = default;
         }
     }

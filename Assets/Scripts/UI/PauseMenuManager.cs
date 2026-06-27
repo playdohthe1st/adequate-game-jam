@@ -1,5 +1,6 @@
 using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -22,7 +23,7 @@ namespace AdequateEnough
         {
         if (!player.isVideoPlaying && loreManager.activePanelIndex == -1)
 
-            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (Keyboard.current.escapeKey.wasPressedThisFrame || Keyboard.current.pKey.wasPressedThisFrame)
                 Toggle();
         }
 
@@ -56,6 +57,7 @@ namespace AdequateEnough
             Time.timeScale = 1f;
             pausePanel.SetActive(false);
             settingsPanel.SetActive(false);
+            EventSystem.current?.SetSelectedGameObject(null);
         }
         public void RestartPresed()
         {
@@ -75,7 +77,7 @@ namespace AdequateEnough
         public void OnSettingsBackPressed()
         {
             settingsPanel.SetActive(false);
-            
+            EventSystem.current?.SetSelectedGameObject(null);
         }
 
         public void OnQuitPressed()

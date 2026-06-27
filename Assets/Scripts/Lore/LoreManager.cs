@@ -30,13 +30,14 @@ public class LoreManager : MonoBehaviour
 
     void Update()
     {
+        bool panelKeyPressed = Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3);
+
         if (Input.GetKeyDown(KeyCode.Alpha1) && hasPaper1) TogglePanel(0, lorePaper1);
         if (Input.GetKeyDown(KeyCode.Alpha2) && hasPaper2) TogglePanel(1, lorePaper2);
         if (Input.GetKeyDown(KeyCode.Alpha3) && hasPaper3) TogglePanel(2, lorePaper3);
-        if (Input.GetKeyDown(KeyCode.Escape) && activePanelIndex != -1)
-        {
+
+        if (activePanelIndex != -1 && Input.anyKeyDown && !panelKeyPressed)
             CloseActivePanel();
-        }
     }
 
     void TogglePanel(int index, string content)
