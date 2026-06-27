@@ -17,6 +17,8 @@ public class DialogueManager : MonoBehaviour
     private Queue<DialogueLine> lines; 
     public bool dialogueActive = false;
 
+    public float displayDuration = 2f;
+
     public AudioClip typeSound;
     private AudioSource audioSource;
 
@@ -73,10 +75,9 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(TypeLine(currentLine));
     }
 
-    IEnumerator TypeLine(DialogueLine dialogueLines) //makes the text appear letter by letter
+    IEnumerator TypeLine(DialogueLine dialogueLines)
     {
         dialogueText.text = "";
-
 
         foreach (char c in dialogueLines.line.ToCharArray())
         {
@@ -90,6 +91,8 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(textSpeed);
         }
 
+        yield return new WaitForSeconds(displayDuration);
+        DisplayNextLine();
     }
 
     public void EndDialogue()
