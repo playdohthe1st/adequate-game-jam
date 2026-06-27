@@ -8,6 +8,11 @@ TagManager:
   - enemy
   - Stairs
   - 2WayPlataform
+  - Bed
+  - Wood
+  - Metal
+  - Mud
+  - Stone
   layers:
   - Default
   - TransparentFX

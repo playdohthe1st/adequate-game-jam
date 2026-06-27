@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 5085875}
   m_Layer: 3
   m_Name: gate (12)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1104,7 +1104,7 @@ GameObject:
   - component: {fileID: 33497870}
   m_Layer: 3
   m_Name: ground (14)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1275,7 +1275,7 @@ GameObject:
   - component: {fileID: 46055371}
   m_Layer: 3
   m_Name: ground (3)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1504,7 +1504,7 @@ GameObject:
   - component: {fileID: 53847451}
   m_Layer: 3
   m_Name: gate (7)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2191,7 +2191,7 @@ GameObject:
   - component: {fileID: 85674849}
   m_Layer: 3
   m_Name: gate (11)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2329,7 +2329,7 @@ GameObject:
   - component: {fileID: 92647238}
   m_Layer: 3
   m_Name: ground (13)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2558,7 +2558,7 @@ GameObject:
   - component: {fileID: 99533147}
   m_Layer: 3
   m_Name: ground (2)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3286,7 +3286,7 @@ GameObject:
   - component: {fileID: 134542722}
   m_Layer: 3
   m_Name: ground (29)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6124,9 +6124,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036087442}
     m_Modifications:
+    - target: {fileID: 676142806997725291, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293399467167214376, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189728036215812671, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
     - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_Name
       value: StairCase (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
       objectReference: {fileID: 0}
     - target: {fileID: 6502564691719161429, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_LocalScale.x
@@ -6203,7 +6219,7 @@ GameObject:
   - component: {fileID: 235069758}
   m_Layer: 3
   m_Name: ground (6)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7918,7 +7934,7 @@ GameObject:
   - component: {fileID: 276338740}
   m_Layer: 3
   m_Name: gate (2)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8051,9 +8067,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036087442}
     m_Modifications:
+    - target: {fileID: 676142806997725291, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293399467167214376, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189728036215812671, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
     - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_Name
       value: StairCase (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
       objectReference: {fileID: 0}
     - target: {fileID: 6502564691719161429, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_LocalScale.x
@@ -9267,7 +9299,7 @@ GameObject:
   - component: {fileID: 338991679}
   m_Layer: 3
   m_Name: ground (38)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9725,7 +9757,7 @@ GameObject:
   - component: {fileID: 351627497}
   m_Layer: 3
   m_Name: gate (4)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9863,7 +9895,7 @@ GameObject:
   - component: {fileID: 356464774}
   m_Layer: 3
   m_Name: ground (19)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10001,7 +10033,7 @@ GameObject:
   - component: {fileID: 356883025}
   m_Layer: 3
   m_Name: gate (9)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10139,7 +10171,7 @@ GameObject:
   - component: {fileID: 377268907}
   m_Layer: 3
   m_Name: ground (5)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11284,7 +11316,7 @@ GameObject:
   - component: {fileID: 394427484}
   m_Layer: 3
   m_Name: ground (32)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11651,7 +11683,7 @@ GameObject:
   - component: {fileID: 408518527}
   m_Layer: 3
   m_Name: gate (6)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14283,7 +14315,7 @@ GameObject:
   - component: {fileID: 510838678}
   m_Layer: 3
   m_Name: ground (34)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14421,7 +14453,7 @@ GameObject:
   - component: {fileID: 521024271}
   m_Layer: 3
   m_Name: ground (30)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14773,7 +14805,7 @@ GameObject:
   - component: {fileID: 537180919}
   m_Layer: 3
   m_Name: gate (16)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16786,7 +16818,7 @@ GameObject:
   - component: {fileID: 595720637}
   m_Layer: 3
   m_Name: gate (14)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18712,7 +18744,7 @@ GameObject:
   - component: {fileID: 687619400}
   m_Layer: 3
   m_Name: ground (37)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19906,9 +19938,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036087442}
     m_Modifications:
+    - target: {fileID: 676142806997725291, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293399467167214376, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189728036215812671, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
     - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_Name
       value: StairCase (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
       objectReference: {fileID: 0}
     - target: {fileID: 6502564691719161429, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_LocalScale.x
@@ -19985,7 +20033,7 @@ GameObject:
   - component: {fileID: 741204656}
   m_Layer: 3
   m_Name: gate (13)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20214,7 +20262,7 @@ GameObject:
   - component: {fileID: 747448514}
   m_Layer: 3
   m_Name: ground (10)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20620,9 +20668,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036087442}
     m_Modifications:
+    - target: {fileID: 676142806997725291, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293399467167214376, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189728036215812671, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
     - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_Name
       value: StairCase (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
       objectReference: {fileID: 0}
     - target: {fileID: 6502564691719161429, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_LocalScale.x
@@ -21968,7 +22032,7 @@ GameObject:
   - component: {fileID: 787877594}
   m_Layer: 3
   m_Name: bed (4)
-  m_TagString: Untagged
+  m_TagString: Bed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22324,7 +22388,7 @@ GameObject:
   - component: {fileID: 789233517}
   m_Layer: 3
   m_Name: gate (15)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23535,7 +23599,7 @@ GameObject:
   - component: {fileID: 821088364}
   m_Layer: 3
   m_Name: ground (18)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24393,7 +24457,7 @@ GameObject:
   - component: {fileID: 843459658}
   m_Layer: 3
   m_Name: bed (4)
-  m_TagString: Untagged
+  m_TagString: Bed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24622,7 +24686,7 @@ GameObject:
   - component: {fileID: 847005638}
   m_Layer: 3
   m_Name: bed (3)
-  m_TagString: Untagged
+  m_TagString: Bed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24851,7 +24915,7 @@ GameObject:
   - component: {fileID: 852335567}
   m_Layer: 3
   m_Name: gate (3)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25653,7 +25717,7 @@ GameObject:
   - component: {fileID: 870997010}
   m_Layer: 3
   m_Name: gate (1)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25791,7 +25855,7 @@ GameObject:
   - component: {fileID: 873118056}
   m_Layer: 3
   m_Name: ground (5)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27839,7 +27903,7 @@ GameObject:
   - component: {fileID: 935754753}
   m_Layer: 3
   m_Name: ground (20)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29018,9 +29082,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036087442}
     m_Modifications:
+    - target: {fileID: 676142806997725291, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293399467167214376, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189728036215812671, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
     - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_Name
       value: StairCase (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
       objectReference: {fileID: 0}
     - target: {fileID: 6502564691719161429, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_LocalScale.x
@@ -29729,7 +29809,7 @@ GameObject:
   - component: {fileID: 998694891}
   m_Layer: 3
   m_Name: gate (3)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30063,7 +30143,7 @@ GameObject:
   - component: {fileID: 1006781903}
   m_Layer: 3
   m_Name: ground (21)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30454,7 +30534,7 @@ GameObject:
   - component: {fileID: 1010736706}
   m_Layer: 3
   m_Name: bed (5)
-  m_TagString: Untagged
+  m_TagString: Bed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33277,7 +33357,7 @@ GameObject:
   - component: {fileID: 1127008459}
   m_Layer: 3
   m_Name: ground (22)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34605,7 +34685,7 @@ GameObject:
   - component: {fileID: 1194865884}
   m_Layer: 3
   m_Name: ground
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35851,7 +35931,7 @@ GameObject:
   - component: {fileID: 1237185805}
   m_Layer: 3
   m_Name: ground (1)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35988,7 +36068,7 @@ GameObject:
   - component: {fileID: 1240240489}
   m_Layer: 3
   m_Name: bed (2)
-  m_TagString: Untagged
+  m_TagString: Bed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36171,7 +36251,7 @@ GameObject:
   - component: {fileID: 1259080631}
   m_Layer: 3
   m_Name: ground (7)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37283,7 +37363,7 @@ GameObject:
   - component: {fileID: 1291550088}
   m_Layer: 3
   m_Name: ground (4)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37416,9 +37496,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036087442}
     m_Modifications:
+    - target: {fileID: 676142806997725291, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293399467167214376, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189728036215812671, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
     - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_Name
       value: StairCase (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
       objectReference: {fileID: 0}
     - target: {fileID: 6502564691719161429, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_LocalPosition.x
@@ -37818,7 +37914,7 @@ GameObject:
   - component: {fileID: 1301026698}
   m_Layer: 3
   m_Name: ground (15)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40090,7 +40186,7 @@ GameObject:
   - component: {fileID: 1386928775}
   m_Layer: 3
   m_Name: ground (17)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40889,7 +40985,7 @@ GameObject:
   - component: {fileID: 1421275612}
   m_Layer: 3
   m_Name: ground (4)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41136,7 +41232,7 @@ GameObject:
   - component: {fileID: 1427519134}
   m_Layer: 3
   m_Name: ground (11)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41975,7 +42071,7 @@ GameObject:
   - component: {fileID: 1449784483}
   m_Layer: 3
   m_Name: bed (3)
-  m_TagString: Untagged
+  m_TagString: Bed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42178,7 +42274,7 @@ GameObject:
   - component: {fileID: 1451094456}
   m_Layer: 3
   m_Name: ground (28)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43048,7 +43144,7 @@ GameObject:
   - component: {fileID: 1479863463}
   m_Layer: 3
   m_Name: ground (25)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43690,7 +43786,7 @@ GameObject:
   - component: {fileID: 1500472975}
   m_Layer: 3
   m_Name: ground (23)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45012,9 +45108,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036087442}
     m_Modifications:
+    - target: {fileID: 676142806997725291, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293399467167214376, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189728036215812671, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
     - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_Name
       value: StairCase
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
       objectReference: {fileID: 0}
     - target: {fileID: 6502564691719161429, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_LocalScale.x
@@ -45086,9 +45198,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036087442}
     m_Modifications:
+    - target: {fileID: 676142806997725291, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293399467167214376, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189728036215812671, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
     - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_Name
       value: StairCase (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
       objectReference: {fileID: 0}
     - target: {fileID: 6502564691719161429, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_LocalScale.x
@@ -45168,9 +45296,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036087442}
     m_Modifications:
+    - target: {fileID: 676142806997725291, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293399467167214376, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189728036215812671, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
     - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_Name
       value: StairCase (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
       objectReference: {fileID: 0}
     - target: {fileID: 6502564691719161429, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_LocalScale.x
@@ -45477,7 +45621,7 @@ GameObject:
   - component: {fileID: 1554237262}
   m_Layer: 3
   m_Name: gate (8)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46073,7 +46217,7 @@ GameObject:
   - component: {fileID: 1581191096}
   m_Layer: 3
   m_Name: ground (33)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47231,7 +47375,7 @@ GameObject:
   - component: {fileID: 1607695809}
   m_Layer: 3
   m_Name: gate (10)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48434,7 +48578,7 @@ GameObject:
   - component: {fileID: 1643988566}
   m_Layer: 3
   m_Name: ground (24)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50687,7 +50831,7 @@ GameObject:
   - component: {fileID: 1736541713}
   m_Layer: 3
   m_Name: ground (3)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51279,7 +51423,7 @@ GameObject:
   - component: {fileID: 1751294502}
   m_Layer: 3
   m_Name: ground (16)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52041,7 +52185,7 @@ GameObject:
   - component: {fileID: 1781476026}
   m_Layer: 3
   m_Name: gate
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55008,7 +55152,7 @@ GameObject:
   - component: {fileID: 1877442171}
   m_Layer: 3
   m_Name: bed (1)
-  m_TagString: Untagged
+  m_TagString: Bed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55211,7 +55355,7 @@ GameObject:
   - component: {fileID: 1880692338}
   m_Layer: 3
   m_Name: ground (27)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56649,7 +56793,7 @@ GameObject:
   - component: {fileID: 1921654332}
   m_Layer: 3
   m_Name: ground (35)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56787,7 +56931,7 @@ GameObject:
   - component: {fileID: 1922345006}
   m_Layer: 3
   m_Name: gate (5)
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57112,7 +57256,7 @@ GameObject:
   - component: {fileID: 1938000149}
   m_Layer: 3
   m_Name: ground (6)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57573,7 +57717,7 @@ GameObject:
   - component: {fileID: 1954399367}
   m_Layer: 3
   m_Name: ground (26)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57797,9 +57941,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036087442}
     m_Modifications:
+    - target: {fileID: 676142806997725291, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293399467167214376, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189728036215812671, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
     - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_Name
       value: StairCase (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
       objectReference: {fileID: 0}
     - target: {fileID: 6502564691719161429, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_LocalScale.x
@@ -58188,7 +58348,7 @@ GameObject:
   - component: {fileID: 1965683555}
   m_Layer: 3
   m_Name: ground (9)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59901,7 +60061,7 @@ GameObject:
   - component: {fileID: 2018515756}
   m_Layer: 3
   m_Name: ground (8)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60039,7 +60199,7 @@ GameObject:
   - component: {fileID: 2022399572}
   m_Layer: 3
   m_Name: ground (12)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60497,7 +60657,7 @@ GameObject:
   - component: {fileID: 2046473214}
   m_Layer: 3
   m_Name: ground (31)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60999,7 +61159,7 @@ GameObject:
   - component: {fileID: 2053431028}
   m_Layer: 3
   m_Name: ground (36)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62872,10 +63032,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4406191187396573838, guid: d49feed651a775d408a15f0cc5492606, type: 3}
-      propertyPath: m_SortingOrder
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4435749734172417330, guid: d49feed651a775d408a15f0cc5492606, type: 3}
       propertyPath: videoPanel
       value: 
@@ -62963,7 +63119,7 @@ GameObject:
   - component: {fileID: 2115207364}
   m_Layer: 3
   m_Name: ground (2)
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63374,7 +63530,7 @@ GameObject:
   - component: {fileID: 2131778930}
   m_Layer: 3
   m_Name: bed (2)
-  m_TagString: Untagged
+  m_TagString: Bed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64084,6 +64240,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 318702414}
     m_Modifications:
+    - target: {fileID: 676142806997725291, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 1293399467167214376, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189728036215812671, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
     - target: {fileID: 2403324984035478217, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
@@ -64095,6 +64263,10 @@ PrefabInstance:
     - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_Name
       value: StairCase
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807541073142181067, guid: 45e671db7719af4498a474536f45dd37, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
       objectReference: {fileID: 0}
     - target: {fileID: 6502564691719161429, guid: 45e671db7719af4498a474536f45dd37, type: 3}
       propertyPath: m_LocalPosition.x

@@ -18,6 +18,7 @@ public class AudioManager : MonoBehaviour
     #region Singleton
 
     public static AudioManager Instance { get; private set; }
+    public AudioMixerGroup SFXMixerGroup => sfxMixerGroup;
 
     #endregion
 
@@ -37,6 +38,8 @@ public class AudioManager : MonoBehaviour
     [Header("Default Gameplay Music")]
     [Tooltip("Music that plays by default when entering gameplay scenes (can be changed via dialogue nodes)")]
     [SerializeField] private AudioClip defaultGameplayMusic;
+    [Tooltip("Music that plays on non-gameplay scenes (e.g. main menu)")]
+    [SerializeField] private AudioClip mainMenuMusic;
     [Tooltip("Scene names that should NOT trigger default gameplay music (e.g. MainMenu)")]
     [SerializeField] private string[] nonGameplayScenes = { "MainMenu" };
 
@@ -124,15 +127,20 @@ public class AudioManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // When entering a gameplay scene, start the default music if nothing is already playing.
-        // Floor-specific music will override this once the player enters a floor trigger.
-        if (defaultGameplayMusic != null && IsGameplayScene(scene.name))
+        if (IsGameplayScene(scene.name))
         {
-            if (!IsMusicPlaying() || musicChannel.CurrentClip != defaultGameplayMusic)
+            // When entering a gameplay scene, start the default music if nothing is already playing.
+            // Floor-specific music will override this once the player enters a floor trigger.
+            if (defaultGameplayMusic != null && (!IsMusicPlaying() || musicChannel.CurrentClip != defaultGameplayMusic))
             {
                 currentFloorIndex = -1;
                 PlayMusic(defaultGameplayMusic, loop: true, fadeTime: 1f);
             }
+        }
+        else
+        {
+            if (mainMenuMusic != null && (!IsMusicPlaying() || musicChannel.CurrentClip != mainMenuMusic))
+                PlayMusic(mainMenuMusic, loop: true, fadeTime: 1f);
         }
     }
 
