@@ -272,7 +272,11 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+        sfxChannel.PlayOneShotDirect(clip, GetMasterVolume() * GetSFXVolume() * volumeScale);
+#else
         sfxChannel.PlayOneShot(clip, volumeScale);
+#endif
         OnSFXPlayed?.Invoke(clip);
     }
 
@@ -699,6 +703,14 @@ public class AudioManager : MonoBehaviour
         public void PlayOneShot(AudioClip clip, float volumeScale)
         {
             source.PlayOneShot(clip, volumeScale);
+        }
+
+        // On Mac WebGL, PlayOneShot doesn't apply the AudioMixer gain chain reliably,
+        // so we bake the combined volume directly onto source.volume instead.
+        public void PlayOneShotDirect(AudioClip clip, float volume)
+        {
+            source.volume = Mathf.Clamp01(volume);
+            source.PlayOneShot(clip, 1f);
         }
 
         public void Stop(float fadeTime, Action onComplete = null)

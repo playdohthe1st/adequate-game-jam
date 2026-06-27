@@ -17,8 +17,8 @@ MonoBehaviour:
   attackDamage: 20
   canMelee: 0
   canShoot: 1
-  attackSFX: {fileID: 0}
+  attackSFX: {fileID: 8300000, guid: ab3e089ede092d04dbd735ea8f35ebaa, type: 3}
   hurtSFX: {fileID: 8300000, guid: 9ee091d314df284459a554a9be947f28, type: 3}
-  deathSFX: {fileID: 0}
+  deathSFX: {fileID: 8300000, guid: 95a3a1b21716dc0489dd3eabdc14ceb8, type: 3}
   isBoss: 1
   keycardDropPrefab: {fileID: 6507070572466968008, guid: 86407c73f1f24b948be46684dee96d31, type: 3}

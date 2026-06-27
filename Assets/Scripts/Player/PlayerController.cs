@@ -96,6 +96,10 @@ namespace AdequateEnough
         [SerializeField] private AudioClip rollLoopSFX;
         [SerializeField] private AudioClip playerHurtSFX;
         [SerializeField] private AudioClip keycardSFX;
+        [SerializeField] private AudioClip doorSuccessSFX;
+        [SerializeField] private AudioClip doorOpenSFX;
+        [SerializeField] private AudioClip doorLockedSFX;
+        [SerializeField] private AudioClip doorEnterSFX;
         [Header("Landing SFX")]
         [SerializeField] private AudioClip[] landStoneSFX;
         [SerializeField] private AudioClip[] landWoodSFX;
@@ -274,10 +278,14 @@ namespace AdequateEnough
 
             if (currentKeycard >= currentDoor.requiredLevel)
             {
+                AudioClip openClip = currentDoor.requiredLevel == KeycardLevel.None ? doorOpenSFX : doorSuccessSFX;
+                if (openClip != null) AudioManager.Instance?.PlaySFX(openClip);
+                if (doorEnterSFX != null) AudioManager.Instance?.PlaySFX(doorEnterSFX);
                 ScreenFader.Instance.StartCoroutine(ScreenFader.Instance.FadeOutToRoom(gameObject, currentDoor.destination));
             }
             else
             {
+                if (doorLockedSFX != null) AudioManager.Instance?.PlaySFX(doorLockedSFX);
                 Debug.Log("Locked! You need a " + currentDoor.requiredLevel + " card.");
             }
         }
@@ -927,6 +935,10 @@ namespace AdequateEnough
             AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Length)];
             if (clip == null) return;
             footstepSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+#if UNITY_WEBGL && !UNITY_EDITOR
+            if (AudioManager.Instance != null)
+                footstepSource.volume = AudioManager.Instance.GetMasterVolume() * AudioManager.Instance.GetSFXVolume();
+#endif
             footstepSource.PlayOneShot(clip);
         }
 
