@@ -789,9 +789,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CreditsScroll
   startingPosition: 0
-  scrollSpeed: 100
+  scrollSpeed: 150
   startDelay: 0
-  exitThreshold: 1500
+  exitThreshold: 1200
 --- !u!1 &699128549
 GameObject:
   m_ObjectHideFlags: 0
@@ -2325,54 +2325,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'aaaaaaaaaaaaaaaa
-
-    Aaaaaaaaaaaaaaaa
-
-    Aaaaaaaaaaaaaaaa
-
-    v
-
-    Aaaaaaaaaaaaaaaa
-
-
-
-
-
-    Aaaaaaaaaaaaaaaa
-
-
-
-
-
-    Aaaaaaaaaaaaaaaa
-
-
-
-
-
-    Aaaaaaaaaaaaaaaa
-
-
-
-
-
-
-    Aaaaaaaaaaaaaaaa
-
-
-
-
-
-    Aaaaaaaaaaaaaaaa
-
-
-
-    Aaaaaaaaaaaaaaaa
-
-    Aaaaaaaaaaaaaaaaa
-
-'
+  m_text: "<align=center><size=150%><color=#FFFF><b>Project Runner</b></color></size></align>\n\nPlaydoh 
+    - Game Director & Co-ordinator\n\n<align=center><size=150%><color=#FFFF><b>Artists</b></color></size></align>\n
+    \nSivel - Lead Art Direction & artist\nOzzy - Concept Artist\nSiti Arina / Ruba
+    - Artist & Animator\nShann - Artist\nLakesnake - Artist\n\n<align=center><size=150%><color=#FFFF><b>Music
+    + SFX</b></color></size></align>\n\nJuniper Wren Harris - Sound Design & Composition
+    \n\n<align=center><size=150%><color=#FFFF><b>Programmers</b></color></size></align>\n\nCapothenics/Felipe
+    - Programmer \nhiccup444 - Programmer\nSkully - Programmer\n\n<align=center><size=150%><color=#FFFF><b>Misc/Others</b></color></size></align>\n\n\nRyguy
+    - Socials\nTheVuf09 - Socials & Assistant Organiser"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
