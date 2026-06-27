@@ -935,6 +935,10 @@ namespace AdequateEnough
             AudioClip clip = clips[UnityEngine.Random.Range(0, clips.Length)];
             if (clip == null) return;
             footstepSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+#if UNITY_WEBGL && !UNITY_EDITOR
+            if (AudioManager.Instance != null)
+                footstepSource.volume = AudioManager.Instance.GetMasterVolume() * AudioManager.Instance.GetSFXVolume();
+#endif
             footstepSource.PlayOneShot(clip);
         }
 
