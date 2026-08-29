@@ -3,11 +3,15 @@ using UnityEngine;
 
 public class EndGameDoor : MonoBehaviour
 {
-
+    private CutsceneWalker cutsceneWalker;
     private GameObject playerObject = null;
     private bool playerInZone = false;
+    private bool triggered = false;
 
-
+    private void Start()
+    {
+        cutsceneWalker = FindFirstObjectByType<CutsceneWalker>();
+    }
 
     void Update()
     {
@@ -36,14 +40,15 @@ public class EndGameDoor : MonoBehaviour
 
     void TriggerPlayerEndGame()
     {
-        if (playerObject != null)
-        {
-            var playerScript = playerObject.GetComponent<PlayerController>();
+        if (triggered || playerObject == null) return;
 
-            if (playerScript != null)
-            {
-                playerScript.Win();
-            }
+        var playerScript = playerObject.GetComponent<PlayerController>();
+        if (playerScript != null)
+        {
+            triggered = true;
+            cutsceneWalker?.StopWalk();
+            cutsceneWalker?.RainSource.Stop();
+            playerScript.Win();
         }
     }
 }

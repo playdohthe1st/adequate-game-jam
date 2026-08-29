@@ -3,11 +3,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System.Runtime.InteropServices;
 
 namespace AdequateEnough
 {
     public class PauseMenuManager : MonoBehaviour
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern void FocusCanvas();
+#endif
+
         [Header("Panels")]
         [SerializeField] private GameObject pausePanel;
         [SerializeField] private GameObject settingsPanel;
@@ -58,6 +64,9 @@ namespace AdequateEnough
             pausePanel.SetActive(false);
             settingsPanel.SetActive(false);
             EventSystem.current?.SetSelectedGameObject(null);
+#if UNITY_WEBGL && !UNITY_EDITOR
+            FocusCanvas();
+#endif
         }
         public void RestartPresed()
         {
